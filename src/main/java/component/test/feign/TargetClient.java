@@ -1,6 +1,6 @@
 package component.test.feign;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 
 import feign.Param;
 import feign.RequestLine;
