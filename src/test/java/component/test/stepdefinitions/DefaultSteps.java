@@ -1,18 +1,16 @@
 package component.test.stepdefinitions;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import component.test.ApplicationConfiguration;
-import component.test.feign.TargetClient;
+import component.test.gateway.FileGateway;
+import component.test.usecase.TargetUseCase;
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,33 +18,31 @@ import cucumber.api.java.en.When;
 @SpringBootTest(classes = ApplicationConfiguration.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 public class DefaultSteps {
-
-  ObjectMapper objectMapper = new ObjectMapper();
-  Object request;
-  Object response;
-
-  @Autowired TargetClient feignClient;
+  private Object request;
+  private Object response;
+  private String scenarioName;
+  @Autowired private FileGateway fileGateway;
+  @Autowired private TargetUseCase target;
 
   @Given("^I have a request with \"([^\"]*)\"$")
   public void i_have_a_request_with(String requestPayload) throws Throwable {
-    InputStream inputStream =
-        this.getClass().getResourceAsStream("/jsons/" + requestPayload + ".json");
-    request = objectMapper.readValue(inputStream, Object.class);
+    request = fileGateway.getObjectFromFile(scenarioName, requestPayload);
   }
 
   @When("^I make a \"([^\"]*)\" to \"([^\"]*)\"$")
-  public void i_make_a_to(String method, String uri) throws Throwable {
-    response = feignClient.post(uri, request);
+  public void i_make_a_to(String method, String uri) {
+    response = target.request(method, uri, request);
   }
 
   @Then("^I expect \"([^\"]*)\" as response$")
   public void i_expect_as_response(String responsePayload) throws Throwable {
-    InputStream responseIS =
-        this.getClass().getResourceAsStream("/jsons/" + responsePayload + ".json");
-
-    String responseExpected = IOUtils.toString(responseIS, StandardCharsets.UTF_8.name());
-    String responseReceived = objectMapper.writeValueAsString(response);
+    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responsePayload);
+    String responseReceived = fileGateway.getJsonStringFromObject(response);
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
-    responseIS.close();
+  }
+
+  @Before
+  public void before(Scenario scenario) {
+    scenarioName = FilenameUtils.getBaseName(scenario.getUri());
   }
 }
