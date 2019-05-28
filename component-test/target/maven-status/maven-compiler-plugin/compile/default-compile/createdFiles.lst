@@ -1,0 +1,6 @@
+component/test/gateway/FileGateway.class
+component/test/usecase/TargetUseCase.class
+component/test/config/FeignConfig.class
+component/test/gateway/TargetGateway.class
+component/test/feign/TargetClient.class
+component/test/ApplicationConfiguration.class

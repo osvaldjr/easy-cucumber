@@ -1,0 +1,6 @@
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/gateway/FileGateway.java
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/gateway/TargetGateway.java
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/config/FeignConfig.java
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/feign/TargetClient.java
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/ApplicationConfiguration.java
+/home/osvaldo/default/quick-starter-cucumber-component-test/component-test/src/main/java/component/test/usecase/TargetUseCase.java

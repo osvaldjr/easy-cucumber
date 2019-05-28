@@ -1,0 +1,8 @@
+mock:
+  image: unlockd/stub-server
+  ports:
+    - 8882:8882
+    - 8889:8889
+  # environment:
+  # - ADMIN_PORT=1234 #optional, default 8889
+  # - STUB_PORT=5678 #optional, default 8882/
