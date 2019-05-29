@@ -1,2 +1,3 @@
 component/test/RunCucumberTest.class
+component/test/Hooks.class
 component/test/stepdefinitions/DefaultSteps.class

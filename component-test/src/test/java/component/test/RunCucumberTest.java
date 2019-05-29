@@ -8,6 +8,6 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     plugin = {"pretty"},
-    features = {"src/test/resources/component/test/default.feature"},
+    features = {"src/test/resources/features/"},
     strict = true)
 public class RunCucumberTest {}
