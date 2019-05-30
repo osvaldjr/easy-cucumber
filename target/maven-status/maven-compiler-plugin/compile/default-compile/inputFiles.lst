@@ -1,0 +1,15 @@
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/usecases/TargetUseCase.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/stepdefinitions/DefaultSteps.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/config/FeignConfig.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/usecases/StubbyUsecase.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/ApplicationConfiguration.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/feign/TargetClient.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/feign/StubbyClient.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/TargetGateway.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/FileGateway.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/stubby/jsons/StubbyResponse.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/stubby/jsons/StubbyResponseBody.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/stubby/StubbyGateway.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/stubby/jsons/StubbyRequest.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/stepdefinitions/Hooks.java
+/Users/lucasvc/Downloads/quick-starter-cucumber-component-test/src/main/java/br/community/component/test/gateways/stubby/jsons/StubbyRequestBody.java
