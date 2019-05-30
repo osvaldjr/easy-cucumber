@@ -1,9 +1,0 @@
-{
-  "url": "/pokemon/*",
-  "method": "GET",
-  "body": {},
-  "headers": {
-    "content-type": "application/json"
-  },
-  "queryParams": {}
-}

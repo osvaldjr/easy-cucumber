@@ -1,4 +1,0 @@
-feign:
-  url: https://webhook.site/
-stubby:
-  url: http://localhost:8889
