@@ -110,7 +110,6 @@
                         </goals>
                         <configuration>
                             <composeFile>${project.basedir}/../dependencies/docker-compose.yml</composeFile>
-                            <removeVolumes>true</removeVolumes>
                         </configuration>
                     </execution>
                 </executions>
