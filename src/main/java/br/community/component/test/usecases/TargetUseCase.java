@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.MethodNotAllowedException;
 
@@ -21,16 +22,17 @@ public class TargetUseCase {
 
   public Object request(String method, String uri, Object body) {
     Object response;
-    switch (method) {
-      case "GET":
+    HttpMethod httpMethod = HttpMethod.valueOf(method);
+    switch (httpMethod) {
+      case GET:
         response = targetGateway.get(uri);
         break;
-      case "POST":
+      case POST:
         response = targetGateway.post(uri, body);
         break;
-      case "PUT":
+      case PUT:
         throw new NotImplementedException("method not implemented");
-      case "DELETE":
+      case DELETE:
         throw new NotImplementedException("method not implemented");
       default:
         throw new MethodNotAllowedException(method, Arrays.asList(GET, POST, PUT, DELETE));
