@@ -2,3 +2,14 @@
 
 # Quick Starter Component Test
 An easy to use, zero code Cucumber-JVM based component test
+
+## Example
+### Gherkin
+
+```gherkin
+    Given I have a request with "<REQUEST FILE PATH>"
+    And A have a mock "<PATH OF MOCK FILES FOR REQUEST AND RESPONSE>" for "<DEPENDENCY NAME>"
+    When I make a "<HTTP METHOD>" to "<URI>"
+    Then I expect mock "<PATH OF MOCK FILES FOR REQUEST AND RESPONSE>" for "<DEPENDENCY NAME>" to have been called <TIMES TO YOUR MOCK SHOULD BE CALLED> times
+    And I expect "<RESPONSE FILE PATH>" as response
+```
