@@ -1,3 +1,8 @@
 language: java
-install: true
-script: "mvn clean install"
+addons:
+  sonarcloud:
+    organization: "lvcarnevalli-github"
+install: 
+  - mvn clean install -B -V
+after_success:
+  - mvn sonar:sonar -B
