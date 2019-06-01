@@ -8,9 +8,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import br.community.component.test.ApplicationConfiguration;
 import br.community.component.test.gateways.FileGateway;
 import br.community.component.test.usecases.StubbyUsecase;
 import br.community.component.test.usecases.TargetUseCase;
@@ -20,7 +18,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-@SpringBootTest(classes = ApplicationConfiguration.class)
 public class DefaultSteps {
 
   private Object request;

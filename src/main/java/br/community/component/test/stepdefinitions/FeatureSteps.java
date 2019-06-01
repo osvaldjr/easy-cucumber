@@ -3,16 +3,13 @@ package br.community.component.test.stepdefinitions;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import br.community.component.test.ApplicationConfiguration;
 import br.community.component.test.domains.Feature;
 import br.community.component.test.domains.FeatureStatus;
 import br.community.component.test.domains.FeaturesProperties;
 import br.community.component.test.gateways.FeatureGateway;
 import cucumber.api.java.en.Given;
 
-@SpringBootTest(classes = ApplicationConfiguration.class)
 public class FeatureSteps {
 
   private final FeatureGateway featureGateway;
