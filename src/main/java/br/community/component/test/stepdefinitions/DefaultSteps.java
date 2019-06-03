@@ -5,10 +5,13 @@ import static org.hamcrest.Matchers.equalTo;
 import java.io.IOException;
 
 import org.apache.commons.io.FilenameUtils;
+import org.json.JSONException;
 import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
+import br.community.component.test.domains.TargetRequest;
 import br.community.component.test.gateways.FileGateway;
 import br.community.component.test.usecases.StubbyUsecase;
 import br.community.component.test.usecases.TargetUseCase;
@@ -20,8 +23,8 @@ import cucumber.api.java.en.When;
 
 public class DefaultSteps {
 
-  private Object request;
-  private Object response;
+  private TargetRequest<Object> request;
+  private ResponseEntity response;
   private String scenarioName;
 
   private final FileGateway fileGateway;
@@ -33,6 +36,7 @@ public class DefaultSteps {
     this.fileGateway = fileGateway;
     this.target = target;
     this.stubbyUsecase = stubbyUsecase;
+    this.request = new TargetRequest<>();
   }
 
   @Before
@@ -40,20 +44,23 @@ public class DefaultSteps {
     scenarioName = FilenameUtils.getBaseName(scenario.getUri());
   }
 
-  @Given("I have a request with ([^\"]*)")
-  public void iHaveARequestWith(String requestPayload) throws Throwable {
-    request = fileGateway.getObjectFromFile(scenarioName, requestPayload, Object.class);
+  @Given("I have a request with body ([^\"]*)")
+  public void iHaveARequestWith(String requestPayload) throws IOException {
+    Object body = fileGateway.getObjectFromFile(scenarioName, requestPayload, Object.class);
+    request.setBody(body);
   }
 
   @When("I make a ([^\"]*) to ([^\"]*)")
   public void iMakeATo(String method, String uri) {
-    response = target.request(method, uri, request);
+    request.setMethod(method);
+    request.setUri(uri);
+    response = target.request(request);
   }
 
   @Then("I expect ([^\"]*) as response")
-  public void iExpectAsResponse(String responsePayload) throws Throwable {
+  public void iExpectAsResponse(String responsePayload) throws IOException, JSONException {
     String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responsePayload);
-    String responseReceived = fileGateway.getJsonStringFromObject(response);
+    String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
 
@@ -64,7 +71,6 @@ public class DefaultSteps {
 
   @Then("I expect mock ([^\"]*) for ([^\"]*) to have been called (\\d+) times")
   public void iExpectMockForToHaveBeenCalledTimes(String mockName, String serviceName, int times) {
-    System.out.println(mockName + " | " + serviceName + " | " + times);
     Integer mockHits = stubbyUsecase.getMockHits(scenarioName, serviceName, mockName);
     Assert.assertThat(mockHits, equalTo(times));
   }
