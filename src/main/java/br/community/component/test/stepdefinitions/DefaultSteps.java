@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import br.community.component.test.domains.TargetRequest;
 import br.community.component.test.gateways.FileGateway;
@@ -30,6 +31,7 @@ public class DefaultSteps {
   private final FileGateway fileGateway;
   private final TargetUseCase target;
   private final StubbyUsecase stubbyUsecase;
+  private HttpStatusCodeException httpException;
 
   @Autowired
   public DefaultSteps(FileGateway fileGateway, TargetUseCase target, StubbyUsecase stubbyUsecase) {
@@ -54,7 +56,12 @@ public class DefaultSteps {
   public void iMakeATo(String method, String uri) {
     request.setMethod(method);
     request.setUri(uri);
-    response = target.request(request);
+
+    try {
+      response = target.request(request);
+    } catch (HttpStatusCodeException e) {
+      httpException = e;
+    }
   }
 
   @Then("I expect ([^\"]*) as response")
