@@ -20,11 +20,16 @@ import br.community.component.test.domains.TargetRequest;
 import br.community.component.test.gateways.TargetGateway;
 
 @Component
-public class TargetUseCase {
+public class RequestTargetUseCase {
 
-  @Autowired TargetGateway targetGateway;
+  private final TargetGateway targetGateway;
 
-  public ResponseEntity request(TargetRequest request) {
+  @Autowired
+  public RequestTargetUseCase(TargetGateway targetGateway) {
+    this.targetGateway = targetGateway;
+  }
+
+  public ResponseEntity execute(TargetRequest request) {
     ResponseEntity response;
     Map<String, String> headersMap = getHeaders(request.getHeaders());
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
