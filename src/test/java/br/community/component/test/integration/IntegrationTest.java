@@ -1,4 +1,4 @@
-package br.community.component.test;
+package br.community.component.test.integration;
 
 import org.junit.runner.RunWith;
 
@@ -9,6 +9,9 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
     plugin = {"pretty"},
     features = {"src/test/resources/features"},
-    glue = {"br.community.component.test.stepdefinitions"},
+    glue = {
+      "br.community.component.test.integration.stepdefinitions",
+      "br.community.component.test.stepdefinitions.steps"
+    },
     strict = true)
 public class IntegrationTest {}

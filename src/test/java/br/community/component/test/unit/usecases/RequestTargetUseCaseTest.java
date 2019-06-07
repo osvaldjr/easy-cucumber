@@ -1,4 +1,4 @@
-package br.community.component.test.usecases;
+package br.community.component.test.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,9 +23,10 @@ import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.MethodNotAllowedException;
 
-import br.community.component.test.confs.UnitTest;
 import br.community.component.test.domains.TargetRequest;
 import br.community.component.test.gateways.TargetGateway;
+import br.community.component.test.unit.UnitTest;
+import br.community.component.test.usecases.RequestTargetUseCase;
 import io.github.glytching.junit.extension.random.Random;
 
 class RequestTargetUseCaseTest extends UnitTest {

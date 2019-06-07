@@ -1,4 +1,4 @@
-package br.community.component.test.gateways.http;
+package br.community.component.test.integration.gateways.http;
 
 import java.util.Map;
 
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.community.component.test.gateways.feign.IntegrationClient;
+import br.community.component.test.integration.gateways.feign.IntegrationClient;
 
 @RestController
 @RequestMapping("/test")
-public class IntegrationController {
+public class TestController {
 
   @FF4JFeature("delete-integration")
   protected boolean isDeleteIntegration;
@@ -26,7 +26,7 @@ public class IntegrationController {
   private final IntegrationClient client;
 
   @Autowired
-  public IntegrationController(IntegrationClient client) {
+  public TestController(IntegrationClient client) {
     this.client = client;
   }
 

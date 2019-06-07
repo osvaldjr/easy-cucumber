@@ -1,4 +1,4 @@
-package br.community.component.test.confs;
+package br.community.component.test.unit;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

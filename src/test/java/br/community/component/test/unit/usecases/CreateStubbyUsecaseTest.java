@@ -1,4 +1,4 @@
-package br.community.component.test.usecases;
+package br.community.component.test.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,11 +16,12 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import br.community.component.test.confs.UnitTest;
 import br.community.component.test.gateways.FileGateway;
 import br.community.component.test.gateways.stubby.StubbyGateway;
 import br.community.component.test.gateways.stubby.jsons.StubbyRequestBody;
 import br.community.component.test.gateways.stubby.jsons.StubbyResponseBody;
+import br.community.component.test.unit.UnitTest;
+import br.community.component.test.usecases.CreateStubbyUsecase;
 import io.github.glytching.junit.extension.random.Random;
 
 class CreateStubbyUsecaseTest extends UnitTest {

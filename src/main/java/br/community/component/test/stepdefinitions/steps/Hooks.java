@@ -1,4 +1,4 @@
-package br.community.component.test.stepdefinitions;
+package br.community.component.test.stepdefinitions.steps;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

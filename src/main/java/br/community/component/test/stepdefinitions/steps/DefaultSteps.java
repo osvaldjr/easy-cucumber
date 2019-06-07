@@ -1,4 +1,4 @@
-package br.community.component.test.stepdefinitions;
+package br.community.component.test.stepdefinitions.steps;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;

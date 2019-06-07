@@ -1,4 +1,4 @@
-package br.community.component.test.gateways.feign;
+package br.community.component.test.integration.gateways.feign;
 
 import java.util.Map;
 
