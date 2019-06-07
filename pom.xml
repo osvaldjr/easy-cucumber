@@ -30,6 +30,7 @@
         <hamcrest.version>2.1</hamcrest.version>
         <mockito.version>2.27.0</mockito.version>
         <docker.compose.version>2.4.0</docker.compose.version>
+        <guava.version>20.0</guava.version>
     </properties>
 
     <dependencies>
@@ -85,22 +86,12 @@
         </dependency>
         <dependency>
             <groupId>org.ff4j</groupId>
-            <artifactId>ff4j-core</artifactId>
-            <version>${ff4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ff4j</groupId>
-            <artifactId>ff4j-web</artifactId>
-            <version>${ff4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ff4j</groupId>
-            <artifactId>ff4j-aop</artifactId>
-            <version>${ff4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ff4j</groupId>
             <artifactId>ff4j-store-redis</artifactId>
+            <version>${ff4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ff4j</groupId>
+            <artifactId>ff4j-spring-boot-starter</artifactId>
             <version>${ff4j.version}</version>
         </dependency>
         <dependency>
@@ -178,6 +169,11 @@
                 <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

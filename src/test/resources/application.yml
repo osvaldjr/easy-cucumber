@@ -5,9 +5,11 @@ target.url: http://localhost:9000
 dependencies:
   integration.url: http://localhost:9001/integration
   stubby.url: http://localhost:9003
-  ff4j.redis:
-    server: localhost
-    port: 6379
+  ff4j:
+    test: true
+    redis:
+      server: localhost
+      port: 6379
 
 logging:
   level:
@@ -18,3 +20,6 @@ feign:
     config:
       default:
         loggerLevel: FULL
+
+features:
+  DELETE_INTEGRATION: delete-integration

@@ -1,6 +1,7 @@
 package br.community.component.test.confs;
 
 import org.ff4j.FF4j;
+import org.ff4j.conf.XmlConfig;
 import org.ff4j.redis.RedisConnection;
 import org.ff4j.store.EventRepositoryRedis;
 import org.ff4j.store.FeatureStoreRedis;
@@ -12,19 +13,35 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FF4jConfig {
 
-  @Value("${dependencies.ff4j.redis.server}")
+  @Value("${dependencies.ff4j.redis.server:#{null}}")
   private String redisServer;
 
-  @Value("${dependencies.ff4j.redis.port}")
+  @Value("${dependencies.ff4j.redis.port:#{null}}")
   private Integer redisPort;
 
+  @Value("${dependencies.ff4j.test:false}")
+  private Boolean isTest;
+
   @Bean
-  public FF4j configureFF4j() {
+  public FF4j getFF4j() {
     FF4j ff4j = new FF4j();
-    RedisConnection redisConnection = new RedisConnection(redisServer, redisPort);
-    ff4j.setFeatureStore(new FeatureStoreRedis(redisConnection));
-    ff4j.setPropertiesStore(new PropertyStoreRedis(redisConnection));
-    ff4j.setEventRepository(new EventRepositoryRedis(redisConnection));
+
+    if (redisServer != null && redisPort != null) {
+      RedisConnection redisConnection = new RedisConnection(redisServer, redisPort);
+
+      ff4j.setFeatureStore(new FeatureStoreRedis(redisConnection));
+      ff4j.setPropertiesStore(new PropertyStoreRedis(redisConnection));
+      ff4j.setEventRepository(new EventRepositoryRedis(redisConnection));
+    }
+
+    if (isTest) {
+      ff4j.autoCreate();
+
+      XmlConfig xmlConfig = ff4j.parseXmlConfig("ff4j-features.xml");
+      ff4j.getFeatureStore().importFeatures(xmlConfig.getFeatures().values());
+      ff4j.getPropertiesStore().importProperties(xmlConfig.getProperties().values());
+    }
+
     return ff4j;
   }
 }
