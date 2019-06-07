@@ -9,5 +9,7 @@ import cucumber.api.java.Before;
 public class ContextLoader {
 
   @Before
-  public void setUp() {}
+  public void setUp() {
+    // Empty method, just to setup Application Test Context
+  }
 }

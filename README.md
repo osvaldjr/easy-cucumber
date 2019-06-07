@@ -3,8 +3,63 @@
 # Quick Starter Component Test
 An easy to use, zero code Cucumber-JVM based component test
 
-## Example
-#### Gherkin existents
+
+## Features
+* Make GET, POST, PUT and DELETE requests to your API
+* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax
+* Assert HTTP Status
+* Assert sucessfully and failed response body
+
+## Setup
+#### Maven dependency
+```xml
+<dependencies>
+    <dependency>
+        <groupId>br.community</groupId>
+        <artifactId>component-test</artifactId>
+        <version>${component.test.version}</version>
+    </dependency>
+</dependencies>    
+<dependencyManagement>
+   <dependencies>
+       <dependency>
+           <groupId>br.community</groupId>
+           <artifactId>component-test</artifactId>
+           <version>0.0.1-SNAPSHOT</version>
+           <type>pom</type>
+           <scope>import</scope>
+       </dependency>
+   </dependencies>
+</dependencyManagement>
+```
+
+#### Junit Runner
+Create an empty class that uses the Cucumber JUnit runner, configure step definitions and features path.
+```java
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    plugin = {"pretty"},
+    features = {"src/test/resources/features"},
+    glue = {"classpath:br.community.component.test.stepdefinitions"},
+    strict = true)
+public class RunCucumberTest {}
+
+```
+
+## Usage
+### Create a feature file
+hello.feature
+```gherkin
+Given I make a GET to https://www.wikipedia.org/
+Then I expect to receive a 200 status
+```
+
+## Run
+```bash
+mvn clean verify
+```
+
+## Available step definitions
 
 ```gherkin
     Given I have a request with body <REQUEST FILE PATH>
@@ -14,7 +69,7 @@ An easy to use, zero code Cucumber-JVM based component test
     And I expect <RESPONSE FILE PATH> as response
 ```
 
-### Gherkins to be implemented
+### Step definitions be implemented
 ```gherkin
     Given I make a request defined in <REQUEST SPEC FILE PATH>
     Then I expect to receive a <HTTP STATUS> status

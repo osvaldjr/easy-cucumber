@@ -6,4 +6,4 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import io.github.glytching.junit.extension.random.RandomBeansExtension;
 
 @ExtendWith({MockitoExtension.class, RandomBeansExtension.class})
-public class UnitTest {}
+public abstract class UnitTest {}

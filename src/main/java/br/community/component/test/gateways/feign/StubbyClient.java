@@ -18,7 +18,7 @@ public interface StubbyClient {
   List<StubbyResponse> getAllServices();
 
   @RequestLine("POST /")
-  ResponseEntity<Void> create(@RequestBody StubbyRequest request);
+  ResponseEntity<StubbyResponse> create(@RequestBody StubbyRequest request);
 
   @RequestLine("DELETE /{id}")
   void delete(@Param("id") Integer id);
