@@ -26,7 +26,6 @@ public class StubbyGateway {
   }
 
   public Integer createStubbyRequest(StubbyRequestBody request, StubbyResponseBody response) {
-    request.getHeaders().putIfAbsent("content-type", "application/json");
     StubbyRequest stubbyRequest =
         StubbyRequest.builder().request(request).response(response).build();
     return getStubbyId(stubbyClient.create(stubbyRequest));

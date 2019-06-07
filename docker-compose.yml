@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  stubby:
+    build: ./dependencies/stubby/
+    ports:
+    - "9001:9001"
+    - "9002:9002"
+    - "9003:9003"
+  redis:
+    image: redis:5.0.5-alpine
+    ports:
+    - "6379:6379"

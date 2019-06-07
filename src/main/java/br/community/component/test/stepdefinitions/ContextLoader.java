@@ -2,10 +2,9 @@ package br.community.component.test.stepdefinitions;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.community.component.test.ApplicationConfiguration;
 import cucumber.api.java.Before;
 
-@SpringBootTest(classes = ApplicationConfiguration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ContextLoader {
 
   @Before

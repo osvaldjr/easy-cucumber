@@ -23,7 +23,7 @@ public class CreateStubbyUsecase {
   }
 
   public Integer execute(String scenario, String serviceName, String mockName) throws IOException {
-    String mockRequestFile = "mocks/" + mockName + "-execute";
+    String mockRequestFile = "mocks/" + mockName + "-request";
     String mockResponseFile = "mocks/" + mockName + "-response";
 
     StubbyRequestBody stubbyRequestBody =

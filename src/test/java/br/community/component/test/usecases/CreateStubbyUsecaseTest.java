@@ -40,7 +40,7 @@ class CreateStubbyUsecaseTest extends UnitTest {
       @Random StubbyResponseBody stubbyResponseBody,
       @Random Integer id)
       throws IOException {
-    String mockRequestFile = "mocks/" + mockName + "-execute";
+    String mockRequestFile = "mocks/" + mockName + "-request";
     String mockResponseFile = "mocks/" + mockName + "-response";
     String url = stubbyRequestBody.getUrl();
     when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequestBody.class))
