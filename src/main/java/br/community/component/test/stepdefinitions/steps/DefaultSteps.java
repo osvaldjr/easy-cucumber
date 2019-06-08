@@ -28,7 +28,7 @@ import cucumber.api.java.en.When;
 
 public class DefaultSteps {
 
-  private TargetRequest<Object> request;
+  private TargetRequest request;
   private ResponseEntity response;
   private String scenarioName;
 
@@ -49,8 +49,9 @@ public class DefaultSteps {
     this.requestTargetUseCase = requestTargetUseCase;
     this.createStubbyUsecase = createStubbyUsecase;
     this.getStubbyUsecase = getStubbyUsecase;
-    request = new TargetRequest<>();
-    stubbyIdMap = new HashMap<>();
+    this.request = new TargetRequest<>();
+    this.stubbyIdMap = new HashMap<>();
+    this.httpException = null;
   }
 
   @Before
@@ -96,6 +97,45 @@ public class DefaultSteps {
 
     StubbyResponse stubby = getStubbyUsecase.execute(stubbyId);
     assertThat(stubby.getHits(), equalTo(times));
+  }
+
+  @Given("I make a request defined in ([^\"]*)")
+  public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
+    request = fileGateway.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
+    try {
+      response = requestTargetUseCase.execute(request);
+    } catch (HttpStatusCodeException e) {
+      httpException = e;
+    }
+  }
+
+  @Then("I expect to receive a (\\d+) status")
+  public void iExpectToReceiveAStatus(int httpStatusExpected) {
+    int httpStatusReceived;
+    if (response == null) {
+      httpStatusReceived = httpException.getStatusCode().value();
+    } else {
+      httpStatusReceived = response.getStatusCode().value();
+    }
+    assertThat(httpStatusReceived, equalTo(httpStatusExpected));
+  }
+
+  @Then("I expect to receive a (\\d+) status with body ([^\"]*)")
+  public void iExpectToReceiveAWithBody(int httpStatusExpected, String responseBodyExpected)
+      throws IOException, JSONException {
+    int httpStatusReceived;
+    String responseReceived;
+
+    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
+    if (response == null) {
+      httpStatusReceived = httpException.getStatusCode().value();
+      responseReceived = httpException.getResponseBodyAsString();
+    } else {
+      httpStatusReceived = response.getStatusCode().value();
+      responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
+    }
+    assertThat(httpStatusReceived, equalTo(httpStatusExpected));
+    JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
 
   private String getStubbyKey(String scenario, String serviceName, String mockName) {
