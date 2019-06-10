@@ -13,5 +13,6 @@ import cucumber.api.junit.Cucumber;
       "br.community.component.test.integration.stepdefinitions",
       "br.community.component.test.stepdefinitions.steps"
     },
+    tags = {"~@Ignore"},
     strict = true)
 public class IntegrationTest {}

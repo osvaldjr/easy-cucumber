@@ -90,8 +90,9 @@ public class DefaultSteps {
     stubbyIdMap.put(getStubbyKey(scenarioName, serviceName, mockName), stubbyId);
   }
 
-  @Then("I expect mock ([^\"]*) for ([^\"]*) to have been called (\\d+) times")
-  public void iExpectMockForToHaveBeenCalledTimes(String mockName, String serviceName, int times) {
+  @Then("I expect mock ([^\"]*) for dependency ([^\"]*) to have been called (\\d+) times")
+  public void iExpectMockForDependencyToHaveBeenCalledTimes(
+      String mockName, String serviceName, int times) {
     String mapKey = getStubbyKey(scenarioName, serviceName, mockName);
     Integer stubbyId = stubbyIdMap.get(mapKey);
 
