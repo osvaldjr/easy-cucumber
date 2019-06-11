@@ -1,24 +1,29 @@
 package br.community.component.test.unit.gateways;
 
-import br.community.component.test.gateways.FileGateway;
-import br.community.component.test.unit.UnitTest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.glytching.junit.extension.random.Random;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.community.component.test.gateways.FileGateway;
+import br.community.component.test.unit.UnitTest;
+import io.github.glytching.junit.extension.random.Random;
 
 public class FileGatewayTest extends UnitTest {
 

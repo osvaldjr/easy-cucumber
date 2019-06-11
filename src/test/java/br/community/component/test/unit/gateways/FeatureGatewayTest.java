@@ -1,9 +1,15 @@
 package br.community.component.test.unit.gateways;
 
-import br.community.component.test.domains.FeaturesProperties;
-import br.community.component.test.gateways.FeatureGateway;
-import br.community.component.test.unit.UnitTest;
-import io.github.glytching.junit.extension.random.Random;
+import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.ff4j.FF4j;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,13 +17,10 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
+import br.community.component.test.domains.FeaturesProperties;
+import br.community.component.test.gateways.FeatureGateway;
+import br.community.component.test.unit.UnitTest;
+import io.github.glytching.junit.extension.random.Random;
 
 class FeatureGatewayTest extends UnitTest {
 

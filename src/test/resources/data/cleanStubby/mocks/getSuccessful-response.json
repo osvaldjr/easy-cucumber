@@ -1,5 +1,7 @@
 {
   "headers": {},
   "status": 200,
-  "body": {}
+  "body": {
+    "error": false
+  }
 }

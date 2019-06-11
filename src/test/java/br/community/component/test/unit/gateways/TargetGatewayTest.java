@@ -1,19 +1,22 @@
 package br.community.component.test.unit.gateways;
 
-import br.community.component.test.gateways.TargetGateway;
-import br.community.component.test.gateways.feign.TargetClient;
-import br.community.component.test.unit.UnitTest;
-import io.github.glytching.junit.extension.random.Random;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
+import br.community.component.test.gateways.TargetGateway;
+import br.community.component.test.gateways.feign.TargetClient;
+import br.community.component.test.unit.UnitTest;
+import io.github.glytching.junit.extension.random.Random;
 
 public class TargetGatewayTest extends UnitTest {
 

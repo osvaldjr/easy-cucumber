@@ -30,17 +30,17 @@ public class FileGateway {
   }
 
   public <T> T getObjectFromFile(String scenario, String file, Class<T> clazz)
-          throws FileNotFoundException {
+      throws FileNotFoundException {
     String filePath = MessageFormat.format("{0}/{1}/{2}.json", DATA_DIRECTORY, scenario, file);
     try (InputStream inputStream =
-                 new FileInputStream (
-                         new ClassPathResource (filePath, getClass().getClassLoader()).getFile())) {
+        new FileInputStream(
+            new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
       return objectMapper.readValue(inputStream, clazz);
     } catch (IOException e) {
       throw new FileNotFoundException(
-              "File ["
-                      + filePath
-                      + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>.json' exists");
+          "File ["
+              + filePath
+              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>.json' exists");
     }
   }
 

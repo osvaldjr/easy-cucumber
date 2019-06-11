@@ -1,5 +1,24 @@
 package br.community.component.test.unit.gateways.stubby;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.http.ResponseEntity;
+
 import br.community.component.test.gateways.feign.StubbyClient;
 import br.community.component.test.gateways.stubby.StubbyGateway;
 import br.community.component.test.gateways.stubby.jsons.StubbyRequest;
@@ -8,20 +27,6 @@ import br.community.component.test.gateways.stubby.jsons.StubbyResponse;
 import br.community.component.test.gateways.stubby.jsons.StubbyResponseBody;
 import br.community.component.test.unit.UnitTest;
 import io.github.glytching.junit.extension.random.Random;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
 
 public class StubbyGatewayTest extends UnitTest {
 
