@@ -1,5 +1,4 @@
 @CleanStubby
-@Ignore
 Feature: CleanStubby
   This feature is to test hook CleanStubby
 

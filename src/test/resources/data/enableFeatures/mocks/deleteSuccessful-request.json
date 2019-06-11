@@ -1,0 +1,7 @@
+{
+  "url": "/delete",
+  "method": "DELETE",
+  "body": {},
+  "headers": {},
+  "queryParams": {}
+}

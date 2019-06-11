@@ -36,7 +36,7 @@ public class FeatureSteps {
     features.forEach(
         feature -> {
           String key = featuresProperties.getFeatures().get(feature);
-          if (FeatureStatus.ENABLE.equals(feature.getStatus())) {
+          if (FeatureStatus.ENABLE.name().equals(feature.getStatus())) {
             featureGateway.enable(key);
           } else {
             featureGateway.disable(key);

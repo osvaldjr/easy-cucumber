@@ -2,7 +2,7 @@ package br.community.component.test.integration.gateways.http;
 
 import java.util.Map;
 
-import org.ff4j.spring.autowire.FF4JFeature;
+import org.ff4j.FF4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,13 +20,13 @@ import br.community.component.test.integration.gateways.feign.IntegrationClient;
 @RequestMapping("/test")
 public class TestController {
 
-  @FF4JFeature("delete-integration")
-  protected boolean isDeleteIntegration;
+  private final FF4j ff4j;
 
   private final IntegrationClient client;
 
   @Autowired
-  public TestController(IntegrationClient client) {
+  public TestController(FF4j ff4j, IntegrationClient client) {
+    this.ff4j = ff4j;
     this.client = client;
   }
 
@@ -44,7 +44,7 @@ public class TestController {
   public ResponseEntity delete(
       @RequestBody Object body, @RequestHeader Map<String, String> headers) {
     ResponseEntity responseEntity = ResponseEntity.badRequest().build();
-    if (isDeleteIntegration) {
+    if (ff4j.check("delete-integration")) {
       responseEntity = client.delete(body, headers);
     }
     return responseEntity;

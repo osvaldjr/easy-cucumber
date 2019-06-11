@@ -12,9 +12,11 @@ import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpStatusCodeException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.community.component.test.domains.TargetRequest;
+import br.community.component.test.domains.exceptions.FeignException;
 import br.community.component.test.gateways.FileGateway;
 import br.community.component.test.gateways.stubby.jsons.StubbyResponse;
 import br.community.component.test.usecases.CreateStubbyUsecase;
@@ -36,7 +38,7 @@ public class DefaultSteps {
   private final RequestTargetUseCase requestTargetUseCase;
   private final CreateStubbyUsecase createStubbyUsecase;
   private final GetStubbyUsecase getStubbyUsecase;
-  private HttpStatusCodeException httpException;
+  private FeignException httpException;
   private Map<String, Integer> stubbyIdMap;
 
   @Autowired
@@ -49,9 +51,9 @@ public class DefaultSteps {
     this.requestTargetUseCase = requestTargetUseCase;
     this.createStubbyUsecase = createStubbyUsecase;
     this.getStubbyUsecase = getStubbyUsecase;
-    this.request = new TargetRequest<>();
-    this.stubbyIdMap = new HashMap<>();
-    this.httpException = null;
+    request = new TargetRequest<>();
+    stubbyIdMap = new HashMap<>();
+    httpException = null;
   }
 
   @Before
@@ -69,10 +71,12 @@ public class DefaultSteps {
   public void iMakeATo(String method, String uri) {
     request.setMethod(method);
     request.setUri(uri);
+    response = null;
+    httpException = null;
 
     try {
       response = requestTargetUseCase.execute(request);
-    } catch (HttpStatusCodeException e) {
+    } catch (FeignException e) {
       httpException = e;
     }
   }
@@ -103,9 +107,12 @@ public class DefaultSteps {
   @Given("I make a request defined in ([^\"]*)")
   public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
     request = fileGateway.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
+    response = null;
+    httpException = null;
+
     try {
       response = requestTargetUseCase.execute(request);
-    } catch (HttpStatusCodeException e) {
+    } catch (FeignException e) {
       httpException = e;
     }
   }
@@ -114,7 +121,7 @@ public class DefaultSteps {
   public void iExpectToReceiveAStatus(int httpStatusExpected) {
     int httpStatusReceived;
     if (response == null) {
-      httpStatusReceived = httpException.getStatusCode().value();
+      httpStatusReceived = httpException.getResponse().status();
     } else {
       httpStatusReceived = response.getStatusCode().value();
     }
@@ -129,8 +136,8 @@ public class DefaultSteps {
 
     String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
     if (response == null) {
-      httpStatusReceived = httpException.getStatusCode().value();
-      responseReceived = httpException.getResponseBodyAsString();
+      httpStatusReceived = httpException.getResponse().status();
+      responseReceived = new ObjectMapper().writeValueAsString(httpException.getResponse().body());
     } else {
       httpStatusReceived = response.getStatusCode().value();
       responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
