@@ -70,7 +70,7 @@ public class DefaultSteps {
   @When("I make a ([^\"]*) to ([^\"]*)")
   public void iMakeATo(String method, String uri) {
     request.setMethod(method);
-    request.setUri(uri);
+    request.setUrl(uri);
     response = null;
     httpException = null;
 

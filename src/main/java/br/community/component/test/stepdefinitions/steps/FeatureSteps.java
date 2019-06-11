@@ -35,8 +35,8 @@ public class FeatureSteps {
   public void theFeaturesToggleWithStatus(List<Feature> features) {
     features.forEach(
         feature -> {
-          String key = featuresProperties.getFeatures().get(feature);
-          if (FeatureStatus.ENABLE.name().equals(feature.getStatus())) {
+          String key = featuresProperties.getFeatures().get(feature.getName());
+          if (FeatureStatus.ENABLE.equals(feature.getStatus())) {
             featureGateway.enable(key);
           } else {
             featureGateway.disable(key);

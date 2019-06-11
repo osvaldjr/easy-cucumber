@@ -13,19 +13,21 @@ import feign.RequestLine;
 @FeignClient(value = "target-client", url = "${target.url}")
 public interface TargetClient {
 
-  @RequestLine("GET /{uri}")
-  ResponseEntity get(@Param("uri") String uri, @HeaderMap Map<String, String> headers);
+  @RequestLine("GET /{url}")
+  ResponseEntity<?> get(@Param("url") String uri, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("POST /{uri}")
+  @RequestLine("POST /{url}")
   @Body("{request}")
-  <R> ResponseEntity post(@Param("uri") String uri, R body, @HeaderMap Map<String, String> headers);
+  <R> ResponseEntity<?> post(
+      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("DELETE /{uri}")
+  @RequestLine("DELETE /{url}")
   @Body("{request}")
-  <R> ResponseEntity delete(
-      @Param("uri") String uri, R body, @HeaderMap Map<String, String> headers);
+  <R> ResponseEntity<?> delete(
+      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("PUT/{uri}")
+  @RequestLine("PUT/{url}")
   @Body("{request}")
-  <R> ResponseEntity put(@Param("uri") String uri, R body, @HeaderMap Map<String, String> headers);
+  <R> ResponseEntity<?> put(
+      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 }

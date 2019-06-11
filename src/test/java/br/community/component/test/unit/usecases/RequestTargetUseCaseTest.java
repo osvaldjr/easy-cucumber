@@ -38,7 +38,7 @@ class RequestTargetUseCaseTest extends UnitTest {
   void shouldExecuteGet(
       @Random TargetRequest targetRequest, @Random ResponseEntity responseEntity) {
     targetRequest.setMethod(GET.name());
-    when(targetGateway.get(targetRequest.getUri(), targetRequest.getHeaders()))
+    when(targetGateway.get(targetRequest.getUrl(), targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -54,7 +54,7 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(POST.name());
     targetRequest.setBody(body);
-    when(targetGateway.post(targetRequest.getUri(), body, targetRequest.getHeaders()))
+    when(targetGateway.post(targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -70,7 +70,7 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(PUT.name());
     targetRequest.setBody(body);
-    when(targetGateway.put(targetRequest.getUri(), body, targetRequest.getHeaders()))
+    when(targetGateway.put(targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -86,7 +86,7 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(DELETE.name());
     targetRequest.setBody(body);
-    when(targetGateway.delete(targetRequest.getUri(), body, targetRequest.getHeaders()))
+    when(targetGateway.delete(targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);

@@ -35,16 +35,16 @@ public class RequestTargetUseCase {
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
     switch (httpMethod) {
       case GET:
-        response = targetGateway.get(request.getUri(), headersMap);
+        response = targetGateway.get(request.getUrl(), headersMap);
         break;
       case POST:
-        response = targetGateway.post(request.getUri(), request.getBody(), headersMap);
+        response = targetGateway.post(request.getUrl(), request.getBody(), headersMap);
         break;
       case PUT:
-        response = targetGateway.put(request.getUri(), request.getBody(), headersMap);
+        response = targetGateway.put(request.getUrl(), request.getBody(), headersMap);
         break;
       case DELETE:
-        response = targetGateway.delete(request.getUri(), request.getBody(), headersMap);
+        response = targetGateway.delete(request.getUrl(), request.getBody(), headersMap);
         break;
       default:
         throw new MethodNotAllowedException(

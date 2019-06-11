@@ -1,5 +1,4 @@
 @CleanStubby
-@Ignore
 Feature: Integration
   This feature is to test all steps
 
@@ -10,16 +9,19 @@ Feature: Integration
     When I make a DELETE to /test
     Then I expect to receive a 200 status
     Given the feature DELETE_INTEGRATION is DISABLE
+    And I have a request with body deleteSuccessfulBodyRequest
     When I make a DELETE to /test
     Then I expect to receive a 400 status
     Given the features toggle with status
       | name               | status |
       | DELETE_INTEGRATION | ENABLE |
+    And I have a request with body deleteSuccessfulBodyRequest
     When I make a DELETE to /test
     Then I expect to receive a 200 status
     Given the features toggle with status
       | name               | status  |
       | DELETE_INTEGRATION | DISABLE |
+    And I have a request with body deleteSuccessfulBodyRequest
     When I make a DELETE to /test
     Then I expect to receive a 400 status
 

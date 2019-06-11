@@ -12,5 +12,5 @@ import lombok.Setter;
 public class Feature {
 
   private String name;
-  private String status;
+  private FeatureStatus status;
 }

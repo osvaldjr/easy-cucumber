@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class TargetRequest<T> {
   private String method;
-  private String uri;
+  private String url;
   private T body;
   private Map<String, String> headers;
 }
