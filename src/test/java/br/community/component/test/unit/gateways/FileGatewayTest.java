@@ -33,7 +33,7 @@ public class FileGatewayTest extends UnitTest {
 
   @Test
   void shouldGetObjectFromFile(@Random Object object) throws IOException {
-    String scenario = "scenario", file = "example";
+    String scenario = "unit", file = "example";
     when(objectMapper.readValue(any(InputStream.class), eq(Object.class))).thenReturn(object);
 
     Object response = fileGateway.getObjectFromFile(scenario, file, Object.class);
@@ -44,7 +44,7 @@ public class FileGatewayTest extends UnitTest {
 
   @Test
   void shouldGetObjectFromFileNotFound() throws IOException {
-    String scenario = "scenario", file = "invalid";
+    String scenario = "unit", file = "invalid";
 
     assertThrows(
         FileNotFoundException.class,
@@ -66,7 +66,7 @@ public class FileGatewayTest extends UnitTest {
 
   @Test
   void shouldGetJsonStringFromFile(@Random String object) throws IOException {
-    String scenario = "scenario", file = "example";
+    String scenario = "unit", file = "example";
     when(objectMapper.readValue(any(InputStream.class), eq(Object.class))).thenReturn(object);
     when(objectMapper.writeValueAsString(object)).thenReturn(object);
 
@@ -79,7 +79,7 @@ public class FileGatewayTest extends UnitTest {
 
   @Test
   void shouldGetJsonStringFromFileNotFound() throws IOException {
-    String scenario = "scenario", file = "invalid";
+    String scenario = "unit", file = "invalid";
 
     assertThrows(
         FileNotFoundException.class,
