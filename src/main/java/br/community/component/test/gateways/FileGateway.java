@@ -1,11 +1,13 @@
 package br.community.component.test.gateways;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,18 +30,17 @@ public class FileGateway {
   }
 
   public <T> T getObjectFromFile(String scenario, String file, Class<T> clazz)
-      throws FileNotFoundException {
+          throws FileNotFoundException {
     String filePath = MessageFormat.format("{0}/{1}/{2}.json", DATA_DIRECTORY, scenario, file);
-    try {
-      InputStream inputStream = getClass().getResourceAsStream(filePath);
-      T object = objectMapper.readValue(inputStream, clazz);
-      inputStream.close();
-      return object;
+    try (InputStream inputStream =
+                 new FileInputStream (
+                         new ClassPathResource (filePath, getClass().getClassLoader()).getFile())) {
+      return objectMapper.readValue(inputStream, clazz);
     } catch (IOException e) {
       throw new FileNotFoundException(
-          "File ["
-              + filePath
-              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>.json' exists");
+              "File ["
+                      + filePath
+                      + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>.json' exists");
     }
   }
 
