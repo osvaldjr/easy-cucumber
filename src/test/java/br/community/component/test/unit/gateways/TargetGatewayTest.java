@@ -44,7 +44,7 @@ public class TargetGatewayTest extends UnitTest {
       @Random ResponseEntity responseEntity) {
     when(feignClient.post(uri, body, headers)).thenReturn(responseEntity);
 
-    ResponseEntity response = feignClient.post(uri, body, headers);
+    ResponseEntity response = targetGateway.post(uri, body, headers);
 
     verify(feignClient, times(1)).post(uri, body, headers);
     assertThat(response, equalTo(responseEntity));
@@ -58,7 +58,7 @@ public class TargetGatewayTest extends UnitTest {
       @Random ResponseEntity responseEntity) {
     when(feignClient.delete(uri, body, headers)).thenReturn(responseEntity);
 
-    ResponseEntity response = feignClient.delete(uri, body, headers);
+    ResponseEntity response = targetGateway.delete(uri, body, headers);
 
     verify(feignClient, times(1)).delete(uri, body, headers);
     assertThat(response, equalTo(responseEntity));
@@ -72,7 +72,7 @@ public class TargetGatewayTest extends UnitTest {
       @Random ResponseEntity responseEntity) {
     when(feignClient.put(uri, body, headers)).thenReturn(responseEntity);
 
-    ResponseEntity response = feignClient.put(uri, body, headers);
+    ResponseEntity response = targetGateway.put(uri, body, headers);
 
     verify(feignClient, times(1)).put(uri, body, headers);
     assertThat(response, equalTo(responseEntity));
