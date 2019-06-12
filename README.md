@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/osvaldjr/quick-starter-cucumber-component-test.svg?branch=master)](https://travis-ci.org/osvaldjr/quick-starter-cucumber-component-test) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.community%3Acomponent-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=br.community%3Acomponent-test)
+[![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.community%3Acomponent-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=br.community%3Acomponent-test)
 
-# Quick Starter Component Test
+# Easy Cucumber JVM Component Test
 An easy to use, zero code Cucumber-JVM based component test
 
 
@@ -9,22 +9,23 @@ An easy to use, zero code Cucumber-JVM based component test
 * Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax
 * Assert HTTP Status
 * Assert sucessfully and failed response body
+* Change FF4J features through defined step
 
 ## Setup
 #### Maven dependency
 ```xml
 <dependencies>
     <dependency>
-        <groupId>br.community</groupId>
-        <artifactId>component-test</artifactId>
-        <version>${component.test.version}</version>
+         <groupId>io.github.osvaldjr</groupId>
+            <artifactId>easy-cucumber</artifactId>
+        <version>${easy.cucumber.version}</version>
     </dependency>
 </dependencies>    
 <dependencyManagement>
    <dependencies>
        <dependency>
-           <groupId>br.community</groupId>
-           <artifactId>component-test</artifactId>
+            <groupId>io.github.osvaldjr</groupId>
+               <artifactId>easy-cucumber</artifactId>
            <version>0.0.1-SNAPSHOT</version>
            <type>pom</type>
            <scope>import</scope>

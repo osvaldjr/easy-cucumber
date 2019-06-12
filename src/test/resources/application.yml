@@ -13,7 +13,7 @@ dependencies:
 
 logging:
   level:
-    br.community.component.test.gateways.feign.IntegrationClient: DEBUG
+    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
 
 feign:
   client:
