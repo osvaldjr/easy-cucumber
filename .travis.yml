@@ -2,7 +2,15 @@ language: java
 addons:
   sonarcloud:
     organization: "lvcarnevalli-github"
-install: 
-  - mvn clean install -B -V
+install:
+  - mvn clean verify -B -V
 after_success:
   - mvn sonar:sonar -B
+
+deploy:
+  provider: script
+  script:
+    - mvn deploy --settings travis/settings.xml
+  skip_cleanup: true
+  on:
+    tags: true
