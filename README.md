@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.community%3Acomponent-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=br.community%3Acomponent-test)
+[![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.community%3Acomponent-test&metric=alert_status)](https://sonarcloud.io/dashboard?id=br.community%3Acomponent-test) <img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg?label=maven">
 
 # Easy Cucumber JVM Component Test
 An easy to use, zero code Cucumber-JVM based component test
