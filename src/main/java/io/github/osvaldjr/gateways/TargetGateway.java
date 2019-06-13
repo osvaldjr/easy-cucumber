@@ -18,19 +18,19 @@ public class TargetGateway {
     this.feignClient = feignClient;
   }
 
-  public <R> ResponseEntity<R> get(String uri, Map<String, String> headers) {
+  public ResponseEntity<Object> get(String uri, Map<String, String> headers) {
     return feignClient.get(uri, headers);
   }
 
-  public <T, R> ResponseEntity<R> post(String uri, T body, Map<String, String> headers) {
+  public <T> ResponseEntity<Object> post(String uri, T body, Map<String, String> headers) {
     return feignClient.post(uri, body, headers);
   }
 
-  public <T, R> ResponseEntity<R> delete(String uri, T body, Map<String, String> headers) {
+  public <T> ResponseEntity<Object> delete(String uri, T body, Map<String, String> headers) {
     return feignClient.delete(uri, body, headers);
   }
 
-  public <T, R> ResponseEntity<R> put(String uri, T body, Map<String, String> headers) {
+  public <T> ResponseEntity<Object> put(String uri, T body, Map<String, String> headers) {
     return feignClient.put(uri, body, headers);
   }
 }
