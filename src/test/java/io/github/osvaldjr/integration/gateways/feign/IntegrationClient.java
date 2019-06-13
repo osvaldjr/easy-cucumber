@@ -13,17 +13,17 @@ import feign.RequestLine;
 public interface IntegrationClient {
 
   @RequestLine("GET /get")
-  ResponseEntity<?> get(@HeaderMap Map<String, String> headers);
+  ResponseEntity<Object> get(@HeaderMap Map<String, String> headers);
 
   @RequestLine("PUT /put")
   @Body("{body}")
-  ResponseEntity<?> put(Object body, @HeaderMap Map<String, String> headers);
+  ResponseEntity<Object> put(Object body, @HeaderMap Map<String, String> headers);
 
   @RequestLine("POST /post")
   @Body("{body}")
-  ResponseEntity<?> post(Object body, @HeaderMap Map<String, String> headers);
+  ResponseEntity<Object> post(Object body, @HeaderMap Map<String, String> headers);
 
   @RequestLine("DELETE /delete")
   @Body("{body}")
-  ResponseEntity<?> delete(Object body, @HeaderMap Map<String, String> headers);
+  ResponseEntity<Object> delete(Object body, @HeaderMap Map<String, String> headers);
 }
