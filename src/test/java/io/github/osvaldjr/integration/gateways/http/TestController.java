@@ -31,18 +31,18 @@ public class TestController {
   }
 
   @GetMapping
-  public ResponseEntity<?> get(@RequestHeader Map<String, String> headers) {
+  public ResponseEntity<Object> get(@RequestHeader Map<String, String> headers) {
     return client.get(headers);
   }
 
   @PutMapping
-  public ResponseEntity<?> put(
+  public ResponseEntity<Object> put(
       @RequestBody Object body, @RequestHeader Map<String, String> headers) {
     return client.put(body, headers);
   }
 
   @DeleteMapping
-  public ResponseEntity<?> delete(
+  public ResponseEntity<Object> delete(
       @RequestBody Object body, @RequestHeader Map<String, String> headers) {
     ResponseEntity responseEntity = ResponseEntity.badRequest().build();
     if (ff4j.check("delete-integration")) {
@@ -52,7 +52,7 @@ public class TestController {
   }
 
   @PostMapping
-  public ResponseEntity<?> post(
+  public ResponseEntity<Object> post(
       @RequestBody Object body, @RequestHeader Map<String, String> headers) {
     return client.post(body, headers);
   }
