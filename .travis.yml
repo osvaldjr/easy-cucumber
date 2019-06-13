@@ -10,7 +10,7 @@ after_success:
 deploy:
   provider: script
   script:
-    - mvn deploy --settings travis/settings.xml
+    - mvn deploy -B --settings travis/settings.xml
   skip_cleanup: true
   on:
     tags: true
