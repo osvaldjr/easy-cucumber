@@ -3,10 +3,9 @@ addons:
   sonarcloud:
     organization: "lvcarnevalli-github"
 
-install:
-  - mvn clean verify -B -V
-after_success:
-  - mvn sonar:sonar -B
+install: true
+script: mvn clean verify -B -V
+after_success: mvn sonar:sonar -B
 
 deploy:
   provider: script
