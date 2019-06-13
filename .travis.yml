@@ -3,7 +3,7 @@ addons:
   sonarcloud:
     organization: "lvcarnevalli-github"
 install:
-  - mvn clean verify -B -V
+  - mvn clean verify -B -V --settings travis/settings.xml
 after_success:
   - mvn sonar:sonar -B
 
