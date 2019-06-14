@@ -52,7 +52,7 @@ public class RunCucumberTest {}
 ```
 #### Available step definitions
 `yourfile.feature`
-```gherkin=
+```gherkin
 Feature: Your feature name
 
   Scenario: Your scenario description
@@ -93,12 +93,12 @@ Feature: Your feature name
 
 ##### Examples
 - PATH OF MOCK FILES FOR REQUEST AND RESPONSE
-```gherkin=
+```gherkin
 Given A have a mock for dependency pokemon-detail for pokemon-service
 ```
 Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for this request
 `pokemon-detail-request.json`
-```json=
+```json
 {
   "url": "/pokemon/*",
   "method": "GET",
@@ -110,7 +110,7 @@ Using this step, you should put two files named `pokemon-detail-request.json` an
 }
 ```
 `pokemon-detail-response.json`
-```json=
+```json
 {
   "headers": {},
   "status": 200,
