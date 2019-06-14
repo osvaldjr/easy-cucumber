@@ -1,5 +1,5 @@
 # Easy Cucumber
-Easy Cucumber JVM Component Test.
+Easy Cucumber JVM DSL tests.
 
 [![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=coverage)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
 
@@ -8,8 +8,14 @@ Easy Cucumber JVM Component Test.
 </p>
 
 ## Table of Contents
+- [Features](https://github.com/osvaldjr/easy-cucumber#features)
+- [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
+  - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
+  - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
+- [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
+  - [Examples](https://github.com/osvaldjr/easy-cucumber#examples)
+- [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
 
-[TOC]
 
 ## Features
 * Make GET, POST, PUT and DELETE requests to your API;
@@ -54,7 +60,7 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 public class RunCucumberTest {}
 
 ```
-#### Available step definitions
+## Available step definitions
 `yourfile.feature`
 ```gherkin
 Feature: Your feature name
@@ -100,7 +106,8 @@ Feature: Your feature name
 ```gherkin
 Given A have a mock for dependency pokemon-detail for pokemon-service
 ```
-Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for this request
+Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for this request.
+
 `pokemon-detail-request.json`
 ```json
 {
@@ -132,5 +139,5 @@ Using this step, you should put two files named `pokemon-detail-request.json` an
 - RESPONSE BODY FILE PATH
 
 
-### Credits
+## Credits
 [![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/0)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/0)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/1)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/1)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/2)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/2)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/3)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/3)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/4)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/4)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/5)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/5)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/6)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/6)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/7)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/7)
