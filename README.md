@@ -1,18 +1,22 @@
 # Easy Cucumber
-Easy Cucumber JVM Component Test
+Easy Cucumber JVM Component Test.
 
-[![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
+[![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=coverage)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/osvaldjr/easy-cucumber/master/diagram.svg?sanitize=true" width="600" align="center">
+</p>
 
 ## Table of Contents
 
 [TOC]
 
 ## Features
-* Make GET, POST, PUT and DELETE requests to your API
-* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax
-* Assert HTTP Status
-* Assert sucessfully and failed response body
-* Change FF4J features through defined step
+* Make GET, POST, PUT and DELETE requests to your API;
+* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax;
+* Assert HTTP Status;
+* Assert sucessfully and failed response body;
+* Change FF4J features through defined step;
 
 ## Setup
 #### Maven dependency
@@ -36,7 +40,7 @@ Easy Cucumber JVM Component Test
    </dependencies>
 </dependencyManagement>
 ```
-#### Junit Runner
+#### Junit runner
 Create an empty class that uses the Cucumber JUnit runner, configure step definitions and features path.
 ```java
 @RunWith(Cucumber.class)
