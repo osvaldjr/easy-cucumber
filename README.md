@@ -4,7 +4,7 @@ Easy Cucumber JVM Component Test.
 [![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=coverage)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/osvaldjr/easy-cucumber/master/diagram.svg?sanitize=true" width="600" align="center">
+    <img src="https://raw.githubusercontent.com/osvaldjr/easy-cucumber/master/diagram.png?raw=true" width="600" align="center">
 </p>
 
 ## Table of Contents
