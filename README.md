@@ -12,6 +12,8 @@ Easy Cucumber JVM DSL tests.
 - [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
   - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
   - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
+  - [Application yml](https://github.com/osvaldjr/easy-cucumber#test-application-yml)
+  - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
   - [Examples](https://github.com/osvaldjr/easy-cucumber#examples)
 - [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
@@ -60,6 +62,18 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 public class RunCucumberTest {}
 
 ```
+#### Test Application yml
+In your application test configuration, infrome the application you endpoint will be testing
+```yaml
+target.url: http://localhost:8080
+```
+
+#### Feature file
+```gherkin
+Given I make a GET to /
+Then I expect to receive a 200 status
+```
+
 ## Available step definitions
 `yourfile.feature`
 ```gherkin
@@ -87,7 +101,7 @@ Feature: Your feature name
     Then I expect to receive a <HTTP STATUS> with body <RESPONSE BODY FILE PATH>
     Then I expect <RESPONSE BODY FILE PATH> as response
 ```
-| Variable            | Description         | Example                     |
+| Parameter            | Description         | Example                     |
 | :----------------- | :------------- | :-------------------------------- |
 |`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`|Json files defining expected request and response to your API|LINK TO EXAMPLE|
 |`DEPENDENCY NAME`|Alias for your http dependency|pokemon-service|
@@ -102,11 +116,24 @@ Feature: Your feature name
 |`RESPONSE BODY FILE PATH`|Contents of the response body expected to be returned by your API|LINK TO EXAMPLE|
 
 ##### Examples
+Suppose you have a feature called `pokemon.feature` and your application had an GET method, wich receives a query string for search pokemons and integrates with an external dependency responsible for returning available pokemons matching your query param
 - PATH OF MOCK FILES FOR REQUEST AND RESPONSE
 ```gherkin
 Given A have a mock for dependency pokemon-detail for pokemon-service
 ```
-Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for this request.
+Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for your application dependency.
+- *`pokemon` in folder path*: the name of your feature file
+- *`pokemon-detail` in request and response file names*: the parameter you entered in your step
+- *`pokemon-service` in your gherkin*: an alias for your dependency, this parameter will be prefixed with your dependency configuration in your application.yml and the result should be placed in your application configuration
+    
+    If in your test application.yml you had:
+    ```yaml
+    dependencies.integration.url: http://localhost:9001
+    ```
+    Then you should put this url as your pokemon dependency in your application.yml
+    ```properties
+    http://localhost:9001/pokemon-service
+    ```
 
 `pokemon-detail-request.json`
 ```json
@@ -117,7 +144,7 @@ Using this step, you should put two files named `pokemon-detail-request.json` an
   "headers": {
     "content-type": "application/json"
   },
-  "queryParams": {}
+  "queryParams": {"name": "pikachu"}
 }
 ```
 `pokemon-detail-response.json`
