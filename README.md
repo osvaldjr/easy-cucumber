@@ -1,5 +1,7 @@
 # Easy Cucumber
 Easy Cucumber JVM DSL tests.
+---
+Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch offers predefined steps to test your API. Following some conventions, you can mock your application http dependencies, change your FF4J features status, execute requests and match your API responses.
 
 [![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=coverage)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
 
@@ -103,20 +105,20 @@ Feature: Your feature name
 ```
 | Parameter            | Description         | Example                     |
 | :----------------- | :------------- | :-------------------------------- |
-|`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`|Json files defining expected request and response to your API|LINK TO EXAMPLE|
+|`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`|Json files defining expected request and response to your API|[EXAMPLE](https://github.com/osvaldjr/easy-cucumber#path-of-mock-files-for-request-and-response)|
 |`DEPENDENCY NAME`|Alias for your http dependency|pokemon-service|
 |`TIMES TO YOUR MOCK SHOULD BE CALLED`|Times you expect your http dependency should be called|1|
-|`YOUR FEATURE TOGGLE NAME`|Key of your feature name defined in your application.yml|LINK TO EXAMPLE|
+|`YOUR FEATURE TOGGLE NAME`|Key of your feature name defined in your application.yml|[EXAMPLE](https://github.com/osvaldjr/easy-cucumber#your-feature-toggle-name)|
 |`FEATURE STATUS`|Status you expect your feature when your API will be called|ENABLE\|DISABLE|
-|`REQUEST FILE PATH`|Contents of the file that will be sent in the request for your API|LINK TO EXAMPLE|
+|`REQUEST FILE PATH`|Contents of the file that will be sent in the request for your API|[EXAMPLE](https://github.com/osvaldjr/easy-cucumber#request-file-path)|
 |`HTTP METHOD`|Http method to be called against your API|GET\|POST\|PUT\|DELETE|
 |`URI`|Your API endpoint|/api/v1/pokemon/1/pikachu|
-|`PATH TO REQUEST DEFINITION FILE`|Json file defining url, method, body, headers and query params|LINK TO EXAMPLE|
+|`PATH TO REQUEST DEFINITION FILE`|Json file defining url, method, body, headers and query params|[EXAMPLE](https://github.com/osvaldjr/easy-cucumber#path-to-request-definition-file)|
 |`HTTP STATUS`|Http status expected to be returned by your API|200|
-|`RESPONSE BODY FILE PATH`|Contents of the response body expected to be returned by your API|LINK TO EXAMPLE|
+|`RESPONSE BODY FILE PATH`|Contents of the response body expected to be returned by your API|[EXAMPLE](https://github.com/osvaldjr/easy-cucumber#response-body-file-path)|
 
 ##### Examples
-- ###### **`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`**
+- ###### `PATH OF MOCK FILES FOR REQUEST AND RESPONSE`
     Suppose you have a feature called `pokemon.feature` and your application had an GET method, wich receives a query string for search pokemons and integrates with an external dependency responsible for returning available pokemons matching your query param
 
     ```gherkin
@@ -160,7 +162,7 @@ Feature: Your feature name
       }
     }
     ```
-- ###### **YOUR FEATURE TOGGLE NAME**
+- ###### YOUR FEATURE TOGGLE NAME
     Lets assume your application uses a FF4J feature with `retry-on-failure` defined key, and you want enable this feature before run some steps:
     ```gherkin
       Given the feature RETRY_ON_FAILURE is ENABLE
@@ -170,7 +172,7 @@ Feature: Your feature name
     features:
       RETRY_ON_FAILURE: retry-on-failure
     ```
-- ###### **REQUEST FILE PATH**
+- ###### REQUEST FILE PATH
     If you want to define the content in request body to your application, you should use this step to tell where the body content file is located
     ```gherkin
         Given I have a request with body http_request_body
@@ -180,7 +182,7 @@ Feature: Your feature name
     ```gherkin
     Given I make a POST to /
     ```
-- ###### **PATH TO REQUEST DEFINITION FILE**
+- ###### PATH TO REQUEST DEFINITION FILE
     If you want to define your entire request at one time and execute it, you can use this step
     ```gherkin
       When I make a request defined in http_request_post
@@ -197,7 +199,7 @@ Feature: Your feature name
           "queryParams": {}
         }
     ```
-- ###### **RESPONSE BODY FILE PATH**
+- ###### RESPONSE BODY FILE PATH
     With this step you can define the expected response that your API should return
     ```gherkin
     Then I expect http_response_body_expected as response
