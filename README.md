@@ -12,7 +12,7 @@ Easy Cucumber JVM DSL tests.
 - [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
   - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
   - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
-  - [Application yml](https://github.com/osvaldjr/easy-cucumber#test-application-yml)
+  - [Application yml](https://github.com/osvaldjr/easy-cucumber#application-test-yml)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
   - [Examples](https://github.com/osvaldjr/easy-cucumber#examples)
@@ -23,7 +23,7 @@ Easy Cucumber JVM DSL tests.
 * Make GET, POST, PUT and DELETE requests to your API;
 * Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax;
 * Assert HTTP Status;
-* Assert sucessfully and failed response body;
+* Assert successfully and failed response body;
 * Change FF4J features through defined step;
 
 ## Setup
@@ -62,8 +62,8 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 public class RunCucumberTest {}
 
 ```
-#### Test Application yml
-In your application test configuration, infrome the application you endpoint will be testing
+#### Application Test yml
+In your application test configuration, inform the application you endpoint will be testing
 ```yaml
 target.url: http://localhost:8080
 ```
@@ -85,11 +85,11 @@ Feature: Your feature name
     Then I expect mock <PATH OF MOCK FILES FOR REQUEST AND RESPONSE> for dependecy <DEPENDENCY NAME> to have been called <TIMES TO YOUR MOCK SHOULD BE CALLED> times
     
     # Feature toggles setup
-    Given the feature <YOUR FEATURE NAME> is <FEATURE STATUS>
+    Given the feature <YOUR FEATURE TOGGLE NAME> is <FEATURE STATUS>
     Given the features toggle with status
       | name                | status |
-      | <YOUR FEATURE NAME> | ENABLE |
-      | <YOUR FEATURE NAME> | DISABLE|
+      | <YOUR FEATURE TOGGLE NAME> | ENABLE |
+      | <YOUR FEATURE TOGGLE NAME> | DISABLE|
 
     # Request setup
     Given I have a request with body <REQUEST FILE PATH>
@@ -106,7 +106,7 @@ Feature: Your feature name
 |`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`|Json files defining expected request and response to your API|LINK TO EXAMPLE|
 |`DEPENDENCY NAME`|Alias for your http dependency|pokemon-service|
 |`TIMES TO YOUR MOCK SHOULD BE CALLED`|Times you expect your http dependency should be called|1|
-|`YOUR FEATURE NAME`|Key of your feature name defined in your application.yml|LINK TO EXAMPLE|
+|`YOUR FEATURE TOGGLE NAME`|Key of your feature name defined in your application.yml|LINK TO EXAMPLE|
 |`FEATURE STATUS`|Status you expect your feature when your API will be called|ENABLE\|DISABLE|
 |`REQUEST FILE PATH`|Contents of the file that will be sent in the request for your API|LINK TO EXAMPLE|
 |`HTTP METHOD`|Http method to be called against your API|GET\|POST\|PUT\|DELETE|
@@ -116,55 +116,93 @@ Feature: Your feature name
 |`RESPONSE BODY FILE PATH`|Contents of the response body expected to be returned by your API|LINK TO EXAMPLE|
 
 ##### Examples
-Suppose you have a feature called `pokemon.feature` and your application had an GET method, wich receives a query string for search pokemons and integrates with an external dependency responsible for returning available pokemons matching your query param
-- PATH OF MOCK FILES FOR REQUEST AND RESPONSE
-```gherkin
-Given A have a mock for dependency pokemon-detail for pokemon-service
-```
-Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for your application dependency.
-- *`pokemon` in folder path*: the name of your feature file
-- *`pokemon-detail` in request and response file names*: the parameter you entered in your step
-- *`pokemon-service` in your gherkin*: an alias for your dependency, this parameter will be prefixed with your dependency configuration in your application.yml and the result should be placed in your application configuration
+- ###### **`PATH OF MOCK FILES FOR REQUEST AND RESPONSE`**
+    Suppose you have a feature called `pokemon.feature` and your application had an GET method, wich receives a query string for search pokemons and integrates with an external dependency responsible for returning available pokemons matching your query param
+
+    ```gherkin
+    Given A have a mock for dependency pokemon-detail for pokemon-service
+    ```
+    Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for your application dependency.
+    - **`pokemon` in folder path**: the name of your feature file
+    - **`pokemon-detail` in request and response file names**: the parameter you entered in your step
+    - **`pokemon-service` in your gherkin**: an alias for your dependency, this parameter will be prefixed with your dependency configuration in your application.yml and the result should be placed in your application configuration
+        
+        If in your test application.yml you had:
+        ```yaml
+        dependencies.integration.url: http://localhost:9001
+        ```
+        Then you should put this url as your pokemon dependency in your application.yml
+        ```properties
+        http://localhost:9001/pokemon-service
+        ```
     
-    If in your test application.yml you had:
+    `pokemon-detail-request.json`
+    ```json
+    {
+      "url": "/pokemon/*",
+      "method": "GET",
+      "body": {},
+      "headers": {
+        "content-type": "application/json"
+      },
+      "queryParams": {"name": "pikachu"}
+    }
+    ```
+    `pokemon-detail-response.json`
+    ```json
+    {
+      "headers": {},
+      "status": 200,
+      "body": {
+        "name": "Pikachu",
+        "weight":7,
+        "base_experience":80
+      }
+    }
+    ```
+- ###### **YOUR FEATURE TOGGLE NAME**
+    Lets assume your application uses a FF4J feature with `retry-on-failure` defined key, and you want enable this feature before run some steps:
+    ```gherkin
+      Given the feature RETRY_ON_FAILURE is ENABLE
+    ```
+    You have to define in your test application.yml the features you want to enable and disable using gherkin, the parameter `RETRY_ON_FAILURE` should be present followed by the key of your feature toggle configured in your FF4J
     ```yaml
-    dependencies.integration.url: http://localhost:9001
+    features:
+      RETRY_ON_FAILURE: retry-on-failure
     ```
-    Then you should put this url as your pokemon dependency in your application.yml
-    ```properties
-    http://localhost:9001/pokemon-service
+- ###### **REQUEST FILE PATH**
+    If you want to define the content in request body to your application, you should use this step to tell where the body content file is located
+    ```gherkin
+        Given I have a request with body http_request_body
     ```
-
-`pokemon-detail-request.json`
-```json
-{
-  "url": "/pokemon/*",
-  "method": "GET",
-  "body": {},
-  "headers": {
-    "content-type": "application/json"
-  },
-  "queryParams": {"name": "pikachu"}
-}
-```
-`pokemon-detail-response.json`
-```json
-{
-  "headers": {},
-  "status": 200,
-  "body": {
-    "name": "Pikachu",
-    "weight":7,
-    "base_experience":80
-  }
-}
-```
-
-- YOUR FEATURE NAME
-- REQUEST FILE PATH
-- PATH TO REQUEST DEFINITION FILE
-- RESPONSE BODY FILE PATH
-
+    Using this step, you should put a file `http_request_body.json` in your `resources/data/pokemon/` folder, witch will contain data you want to be sent to your application
+    After that, you can use step above to make request to your application
+    ```gherkin
+    Given I make a POST to /
+    ```
+- ###### **PATH TO REQUEST DEFINITION FILE**
+    If you want to define your entire request at one time and execute it, you can use this step
+    ```gherkin
+      When I make a request defined in http_request_post
+    ```
+    Using this step, you should put a file `http_request_post.json` in your `resources/data/pokemon/` folder, witch will contain all information necessary to make request to your application. Easy Cucumber will load file contents and execute request.
+    ```json
+        {
+          "url": "/test",
+          "method": "POST",
+          "body": {
+            "name": "Linux"
+          },
+          "headers": {},
+          "queryParams": {}
+        }
+    ```
+- ###### **RESPONSE BODY FILE PATH**
+    With this step you can define the expected response that your API should return
+    ```gherkin
+    Then I expect http_response_body_expected as response
+    ```
+    Using this step, you should put a file `http_response_body_expected.json` in your `resources/data/pokemon/` folder. Easy cucumber will load file contents and match against the data your API returned
 
 ## Credits
 [![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/0)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/0)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/1)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/1)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/2)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/2)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/3)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/3)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/4)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/4)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/5)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/5)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/6)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/6)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/7)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/7)
