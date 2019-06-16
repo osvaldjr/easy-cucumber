@@ -1,7 +1,7 @@
 # Easy Cucumber
 Easy Cucumber JVM DSL tests.
 ---
-Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch offers predefined steps to test your API. Following some conventions, you can mock your application http dependencies, change your FF4J features status, execute requests and match your API responses.
+Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch offers predefined steps to test your API. Following some conventions, you can mock your application http dependencies, change your FF4j features status, execute requests and match your API responses.
 
 [![Build Status](https://travis-ci.org/osvaldjr/easy-cucumber.svg?branch=master)](https://travis-ci.org/osvaldjr/easy-cucumber) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=io.github.osvaldjr%3Aeasy-cucumber&metric=coverage)](https://sonarcloud.io/dashboard?id=io.github.osvaldjr%3Aeasy-cucumber) <a href="https://search.maven.org/artifact/io.github.osvaldjr/easy-cucumber"><img alt="Sonatype Nexus (Releases)" src="https://img.shields.io/nexus/r/https/oss.sonatype.org/io.github.osvaldjr/easy-cucumber.svg"></a>
 
@@ -11,22 +11,30 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 
 ## Table of Contents
 - [Features](https://github.com/osvaldjr/easy-cucumber#features)
+- [Requirements](https://github.com/osvaldjr/easy-cucumber#requirements)
 - [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
   - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
   - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
   - [Application yml](https://github.com/osvaldjr/easy-cucumber#application-test-yml)
+  - [Full Application test yml options](https://github.com/osvaldjr/easy-cucumber#full-application-application-test-yml-options)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
+- [Run](https://github.com/osvaldjr/easy-cucumber#run)
 - [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
   - [Examples](https://github.com/osvaldjr/easy-cucumber#examples)
 - [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
 
-
 ## Features
-* Make GET, POST, PUT and DELETE requests to your API;
-* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax;
-* Assert HTTP Status;
-* Assert successfully and failed response body;
-* Change FF4J features through defined step;
+* Make GET, POST, PUT and DELETE requests to your API
+* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax
+* Assert HTTP Status
+* Assert successfully and failed response body
+* Change FF4j features through defined step
+
+## Requirements
+- [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Maven](https://maven.apache.org/)
+- [Stubby](https://www.npmjs.com/package/stubby) If you want to mock your application dependecies
+- [FF4j](https://ff4j.github.io/) If you want to change your FF4j status
 
 ## Setup
 #### Maven dependency
@@ -56,7 +64,7 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 @RunWith(Cucumber.class)
 @CucumberOptions(
     plugin = {"pretty"},
-    features = {"src/test/resources/features"},
+    features = {"src/test/resources/features"},//Here is your features folder
     glue = {
       "io.github.osvaldjr.stepdefinitions.steps"
     },
@@ -64,16 +72,47 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 public class RunCucumberTest {}
 
 ```
-#### Application Test yml
+#### Basic Application Test yml
 In your application test configuration, inform the application you endpoint will be testing
 ```yaml
 target.url: http://localhost:8080
+```
+
+For additional configuration
+#### Full Application test yml options
+```yaml
+target.url: http://localhost:9000 # Your application endpoint
+
+dependencies:
+  stubby.url: http://localhost:9003 # Your stubby4node endpoint
+  ff4j:
+    redis:
+      server: localhost # FF4j redis host
+      port: 6379 # FF4j redis port
+
+logging:
+  level:
+    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+features:
+  RETRY_ON_FAILURE: retry-on-failure
 ```
 
 #### Feature file
 ```gherkin
 Given I make a GET to /
 Then I expect to receive a 200 status
+```
+## Run
+If you are using FF4j and HTTP integration in your application, you need to put those services up and running before running this command
+```bash
+mvn clean verify
 ```
 
 ## Available step definitions
@@ -163,11 +202,11 @@ Feature: Your feature name
     }
     ```
 - ###### YOUR FEATURE TOGGLE NAME
-    Lets assume your application uses a FF4J feature with `retry-on-failure` defined key, and you want enable this feature before run some steps:
+    Lets assume your application uses a FF4j feature with `retry-on-failure` defined key, and you want enable this feature before run some steps:
     ```gherkin
       Given the feature RETRY_ON_FAILURE is ENABLE
     ```
-    You have to define in your test application.yml the features you want to enable and disable using gherkin, the parameter `RETRY_ON_FAILURE` should be present followed by the key of your feature toggle configured in your FF4J
+    You have to define in your test application.yml the features you want to enable and disable using gherkin, the parameter `RETRY_ON_FAILURE` should be present followed by the key of your feature toggle configured in your FF4j
     ```yaml
     features:
       RETRY_ON_FAILURE: retry-on-failure
