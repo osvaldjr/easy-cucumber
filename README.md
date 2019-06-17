@@ -1,5 +1,4 @@
 # Easy Cucumber
-Easy Cucumber JVM DSL tests.
 ---
 Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch offers predefined steps to test your API. Following some conventions, you can mock your application http dependencies, change your FF4j features status, execute requests and match your API responses.
 
