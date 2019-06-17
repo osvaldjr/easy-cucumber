@@ -39,16 +39,16 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 ```xml
 <dependencies>
     <dependency>
-         <groupId>io.github.osvaldjr</groupId>
-            <artifactId>easy-cucumber</artifactId>
+        <groupId>io.github.osvaldjr</groupId>
+        <artifactId>easy-cucumber</artifactId>
         <version>0.0.1</version>
     </dependency>
 </dependencies>    
 <dependencyManagement>
    <dependencies>
        <dependency>
-            <groupId>io.github.osvaldjr</groupId>
-               <artifactId>easy-cucumber</artifactId>
+           <groupId>io.github.osvaldjr</groupId>
+           <artifactId>easy-cucumber</artifactId>
            <version>0.0.1</version>
            <type>pom</type>
            <scope>import</scope>
