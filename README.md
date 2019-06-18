@@ -64,7 +64,7 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
     plugin = {"pretty"},
     features = {"src/test/resources/features"},//Here is your features folder
     glue = {
-      "io.github.osvaldjr.stepdefinitions.steps"
+      "io.github.osvaldjr.stepdefinitions"
     },
     strict = true)
 public class RunCucumberTest {}
@@ -120,7 +120,7 @@ Feature: Your feature name
 
   Scenario: Your scenario description
     # Mocks setup
-    Given A have a mock for dependency <PATH OF MOCK FILES FOR REQUEST AND RESPONSE> for <DEPENDENCY NAME>
+    Given A have a mock <PATH OF MOCK FILES FOR REQUEST AND RESPONSE> for dependency <DEPENDENCY NAME>
     Then I expect mock <PATH OF MOCK FILES FOR REQUEST AND RESPONSE> for dependecy <DEPENDENCY NAME> to have been called <TIMES TO YOUR MOCK SHOULD BE CALLED> times
     
     # Feature toggles setup
@@ -159,7 +159,7 @@ Feature: Your feature name
     Suppose you have a feature called `pokemon.feature` and your application had an GET method, wich receives a query string for search pokemons and integrates with an external dependency responsible for returning available pokemons matching your query param
 
     ```gherkin
-    Given A have a mock for dependency pokemon-detail for pokemon-service
+    Given A have a mock pokemon-detail for dependency pokemon-service
     ```
     Using this step, you should put two files named `pokemon-detail-request.json` and `pokemon-detail-response.json` in your `resources/data/pokemon/mocks` folder. Easy cucumber will look to them in order to setup mock server for your application dependency.
     - **`pokemon` in folder path**: the name of your feature file
