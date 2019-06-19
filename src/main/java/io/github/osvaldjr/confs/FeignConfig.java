@@ -41,8 +41,10 @@ public class FeignConfig {
               .reason(response.reason())
               .headers(response.headers());
       try {
-        exceptionClientResponse.jsonBody(
-            IOUtils.toString(response.body().asInputStream(), StandardCharsets.UTF_8.name()));
+        if (response.body() != null) {
+          exceptionClientResponse.jsonBody(
+              IOUtils.toString(response.body().asInputStream(), StandardCharsets.UTF_8.name()));
+        }
       } catch (IOException e) {
         log.error("Occurred error for convert response body", e);
       }
