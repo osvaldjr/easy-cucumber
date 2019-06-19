@@ -13,8 +13,6 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -121,7 +119,7 @@ public class DefaultSteps {
   public void iExpectToReceiveAStatus(int httpStatusExpected) {
     int httpStatusReceived;
     if (response == null) {
-      httpStatusReceived = httpException.getResponse().status();
+      httpStatusReceived = httpException.getResponse().getStatus();
     } else {
       httpStatusReceived = response.getStatusCode().value();
     }
@@ -136,8 +134,8 @@ public class DefaultSteps {
 
     String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
     if (response == null) {
-      httpStatusReceived = httpException.getResponse().status();
-      responseReceived = new ObjectMapper().writeValueAsString(httpException.getResponse().body());
+      httpStatusReceived = httpException.getResponse().getStatus();
+      responseReceived = httpException.getResponse().getJsonBody();
     } else {
       httpStatusReceived = response.getStatusCode().value();
       responseReceived = fileGateway.getJsonStringFromObject(response.getBody());

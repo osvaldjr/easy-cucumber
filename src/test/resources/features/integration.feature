@@ -42,3 +42,7 @@ Feature: Integration
     Given A have a mock http_post_successful for dependency integration
     When I make a request defined in http_post_defined_body_request
     Then I expect to receive a 200 status
+
+  Scenario: Validate a default steps with response error body
+    When I make a GET to /test
+    Then I expect to receive a 500 status with body http_get_body_error_response

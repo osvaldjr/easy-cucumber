@@ -1,28 +1,28 @@
 package io.github.osvaldjr.domains.exceptions;
 
-import feign.Response;
+import io.github.osvaldjr.domains.ClientResponse;
 import lombok.Getter;
 
 @Getter
 public class FeignException extends RuntimeException {
 
-  private Response response;
+  private ClientResponse response;
 
-  public FeignException(Response response) {
+  public FeignException(ClientResponse response) {
     this.response = response;
   }
 
-  public FeignException(String message, Response response) {
+  public FeignException(String message, ClientResponse response) {
     super(message);
     this.response = response;
   }
 
-  public FeignException(String message, Throwable cause, Response response) {
+  public FeignException(String message, Throwable cause, ClientResponse response) {
     super(message, cause);
     this.response = response;
   }
 
-  public FeignException(Throwable cause, Response response) {
+  public FeignException(Throwable cause, ClientResponse response) {
     super(cause);
     this.response = response;
   }
@@ -32,7 +32,7 @@ public class FeignException extends RuntimeException {
       Throwable cause,
       boolean enableSuppression,
       boolean writableStackTrace,
-      Response response) {
+      ClientResponse response) {
     super(message, cause, enableSuppression, writableStackTrace);
     this.response = response;
   }
