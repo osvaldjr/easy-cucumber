@@ -12,7 +12,6 @@ import feign.Contract;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import io.github.osvaldjr.domains.ClientResponse;
-import io.github.osvaldjr.domains.ClientResponse.ClientResponseBuilder;
 import io.github.osvaldjr.domains.exceptions.FeignException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +34,7 @@ public class FeignConfig {
 
     @Override
     public Exception decode(String methodKey, Response response) {
-      ClientResponseBuilder exceptionClientResponse =
+      ClientResponse.ClientResponseBuilder exceptionClientResponse =
           ClientResponse.builder()
               .status(response.status())
               .reason(response.reason())
