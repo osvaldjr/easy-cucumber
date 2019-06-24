@@ -11,7 +11,7 @@ import feign.RequestLine;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequest;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponse;
 
-@FeignClient(value = "stubby-client", url = "${dependencies.stubby.url}")
+@FeignClient(value = "stubby-client", url = "${dependencies.stubby.url:}")
 public interface StubbyClient {
 
   @RequestLine("GET /")
