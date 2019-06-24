@@ -84,7 +84,7 @@ For additional configuration
 target.url: http://localhost:9000 # Your application endpoint
 
 dependencies:
-  stubby.url: http://localhost:9003 # Your stubby4node endpoint
+  stubby.url: http://localhost:9003 # Your stubby4node admin endpoint
   ff4j:
     redis:
       server: localhost # FF4j redis host
@@ -175,13 +175,13 @@ Feature: Your feature name
     - **`pokemon-detail` in request and response file names**: the parameter you entered in your step
     - **`pokemon-service` in your gherkin**: an alias for your dependency, this parameter will be prefixed with your dependency configuration in your application.yml and the result should be placed in your application configuration
         
-        If in your test application.yml you had:
+        If in your test application.yml you had your stubby admin endpoint configured:
         ```yaml
-        dependencies.integration.url: http://localhost:9001
+        dependencies.integration.url: http://localhost:8889
         ```
-        Then you should put this url as your pokemon dependency in your application.yml
+        Then you should put the stubby portal url as your pokemon dependency in your application.yml
         ```properties
-        http://localhost:9001/pokemon-service
+        http://localhost:8882/pokemon-service
         ```
     
     `pokemon-detail-request.json`
@@ -211,7 +211,7 @@ Feature: Your feature name
 - ###### YOUR FEATURE TOGGLE NAME
     Lets assume your application uses a FF4j feature with `retry-on-failure` defined key, and you want enable this feature before run some steps:
     ```gherkin
-      Given the feature RETRY_ON_FAILURE is ENABLE
+    Given the feature RETRY_ON_FAILURE is ENABLE
     ```
     You have to define in your test application.yml the features you want to enable and disable using gherkin, the parameter `RETRY_ON_FAILURE` should be present followed by the key of your feature toggle configured in your FF4j
     ```yaml
@@ -221,7 +221,7 @@ Feature: Your feature name
 - ###### REQUEST FILE PATH
     If you want to define the content in request body to your application, you should use this step to tell where the body content file is located
     ```gherkin
-        Given I have a request with body http_request_body
+    Given I have a request with body http_request_body
     ```
     Using this step, you should put a file `http_request_body.json` in your `resources/data/pokemon/` folder, witch will contain data you want to be sent to your application
     After that, you can use step above to make request to your application
@@ -231,7 +231,7 @@ Feature: Your feature name
 - ###### PATH TO REQUEST DEFINITION FILE
     If you want to define your entire request at one time and execute it, you can use this step
     ```gherkin
-      When I make a request defined in http_request_post
+    When I make a request defined in http_request_post
     ```
     Using this step, you should put a file `http_request_post.json` in your `resources/data/pokemon/` folder, witch will contain all information necessary to make request to your application. Easy Cucumber will load file contents and execute request.
     ```json
@@ -291,7 +291,7 @@ _Solution_:
 
 ![](https://camo.githubusercontent.com/9633dba433c6ece34bb33429e1afdeca3d48e307/687474703a2f2f692e696d6775722e636f6d2f31566b775359752e706e67)
 
-4. Alter **Glue** to `io.github.osvaldjr.stepdefinitions`
+4. Add **Glue** to `io.github.osvaldjr.stepdefinitions`
 
 ## Credits
 [![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/0)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/0)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/1)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/1)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/2)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/2)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/3)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/3)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/4)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/4)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/5)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/5)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/6)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/6)[![](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/images/7)](https://sourcerer.io/fame/osvaldjr/osvaldjr/quick-starter-cucumber-component-test/links/7)
