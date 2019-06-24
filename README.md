@@ -17,7 +17,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
   - [Full Application test yml options](https://github.com/osvaldjr/easy-cucumber#full-application-application-test-yml-options)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Run](https://github.com/osvaldjr/easy-cucumber#run)
-- [Hooks](https://github.com/osvaldjr/hooks)
+- [Hooks](https://github.com/osvaldjr/easy-cucumber#hooks)
 - [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
 - [Troubleshooting](https://github.com/osvaldjr/easy-cucumber#troubleshooting)
   - [Configure IntelliJ runner](https://github.com/osvaldjr/easy-cucumber#configure-intelliJ-runner)
