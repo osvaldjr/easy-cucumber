@@ -17,6 +17,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
   - [Full Application test yml options](https://github.com/osvaldjr/easy-cucumber#full-application-application-test-yml-options)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Run](https://github.com/osvaldjr/easy-cucumber#run)
+- [Hooks](https://github.com/osvaldjr/hooks)
 - [Available step definitions](https://github.com/osvaldjr/easy-cucumber#available-step-definitions)
 - [Troubleshooting](https://github.com/osvaldjr/easy-cucumber#troubleshooting)
   - [Configure IntelliJ runner](https://github.com/osvaldjr/easy-cucumber#configure-intelliJ-runner)
@@ -42,7 +43,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
     <dependency>
         <groupId>io.github.osvaldjr</groupId>
         <artifactId>easy-cucumber</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </dependency>
 </dependencies>    
 <dependencyManagement>
@@ -50,7 +51,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
        <dependency>
            <groupId>io.github.osvaldjr</groupId>
            <artifactId>easy-cucumber</artifactId>
-           <version>0.0.1</version>
+           <version>0.0.2</version>
            <type>pom</type>
            <scope>import</scope>
        </dependency>
@@ -113,6 +114,13 @@ If you are using FF4j and HTTP integration in your application, you need to put 
 ```bash
 mvn clean verify
 ```
+
+## Hooks
+| Name               | Description    | 
+| :----------------- | :------------- |
+| @CleanStubby | Remove all stubbys |
+| @EnableFeatures | Enable all toggles configured in application.yml |
+| @DisableFeatures | Disable all toggles configured in application.yml |
 
 ## Available step definitions
 `yourfile.feature`
@@ -247,7 +255,7 @@ Feature: Your feature name
 ## Troubleshooting
 
 #### Configure IntelliJ runner
-Error:
+_Error_:
 
 ```java
 objc[20650]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/bin/java (0x10663b4c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x1066bb4e0). One of the two will be used. Which one is undefined.
@@ -272,7 +280,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.transaction.Tra
 	... 12 more
 ```
 
-Solution:
+_Solution_:
 
 1. Launch IntelliJ.
 2. After opening IntelliJ, select **Run/Debug Configuration** and select **Edit Configurations...**
