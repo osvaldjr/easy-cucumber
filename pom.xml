@@ -30,8 +30,9 @@
         <mockito.version>2.27.0</mockito.version>
         <guava.version>20.0</guava.version>
         <commons.io.version>2.6</commons.io.version>
+        <cucumber.reporting.version>4.7.0</cucumber.reporting.version>
 
-        <sonar.exclusions>**/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*
+        <sonar.exclusions>**/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
         </sonar.exclusions>
     </properties>
 
@@ -166,6 +167,11 @@
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>${cucumber.reporting.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -229,6 +235,7 @@
                                         <exclude>**.*confs.**</exclude>
                                         <exclude>**.*stepdefinitions.**</exclude>
                                         <exclude>**.*ApplicationConfiguration</exclude>
+                                        <exclude>**.*EasyCucumberRunner</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
@@ -325,6 +332,7 @@
             <id>ossrh</id>
             <properties>
                 <gpg.executable>gpg</gpg.executable>
+                <!--suppress UnresolvedMavenProperty -->
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
                 <gpg.defaultKeyring>false</gpg.defaultKeyring>
                 <gpg.secretKeyring>travis/secret_key.gpg</gpg.secretKeyring>
