@@ -63,13 +63,13 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 ```java
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    plugin = {"pretty"},
+    plugin = {"pretty", "json:target/jsonReports/cucumber.json"},
     features = {"src/test/resources/features"},//Here is your features folder
     glue = {
       "io.github.osvaldjr.stepdefinitions"
     },
     strict = true)
-public class RunCucumberTest {}
+public class RunCucumberTest extends EasyCucumberRunner
 
 ```
 #### Basic Application Test yml
