@@ -34,9 +34,9 @@
         <zap.clientapi.version>1.7.0</zap.clientapi.version>
         <swagger.version>2.9.2</swagger.version>
 
-        <sonar.exclusions>
+        <sonar.coverage.exclusions>
             **/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
-        </sonar.exclusions>
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
