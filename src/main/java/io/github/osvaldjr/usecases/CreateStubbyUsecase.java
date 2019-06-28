@@ -1,5 +1,8 @@
 package io.github.osvaldjr.usecases;
 
+import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
+import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;
+
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
 
 @Component
 public class CreateStubbyUsecase {
@@ -26,16 +27,16 @@ public class CreateStubbyUsecase {
     String mockRequestFile = "mocks/" + mockName + "-request";
     String mockResponseFile = "mocks/" + mockName + "-response";
 
-    StubbyRequestBody stubbyRequestBody =
-        fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequestBody.class);
-    StubbyResponseBody stubbyResponseBody =
-        fileGateway.getObjectFromFile(scenario, mockResponseFile, StubbyResponseBody.class);
+    RequestBody stubbyRequestBody =
+        fileGateway.getObjectFromFile(scenario, mockRequestFile, RequestBody.class);
+    ResponseBody stubbyResponseBody =
+        fileGateway.getObjectFromFile(scenario, mockResponseFile, ResponseBody.class);
 
     stubbyRequestBody.setUrl(getUrl(serviceName, stubbyRequestBody));
     return stubbyGateway.createStubbyRequest(stubbyRequestBody, stubbyResponseBody);
   }
 
-  private String getUrl(String serviceName, StubbyRequestBody stubbyRequestBody) {
+  private String getUrl(String serviceName, RequestBody stubbyRequestBody) {
     return serviceName + stubbyRequestBody.getUrl();
   }
 }

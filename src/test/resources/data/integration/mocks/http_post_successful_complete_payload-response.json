@@ -1,0 +1,11 @@
+{
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 200,
+  "body": {
+    "name": "Linux",
+    "developer": true,
+    "year": 2000
+  }
+}

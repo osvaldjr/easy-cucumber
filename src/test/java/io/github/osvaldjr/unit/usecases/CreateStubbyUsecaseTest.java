@@ -17,10 +17,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import io.github.glytching.junit.extension.random.Random;
+import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.CreateStubbyUsecase;
 
@@ -29,24 +28,25 @@ class CreateStubbyUsecaseTest extends UnitTest {
   @Mock private FileGateway fileGateway;
   @Mock private StubbyGateway stubbyGateway;
   @InjectMocks private CreateStubbyUsecase createStubbyUsecase;
-  @Captor private ArgumentCaptor<StubbyRequestBody> stubbyRequestBodyArgumentCaptor;
-  @Captor private ArgumentCaptor<StubbyResponseBody> stubbyResponseBodyArgumentCaptor;
+  @Captor private ArgumentCaptor<StubbyRequest.RequestBody> stubbyRequestBodyArgumentCaptor;
+  @Captor private ArgumentCaptor<StubbyRequest.ResponseBody> stubbyResponseBodyArgumentCaptor;
 
   @Test
   void shouldExecute(
       @Random String scenario,
       @Random String serviceName,
       @Random String mockName,
-      @Random StubbyRequestBody stubbyRequestBody,
-      @Random StubbyResponseBody stubbyResponseBody,
+      @Random StubbyRequest.RequestBody stubbyRequestBody,
+      @Random StubbyRequest.ResponseBody stubbyResponseBody,
       @Random Integer id)
       throws IOException {
     String mockRequestFile = "mocks/" + mockName + "-request";
     String mockResponseFile = "mocks/" + mockName + "-response";
     String url = stubbyRequestBody.getUrl();
-    when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequestBody.class))
+    when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
         .thenReturn(stubbyRequestBody);
-    when(fileGateway.getObjectFromFile(scenario, mockResponseFile, StubbyResponseBody.class))
+    when(fileGateway.getObjectFromFile(
+            scenario, mockResponseFile, StubbyRequest.ResponseBody.class))
         .thenReturn(stubbyResponseBody);
     when(stubbyGateway.createStubbyRequest(
             stubbyRequestBodyArgumentCaptor.capture(), stubbyResponseBodyArgumentCaptor.capture()))
@@ -55,16 +55,17 @@ class CreateStubbyUsecaseTest extends UnitTest {
     Integer stubbyId = createStubbyUsecase.execute(scenario, serviceName, mockName);
 
     assertThat(stubbyId, equalTo(id));
-    StubbyRequestBody requestBody = stubbyRequestBodyArgumentCaptor.getValue();
+    StubbyRequest.RequestBody requestBody = stubbyRequestBodyArgumentCaptor.getValue();
     assertThat(requestBody.getUrl(), equalTo(serviceName + url));
     assertThat(requestBody.getHeaders(), equalTo(stubbyRequestBody.getHeaders()));
     assertThat(requestBody.getMethod(), equalTo(stubbyRequestBody.getMethod()));
     assertThat(requestBody.getQueryParams(), equalTo(stubbyRequestBody.getQueryParams()));
     assertThat(requestBody.getBody(), equalTo(stubbyRequestBody.getBody()));
-    StubbyResponseBody responseBody = stubbyResponseBodyArgumentCaptor.getValue();
+    StubbyRequest.ResponseBody responseBody = stubbyResponseBodyArgumentCaptor.getValue();
     assertThat(responseBody, equalTo(stubbyResponseBody));
     verify(fileGateway, times(2)).getObjectFromFile(anyString(), anyString(), any());
     verify(stubbyGateway, times(1))
-        .createStubbyRequest(any(StubbyRequestBody.class), any(StubbyResponseBody.class));
+        .createStubbyRequest(
+            any(StubbyRequest.RequestBody.class), any(StubbyRequest.ResponseBody.class));
   }
 }

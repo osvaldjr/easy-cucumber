@@ -48,7 +48,9 @@ Feature: Integration
     Then I expect to receive a 500 status with body http_get_body_error_response
 
   Scenario: Validate external target host configuration
-    Given A have a mock http_get_successful for dependency integration
+    Given A have a mock http_post_successful_complete_payload for dependency integration
     And my application host is http://localhost:9003
     Then I make a GET to /
-    And I expect to receive a 200 status
+    Then I expect to receive a 200 status with body http_get_body_complete_response
+    Then response contains property [0].request.json.name with value Linux
+    Then response does not contain property [1]updatedDate

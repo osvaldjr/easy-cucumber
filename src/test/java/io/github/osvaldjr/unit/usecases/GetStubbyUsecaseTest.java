@@ -12,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import io.github.glytching.junit.extension.random.Random;
+import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponse;
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.GetStubbyUsecase;
 

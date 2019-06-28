@@ -1,6 +1,7 @@
 package io.github.osvaldjr.stepdefinitions.steps;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
@@ -9,19 +10,24 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
+import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.domains.exceptions.FeignException;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponse;
 import io.github.osvaldjr.usecases.CreateStubbyUsecase;
 import io.github.osvaldjr.usecases.GetStubbyUsecase;
 import io.github.osvaldjr.usecases.RequestTargetUseCase;
@@ -141,12 +147,31 @@ public class DefaultSteps {
       responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
     }
     assertThat(httpStatusReceived, equalTo(httpStatusExpected));
-    JSONAssert.assertEquals(responseExpected, responseReceived, true);
+    JSONAssert.assertEquals(responseExpected, responseReceived, false);
   }
 
   @Given("my application host is ([^\"]*)")
   public void myApplicationHostIs(String host) {
     request.setHost(host);
+  }
+
+  @Then("response contains property ([^\"]*) with value ([^\"]*)")
+  public void responseContainsPropertyWithValue(String jsonPath, String value) {
+    DocumentContext documentContext = JsonPath.parse(response.getBody());
+    String jsonPathValue = documentContext.read(jsonPath).toString();
+    assertEquals(jsonPathValue, value);
+  }
+
+  @Then("response does not contain property ([^\"]*)")
+  public void responseDoesNotContainProperty(String jsonPath) {
+    boolean pathNotFound = false;
+    DocumentContext documentContext = JsonPath.parse(response.getBody());
+    try {
+      documentContext.read(jsonPath);
+    } catch (PathNotFoundException e) {
+      pathNotFound = true;
+    }
+    Assert.assertTrue(pathNotFound);
   }
 
   private String getStubbyKey(String scenario, String serviceName, String mockName) {

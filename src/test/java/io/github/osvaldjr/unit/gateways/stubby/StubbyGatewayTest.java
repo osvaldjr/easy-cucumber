@@ -20,34 +20,43 @@ import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
 import io.github.glytching.junit.extension.random.Random;
+import io.github.osvaldjr.domains.StubbyRequest;
+import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.feign.StubbyClient;
+import io.github.osvaldjr.gateways.feign.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.feign.assemblers.StubbyResponseAssembler;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequest;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponse;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
+import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
 import io.github.osvaldjr.unit.UnitTest;
 
 public class StubbyGatewayTest extends UnitTest {
 
   @Mock StubbyClient stubbyClient;
+  @Mock StubbyResponseAssembler stubbyResponseAssembler;
+  @Mock StubbyRequestAssembler stubbyRequestAssembler;
   @InjectMocks StubbyGateway stubbyGateway;
   @Captor private ArgumentCaptor<Integer> integerArgumentCaptor;
-  @Captor private ArgumentCaptor<StubbyRequest> stubbyRequestArgumentCaptor;
+  @Captor private ArgumentCaptor<StubbyJsonRequest> stubbyRequestArgumentCaptor;
 
   @Test
-  void shouldGetStubbyResponse(@Random Integer id, @Random StubbyResponse stubbyResponseMock) {
-    when(stubbyClient.getService(id)).thenReturn(stubbyResponseMock);
+  void shouldGetStubbyResponse(
+      @Random Integer id,
+      @Random StubbyJsonResponse stubbyJsonResponseMock,
+      @Random StubbyResponse stubbyResponseMock) {
+    when(stubbyClient.getService(id)).thenReturn(stubbyJsonResponseMock);
+    when(stubbyResponseAssembler.assemble(stubbyJsonResponseMock)).thenReturn(stubbyResponseMock);
 
-    StubbyResponse stubbyResponse = stubbyGateway.getStubbyResponse(id);
+    StubbyResponse stubbyResponseReturned = stubbyGateway.getStubbyResponse(id);
 
-    assertThat(stubbyResponse, equalTo(stubbyResponseMock));
+    assertThat(stubbyResponseReturned, equalTo(stubbyResponseMock));
     verify(stubbyClient, times(1)).getService(id);
+    verify(stubbyResponseAssembler, times(1)).assemble(stubbyJsonResponseMock);
   }
 
   @Test
-  void shouldDeleteAllServices(@Random StubbyResponse stubbyResponseMock) {
-    List<StubbyResponse> allServices = Arrays.asList(stubbyResponseMock);
+  void shouldDeleteAllServices(@Random StubbyJsonResponse stubbyResponseMock) {
+    List<StubbyJsonResponse> allServices = Arrays.asList(stubbyResponseMock);
     when(stubbyClient.getAllServices()).thenReturn(allServices);
 
     stubbyGateway.deleteAllServices();
@@ -58,7 +67,7 @@ public class StubbyGatewayTest extends UnitTest {
   }
 
   @Test
-  void shouldDeleteAllServicesWithEmptyService(@Random StubbyResponse stubbyResponseMock) {
+  void shouldDeleteAllServicesWithEmptyService(@Random StubbyJsonResponse stubbyResponseMock) {
     when(stubbyClient.getAllServices()).thenReturn(null);
 
     stubbyGateway.deleteAllServices();
@@ -69,33 +78,50 @@ public class StubbyGatewayTest extends UnitTest {
 
   @Test
   void shouldCreateStubbyRequest(
-      @Random StubbyRequestBody request, @Random StubbyResponseBody response) {
+      @Random StubbyRequest.RequestBody request,
+      @Random StubbyRequest.ResponseBody response,
+      @Random StubbyJsonRequest stubbyJsonRequestMock) {
 
-    ResponseEntity<StubbyResponse> responseEntity =
+    ResponseEntity<StubbyJsonResponse> responseEntity =
         ResponseEntity.ok().header("location", "localhost:8080/1").build();
     when(stubbyClient.create(stubbyRequestArgumentCaptor.capture())).thenReturn(responseEntity);
+    when(stubbyRequestAssembler.assemble(request, response)).thenReturn(stubbyJsonRequestMock);
 
     Integer stubbyId = stubbyGateway.createStubbyRequest(request, response);
 
-    verify(stubbyClient, times(1)).create(any(StubbyRequest.class));
-    assertThat(stubbyRequestArgumentCaptor.getValue().getRequest(), equalTo(request));
-    assertThat(stubbyRequestArgumentCaptor.getValue().getResponse(), equalTo(response));
+    verify(stubbyClient, times(1)).create(any(StubbyJsonRequest.class));
+    verify(stubbyRequestAssembler, times(1))
+        .assemble(any(StubbyRequest.RequestBody.class), any(StubbyRequest.ResponseBody.class));
+
+    assertThat(
+        stubbyRequestArgumentCaptor.getValue().getRequest(),
+        equalTo(stubbyJsonRequestMock.getRequest()));
+    assertThat(
+        stubbyRequestArgumentCaptor.getValue().getResponse(),
+        equalTo(stubbyJsonRequestMock.getResponse()));
     assertThat(stubbyId, equalTo(1));
   }
 
   @Test
   void shouldCreateStubbyRequestWithInvalidLocation(
-      @Random StubbyRequestBody request, @Random StubbyResponseBody response) {
+      @Random StubbyRequest.RequestBody request,
+      @Random StubbyRequest.ResponseBody response,
+      @Random StubbyJsonRequest stubbyJsonRequestMock) {
 
-    ResponseEntity<StubbyResponse> responseEntity =
+    ResponseEntity<StubbyJsonResponse> responseEntity =
         ResponseEntity.ok().header("location", "").build();
     when(stubbyClient.create(stubbyRequestArgumentCaptor.capture())).thenReturn(responseEntity);
+    when(stubbyRequestAssembler.assemble(request, response)).thenReturn(stubbyJsonRequestMock);
 
     Integer stubbyId = stubbyGateway.createStubbyRequest(request, response);
 
-    verify(stubbyClient, times(1)).create(any(StubbyRequest.class));
-    assertThat(stubbyRequestArgumentCaptor.getValue().getRequest(), equalTo(request));
-    assertThat(stubbyRequestArgumentCaptor.getValue().getResponse(), equalTo(response));
+    verify(stubbyClient, times(1)).create(any(StubbyJsonRequest.class));
+    assertThat(
+        stubbyRequestArgumentCaptor.getValue().getRequest(),
+        equalTo(stubbyJsonRequestMock.getRequest()));
+    assertThat(
+        stubbyRequestArgumentCaptor.getValue().getResponse(),
+        equalTo(stubbyJsonRequestMock.getResponse()));
     assertThat(stubbyId, nullValue());
   }
 }

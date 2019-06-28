@@ -1,5 +1,8 @@
 package io.github.osvaldjr.gateways.stubby;
 
+import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
+import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,37 +12,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.feign.StubbyClient;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequest;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponse;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
+import io.github.osvaldjr.gateways.feign.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.feign.assemblers.StubbyResponseAssembler;
+import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
 
 @Component
 public class StubbyGateway {
 
   private StubbyClient stubbyClient;
+  private StubbyRequestAssembler stubbyRequestAssembler;
+  private StubbyResponseAssembler stubbyResponseAssembler;
 
   @Autowired
-  public StubbyGateway(StubbyClient stubbyClient) {
+  public StubbyGateway(
+      StubbyClient stubbyClient,
+      StubbyRequestAssembler stubbyRequestAssembler,
+      StubbyResponseAssembler stubbyResponseAssembler) {
     this.stubbyClient = stubbyClient;
+    this.stubbyRequestAssembler = stubbyRequestAssembler;
+    this.stubbyResponseAssembler = stubbyResponseAssembler;
   }
 
-  public Integer createStubbyRequest(StubbyRequestBody request, StubbyResponseBody response) {
-    StubbyRequest stubbyRequest =
-        StubbyRequest.builder().request(request).response(response).build();
-    return getStubbyId(stubbyClient.create(stubbyRequest));
+  public Integer createStubbyRequest(RequestBody request, ResponseBody response) {
+    StubbyJsonRequest stubbyJsonRequest = stubbyRequestAssembler.assemble(request, response);
+    return getStubbyId(stubbyClient.create(stubbyJsonRequest));
   }
 
   public void deleteAllServices() {
-    List<StubbyResponse> allServices = stubbyClient.getAllServices();
+    List<StubbyJsonResponse> allServices = stubbyClient.getAllServices();
     if (CollectionUtils.isNotEmpty(allServices)) {
       allServices.forEach(service -> stubbyClient.delete(service.getId()));
     }
   }
 
   public StubbyResponse getStubbyResponse(Integer id) {
-    return stubbyClient.getService(id);
+    return stubbyResponseAssembler.assemble(stubbyClient.getService(id));
   }
 
   private static Integer getStubbyId(ResponseEntity response) {
