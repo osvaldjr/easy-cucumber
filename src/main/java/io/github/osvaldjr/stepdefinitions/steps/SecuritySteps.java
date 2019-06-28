@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -270,11 +272,14 @@ public class SecuritySteps {
   }
 
   private String getTargetUrl() {
-    String externalUrl =
-        applicationProperties.getDependencies().getOwasp().getExternalTarget().getUrl();
     String url = applicationProperties.getTarget().getUrl();
-    if (StringUtils.isNotEmpty(externalUrl)) {
-      url = externalUrl;
+    if (applicationProperties.getDependencies().getOwasp().isExternalTarget()) {
+      try {
+        url = url.replace("localhost", InetAddress.getLocalHost().getHostAddress());
+      } catch (UnknownHostException e) {
+        log.error("Cannot get local ip", e);
+        fail(e.getMessage());
+      }
     }
     return url;
   }

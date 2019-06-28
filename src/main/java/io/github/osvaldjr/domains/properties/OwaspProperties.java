@@ -14,6 +14,6 @@ public class OwaspProperties {
 
   private String server = "localhost";
   private Integer port = 8090;
-  private ExternalTargetProperties externalTarget = new ExternalTargetProperties();
+  private boolean externalTarget = false;
   private String overwriteDataFolder = "";
 }

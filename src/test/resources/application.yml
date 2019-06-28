@@ -6,7 +6,7 @@ dependencies:
   integration.url: http://localhost:9001/integration
   stubby.url: http://localhost:9003
   owasp:
-    externalTarget.url: http://host.docker.internal:9000
+    externalTarget: true
     overwriteDataFolder: /tmp/
   ff4j:
     test: true
