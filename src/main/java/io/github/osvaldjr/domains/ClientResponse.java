@@ -1,5 +1,6 @@
 package io.github.osvaldjr.domains;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -15,8 +16,9 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
-public class ClientResponse {
+public class ClientResponse implements Serializable {
 
+  private static final long serialVersionUID = -5160573693103964205L;
   private int status;
   private String reason;
   private Map<String, Collection<String>> headers;

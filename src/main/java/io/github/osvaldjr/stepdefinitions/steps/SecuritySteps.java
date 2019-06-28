@@ -62,12 +62,7 @@ public class SecuritySteps {
     ApiResponseList hosts = (ApiResponseList) zapProxyApi.core.hosts();
 
     assertTrue(
-        hosts
-            .getItems()
-            .stream()
-            .filter(host -> getTargetUrl().contains(host.toString()))
-            .findFirst()
-            .isPresent());
+        hosts.getItems().stream().anyMatch(host -> getTargetUrl().contains(host.toString())));
   }
 
   @Given("^exclude urls from scan$")
@@ -83,7 +78,7 @@ public class SecuritySteps {
   }
 
   @Given("^generate the session proxy$")
-  public void generateTheSessionProxy() throws Throwable {
+  public void generateTheSessionProxy() throws ClientApiException {
     String sessionFolder = getDataFolder("security-session");
     log.info("Generate session in folder " + sessionFolder);
     deleteAndCreateFolder(sessionFolder);
@@ -102,11 +97,13 @@ public class SecuritySteps {
     new File(reportFolder).mkdirs();
 
     File htmlReport = new File(reportFolder, getReportName(scannerType));
-    htmlReport.createNewFile();
+    if (!htmlReport.createNewFile()) {
+      log.warn("Occurred error in generate security test HTML report");
+    }
 
-    OutputStream htmlFile = new FileOutputStream(htmlReport.getAbsoluteFile());
-    htmlFile.write(report);
-    htmlFile.close();
+    try (OutputStream htmlFile = new FileOutputStream(htmlReport.getAbsoluteFile())) {
+      htmlFile.write(report);
+    }
   }
 
   @Given("^remove all alerts$")
@@ -175,7 +172,7 @@ public class SecuritySteps {
 
     while (ascanStatus()) {
       log.info("Running active scan");
-      Thread.sleep(10 * 1000);
+      Thread.sleep(10000);
     }
     log.info("Finish active scan");
   }

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class FeignException extends RuntimeException {
 
-  private ClientResponse response;
+  private final ClientResponse response;
 
   public FeignException(ClientResponse response) {
     this.response = response;
