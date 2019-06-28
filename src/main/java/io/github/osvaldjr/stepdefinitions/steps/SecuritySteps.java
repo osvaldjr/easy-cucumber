@@ -272,14 +272,16 @@ public class SecuritySteps {
   }
 
   private String getTargetUrl() {
-    String url = applicationProperties.getTarget().getUrl();
-    if (applicationProperties.getDependencies().getOwasp().isExternalTarget()) {
-      try {
-        url = url.replace("localhost", InetAddress.getLocalHost().getHostAddress());
-      } catch (UnknownHostException e) {
-        log.error("Cannot get local ip", e);
-        fail(e.getMessage());
-      }
+    String url = null;
+    try {
+      url =
+          applicationProperties
+              .getTarget()
+              .getUrl()
+              .replace("localhost", InetAddress.getLocalHost().getHostAddress());
+    } catch (UnknownHostException e) {
+      log.error("Cannot get local ip", e);
+      fail(e.getMessage());
     }
     return url;
   }
