@@ -32,4 +32,4 @@ Feature: Security
     And generate ACTIVE security test HTML report
     And the number of risks per category should not be greater than
       | low | medium | high | informational |
-      | 0   | 0      | 0    | 0             |
+      | 1   | 0      | 0    | 0             |
