@@ -4,7 +4,7 @@ addons:
     organization: "lvcarnevalli-github"
 
 install: true
-script: mvn clean verify -B -V -Dtarget.url="http://$(ip -4 addr show scope global | grep inet | awk '{print $2}' | cut -d / -f 1):9000"
+script: mvn clean verify -B -V -Dtarget.url="http://$(ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1):9000"
 after_success: mvn sonar:sonar -B
 
 deploy:
