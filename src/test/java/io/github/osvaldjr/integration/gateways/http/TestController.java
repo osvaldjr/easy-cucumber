@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.ff4j.FF4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.osvaldjr.integration.gateways.feign.IntegrationClient;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping("/test")
+@Api(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TestController {
 
   private final FF4j ff4j;
@@ -30,20 +35,26 @@ public class TestController {
     this.client = client;
   }
 
+  @ApiOperation(value = "get")
   @GetMapping
-  public ResponseEntity<Object> get(@RequestHeader Map<String, String> headers) {
+  public ResponseEntity<Object> get(
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     return client.get(headers);
   }
 
+  @ApiOperation(value = "put")
   @PutMapping
   public ResponseEntity<Object> put(
-      @RequestBody Object body, @RequestHeader Map<String, String> headers) {
+      @ApiParam(value = "body") @RequestBody Object body,
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     return client.put(body, headers);
   }
 
+  @ApiOperation(value = "delete")
   @DeleteMapping
   public ResponseEntity<Object> delete(
-      @RequestBody Object body, @RequestHeader Map<String, String> headers) {
+      @ApiParam(value = "body") @RequestBody Object body,
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     ResponseEntity responseEntity = ResponseEntity.badRequest().build();
     if (ff4j.check("delete-integration")) {
       responseEntity = client.delete(body, headers);
@@ -51,9 +62,11 @@ public class TestController {
     return responseEntity;
   }
 
+  @ApiOperation(value = "post")
   @PostMapping
   public ResponseEntity<Object> post(
-      @RequestBody Object body, @RequestHeader Map<String, String> headers) {
+      @ApiParam(value = "body") @RequestBody Object body,
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     return client.post(body, headers);
   }
 }

@@ -31,8 +31,11 @@
         <guava.version>20.0</guava.version>
         <commons.io.version>2.6</commons.io.version>
         <cucumber.reporting.version>4.7.0</cucumber.reporting.version>
+        <zap.clientapi.version>1.7.0</zap.clientapi.version>
+        <swagger.version>2.9.2</swagger.version>
 
-        <sonar.exclusions>**/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
+        <sonar.exclusions>
+            **/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
         </sonar.exclusions>
     </properties>
 
@@ -171,6 +174,16 @@
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
             <version>${cucumber.reporting.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zaproxy</groupId>
+            <artifactId>zap-clientapi</artifactId>
+            <version>${zap.clientapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
     </dependencies>
 

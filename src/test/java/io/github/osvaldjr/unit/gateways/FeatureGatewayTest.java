@@ -18,7 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import io.github.glytching.junit.extension.random.Random;
-import io.github.osvaldjr.domains.FeaturesProperties;
+import io.github.osvaldjr.domains.properties.FeaturesProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 import io.github.osvaldjr.unit.UnitTest;
 

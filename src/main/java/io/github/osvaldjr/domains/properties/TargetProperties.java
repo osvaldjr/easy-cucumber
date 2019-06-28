@@ -1,7 +1,4 @@
-package io.github.osvaldjr.domains;
-
-import java.util.HashMap;
-import java.util.Map;
+package io.github.osvaldjr.domains.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -13,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class FeaturesProperties {
+public class TargetProperties {
 
-  private Map<String, String> features = new HashMap<>();
+  private String url;
 }

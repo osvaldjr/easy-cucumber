@@ -4,7 +4,7 @@ import org.ff4j.FF4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.github.osvaldjr.domains.FeaturesProperties;
+import io.github.osvaldjr.domains.properties.FeaturesProperties;
 
 @Component
 public class FeatureGateway {
