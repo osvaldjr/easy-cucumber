@@ -50,7 +50,9 @@ public class SecuritySteps {
 
   @Given("^import context from open API specification \"([^\"]*)\"$")
   public void importContextFromOpenAPISpecification(String path) throws ClientApiException {
-    zapProxyApi.openapi.importUrl(getTargetUrl() + path, null);
+    String url = getTargetUrl() + path;
+    log.info("Import Open API from url: " + url);
+    zapProxyApi.openapi.importUrl(url, null);
   }
 
   @Given("^verify that the proxy has captured host information$")
