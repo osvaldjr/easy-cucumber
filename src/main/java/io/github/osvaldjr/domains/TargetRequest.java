@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TargetRequest<T> {
+  private String host;
   private String method;
   private String url;
   private T body;

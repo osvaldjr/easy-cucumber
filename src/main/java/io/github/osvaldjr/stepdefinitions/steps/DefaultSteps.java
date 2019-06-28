@@ -144,6 +144,11 @@ public class DefaultSteps {
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
 
+  @Given("my application host is ([^\"]*)")
+  public void myApplicationHostIs(String host) {
+    request.setHost(host);
+  }
+
   private String getStubbyKey(String scenario, String serviceName, String mockName) {
     return scenario + serviceName + mockName;
   }

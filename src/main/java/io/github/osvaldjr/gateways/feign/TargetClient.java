@@ -10,23 +10,23 @@ import feign.HeaderMap;
 import feign.Param;
 import feign.RequestLine;
 
-@FeignClient(value = "target-client", url = "${target.url}")
+@FeignClient(value = "target-client")
 public interface TargetClient {
 
-  @RequestLine("GET /{url}")
-  ResponseEntity<Object> get(@Param("url") String uri, @HeaderMap Map<String, String> headers);
+  @RequestLine("GET {url}")
+  ResponseEntity<Object> get(@Param("url") String url, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("POST /{url}")
+  @RequestLine("POST {url}")
   @Body("{request}")
   <R> ResponseEntity<Object> post(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("DELETE /{url}")
+  @RequestLine("DELETE {url}")
   @Body("{request}")
   <R> ResponseEntity<Object> delete(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
-  @RequestLine("PUT/{url}")
+  @RequestLine("PUT {url}")
   @Body("{request}")
   <R> ResponseEntity<Object> put(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);

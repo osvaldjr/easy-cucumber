@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.server.MethodNotAllowedException;
 
 import io.github.glytching.junit.extension.random.Random;
@@ -38,13 +39,14 @@ class RequestTargetUseCaseTest extends UnitTest {
   void shouldExecuteGet(
       @Random TargetRequest targetRequest, @Random ResponseEntity responseEntity) {
     targetRequest.setMethod(GET.name());
-    when(targetGateway.get(targetRequest.getUrl(), targetRequest.getHeaders()))
+    when(targetGateway.get(
+            targetRequest.getHost(), targetRequest.getUrl(), targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).get(anyString(), anyMap());
+    verify(targetGateway, times(1)).get(anyString(), anyString(), anyMap());
   }
 
   @Test
@@ -54,13 +56,14 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(POST.name());
     targetRequest.setBody(body);
-    when(targetGateway.post(targetRequest.getUrl(), body, targetRequest.getHeaders()))
+    when(targetGateway.post(
+            targetRequest.getHost(), targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).post(any(), any(), any());
+    verify(targetGateway, times(1)).post(any(), any(), any(), any());
   }
 
   @Test
@@ -70,13 +73,14 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(PUT.name());
     targetRequest.setBody(body);
-    when(targetGateway.put(targetRequest.getUrl(), body, targetRequest.getHeaders()))
+    when(targetGateway.put(
+            targetRequest.getHost(), targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).put(any(), any(), any());
+    verify(targetGateway, times(1)).put(any(), any(), any(), any());
   }
 
   @Test
@@ -86,13 +90,16 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random Object body) {
     targetRequest.setMethod(DELETE.name());
     targetRequest.setBody(body);
-    when(targetGateway.delete(targetRequest.getUrl(), body, targetRequest.getHeaders()))
+    targetRequest.setHost(null);
+    ReflectionTestUtils.setField(requestTargetUseCase, "targetHost", "http://localhost:9001");
+    when(targetGateway.delete(
+            "http://localhost:9001", targetRequest.getUrl(), body, targetRequest.getHeaders()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).delete(any(), any(), any());
+    verify(targetGateway, times(1)).delete(any(), any(), any(), any());
   }
 
   @Test
@@ -105,6 +112,6 @@ class RequestTargetUseCaseTest extends UnitTest {
 
     assertThat(throwable.getHttpMethod(), equalTo(HEAD.name()));
     assertThat(throwable.getSupportedMethods(), containsInAnyOrder(GET, POST, PUT, DELETE));
-    verify(targetGateway, never()).delete(any(), any(), any());
+    verify(targetGateway, never()).delete(any(), any(), any(), any());
   }
 }

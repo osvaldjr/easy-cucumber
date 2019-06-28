@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,9 @@ public class RequestTargetUseCase {
 
   private final TargetGateway targetGateway;
 
+  @Value("${target.url:}")
+  private String targetHost;
+
   @Autowired
   public RequestTargetUseCase(TargetGateway targetGateway) {
     this.targetGateway = targetGateway;
@@ -33,18 +37,24 @@ public class RequestTargetUseCase {
     ResponseEntity response;
     Map<String, String> headersMap = getHeaders(request.getHeaders());
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
+    String host = ofNullable(request.getHost()).orElse(targetHost);
+    request.setHost(host);
     switch (httpMethod) {
       case GET:
-        response = targetGateway.get(request.getUrl(), headersMap);
+        response = targetGateway.get(request.getHost(), request.getUrl(), headersMap);
         break;
       case POST:
-        response = targetGateway.post(request.getUrl(), request.getBody(), headersMap);
+        response =
+            targetGateway.post(request.getHost(), request.getUrl(), request.getBody(), headersMap);
         break;
       case PUT:
-        response = targetGateway.put(request.getUrl(), request.getBody(), headersMap);
+        response =
+            targetGateway.put(request.getHost(), request.getUrl(), request.getBody(), headersMap);
         break;
       case DELETE:
-        response = targetGateway.delete(request.getUrl(), request.getBody(), headersMap);
+        response =
+            targetGateway.delete(
+                request.getHost(), request.getUrl(), request.getBody(), headersMap);
         break;
       default:
         throw new MethodNotAllowedException(
