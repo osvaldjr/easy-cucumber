@@ -16,7 +16,6 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
   - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
   - [Application yml](https://github.com/osvaldjr/easy-cucumber#application-test)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
-- [Run](https://github.com/osvaldjr/easy-cucumber#run)
 - [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
 
 ## Features
