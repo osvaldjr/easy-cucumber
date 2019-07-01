@@ -12,10 +12,10 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 - [Features](https://github.com/osvaldjr/easy-cucumber#features)
 - [Requirements](https://github.com/osvaldjr/easy-cucumber#requirements)
 - [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
-  - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
-  - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
-  - [Application yml](https://github.com/osvaldjr/easy-cucumber#application-test)
-  - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
+  - [Maven Dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
+  - [Junit Runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
+  - [Application Test](https://github.com/osvaldjr/easy-cucumber#application-test)
+  - [Feature File](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
 
 ## Features
