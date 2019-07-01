@@ -14,27 +14,28 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 - [Setup](https://github.com/osvaldjr/easy-cucumber#setup)
   - [Maven dependency](https://github.com/osvaldjr/easy-cucumber#maven-dependency)
   - [Junit runner](https://github.com/osvaldjr/easy-cucumber#junit-runner)
-  - [Application yml](https://github.com/osvaldjr/easy-cucumber#basic-application-test-yml)
+  - [Application yml](https://github.com/osvaldjr/easy-cucumber#application-test)
   - [Feature file](https://github.com/osvaldjr/easy-cucumber#feature-file)
 - [Run](https://github.com/osvaldjr/easy-cucumber#run)
 - [Credits](https://github.com/osvaldjr/easy-cucumber#credits)
 
 ## Features
-* Make GET, POST, PUT and DELETE requests to your API
-* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax
-* Assert HTTP Status
-* Assert successfully and failed response body
-* Change FF4j features through defined step
-* Execute security tests with OWASP ZAP
+* Make GET, POST, PUT and DELETE requests to your API;
+* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax;
+* Assert HTTP Status;
+* Assert successfully and failed response body;
+* Change FF4j features through defined step;
+* Execute security tests with OWASP ZAP;
 
 ## Requirements
 - [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven](https://maven.apache.org/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Stubby4node](https://github.com/mrak/stubby4node) _* If use mocks_
+- [FF4J](https://github.com/ff4j/ff4j) _* If use features toggles_
+- [OWASP ZAP](https://github.com/zaproxy/zaproxy) _* If use security test_
 
 ## Setup
-#### Maven dependency
+#### Maven Dependency
 ```xml
 <dependencies>
     <dependency>
@@ -55,8 +56,8 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
    </dependencies>
 </dependencyManagement>
 ```
-#### Junit runner
-Create an empty class that uses the Cucumber JUnit runner, configure step definitions and features path.
+#### Junit Runner
+Create an empty class that uses the Cucumber JUnit runner, configure step definitions and features path:
 ```java
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -69,20 +70,22 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
 public class RunCucumberTest extends EasyCucumberRunner
 
 ```
-#### Basic Application Test yml
-In your application test configuration, inform the application you endpoint will be testing
+#### Application Test
+In your application test yml configuration, inform the application you endpoint will be testing:
 ```yaml
 target.url: http://localhost:8080
 ```
 For additional configuration, view Wiki.
 
-#### Feature file
+#### Feature File
+In your file.feature, add gherkin:
 ```gherkin
 Given I make a GET to /
 Then I expect to receive a 200 status
 ```
+
 ## Run
-If you are using FF4j and HTTP integration in your application, you need to put those services up and running before running this command
+If you are using FF4j and HTTP integration in your application, you need to put those services up and running before running this command:
 ```bash
 mvn clean verify
 ```
