@@ -2,6 +2,7 @@ package io.github.osvaldjr.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -67,5 +68,57 @@ class CreateStubbyUsecaseTest extends UnitTest {
     verify(stubbyGateway, times(1))
         .createStubbyRequest(
             any(StubbyRequest.RequestBody.class), any(StubbyRequest.ResponseBody.class));
+  }
+
+  @Test
+  void shouldInvalidUrlRequest(
+      @Random String scenario,
+      @Random String serviceName,
+      @Random String mockName,
+      @Random StubbyRequest.RequestBody stubbyRequestBody,
+      @Random StubbyRequest.ResponseBody stubbyResponseBody)
+      throws IOException {
+    stubbyRequestBody.setUrl(null);
+
+    String mockRequestFile = "mocks/" + mockName + "-request";
+    String mockResponseFile = "mocks/" + mockName + "-response";
+    when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
+        .thenReturn(stubbyRequestBody);
+    when(fileGateway.getObjectFromFile(
+            scenario, mockResponseFile, StubbyRequest.ResponseBody.class))
+        .thenReturn(stubbyResponseBody);
+
+    AssertionError throwable =
+        assertThrows(
+            AssertionError.class,
+            () -> createStubbyUsecase.execute(scenario, serviceName, mockName));
+
+    assertThat(throwable.getMessage(), equalTo("url cannot be null in create mock"));
+  }
+
+  @Test
+  void shouldInvalidMethodRequest(
+      @Random String scenario,
+      @Random String serviceName,
+      @Random String mockName,
+      @Random StubbyRequest.RequestBody stubbyRequestBody,
+      @Random StubbyRequest.ResponseBody stubbyResponseBody)
+      throws IOException {
+    stubbyRequestBody.setMethod(null);
+
+    String mockRequestFile = "mocks/" + mockName + "-request";
+    String mockResponseFile = "mocks/" + mockName + "-response";
+    when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
+        .thenReturn(stubbyRequestBody);
+    when(fileGateway.getObjectFromFile(
+            scenario, mockResponseFile, StubbyRequest.ResponseBody.class))
+        .thenReturn(stubbyResponseBody);
+
+    AssertionError throwable =
+        assertThrows(
+            AssertionError.class,
+            () -> createStubbyUsecase.execute(scenario, serviceName, mockName));
+
+    assertThat(throwable.getMessage(), equalTo("method cannot be null in create mock"));
   }
 }

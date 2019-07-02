@@ -1,6 +1,7 @@
 package io.github.osvaldjr.usecases;
 
 import static java.util.Optional.ofNullable;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -34,11 +35,16 @@ public class RequestTargetUseCase {
   }
 
   public ResponseEntity execute(TargetRequest request) {
+    request.setHost(ofNullable(request.getHost()).orElse(targetHost));
+
+    assertNotNull("url cannot be null in make request", request.getUrl());
+    assertNotNull("method cannot be null in make request", request.getMethod());
+    assertNotNull("host cannot be null in make request", request.getHost());
+
     ResponseEntity response;
     Map<String, String> headersMap = getHeaders(request.getHeaders());
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
-    String host = ofNullable(request.getHost()).orElse(targetHost);
-    request.setHost(host);
+
     switch (httpMethod) {
       case GET:
         response = targetGateway.get(request.getHost(), request.getUrl(), headersMap);

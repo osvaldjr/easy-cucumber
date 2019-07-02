@@ -2,6 +2,7 @@ package io.github.osvaldjr.usecases;
 
 import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
 import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
@@ -31,6 +32,9 @@ public class CreateStubbyUsecase {
         fileGateway.getObjectFromFile(scenario, mockRequestFile, RequestBody.class);
     ResponseBody stubbyResponseBody =
         fileGateway.getObjectFromFile(scenario, mockResponseFile, ResponseBody.class);
+
+    assertNotNull("url cannot be null in create mock", stubbyRequestBody.getUrl());
+    assertNotNull("method cannot be null in create mock", stubbyRequestBody.getMethod());
 
     stubbyRequestBody.setUrl(getUrl(serviceName, stubbyRequestBody));
     return stubbyGateway.createStubbyRequest(stubbyRequestBody, stubbyResponseBody);

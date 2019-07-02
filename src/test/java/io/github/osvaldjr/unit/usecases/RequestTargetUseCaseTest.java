@@ -114,4 +114,34 @@ class RequestTargetUseCaseTest extends UnitTest {
     assertThat(throwable.getSupportedMethods(), containsInAnyOrder(GET, POST, PUT, DELETE));
     verify(targetGateway, never()).delete(any(), any(), any(), any());
   }
+
+  @Test
+  void shouldInvalidUrlRequest(@Random TargetRequest targetRequest) {
+    targetRequest.setUrl(null);
+
+    AssertionError throwable =
+        assertThrows(AssertionError.class, () -> requestTargetUseCase.execute(targetRequest));
+
+    assertThat(throwable.getMessage(), equalTo("url cannot be null in make request"));
+  }
+
+  @Test
+  void shouldInvalidMethodRequest(@Random TargetRequest targetRequest) {
+    targetRequest.setMethod(null);
+
+    AssertionError throwable =
+        assertThrows(AssertionError.class, () -> requestTargetUseCase.execute(targetRequest));
+
+    assertThat(throwable.getMessage(), equalTo("method cannot be null in make request"));
+  }
+
+  @Test
+  void shouldInvalidHostRequest(@Random TargetRequest targetRequest) {
+    targetRequest.setHost(null);
+
+    AssertionError throwable =
+        assertThrows(AssertionError.class, () -> requestTargetUseCase.execute(targetRequest));
+
+    assertThat(throwable.getMessage(), equalTo("host cannot be null in make request"));
+  }
 }
