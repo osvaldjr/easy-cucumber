@@ -14,8 +14,6 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
@@ -32,7 +30,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.osvaldjr.domains.AlertRisk;
 import io.github.osvaldjr.domains.DataType;
-import io.github.osvaldjr.domains.ScannerType;
 import io.github.osvaldjr.domains.properties.ApplicationProperties;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,8 +38,7 @@ public class SecuritySteps {
 
   private final ClientApi zapProxyApi;
   private final ApplicationProperties applicationProperties;
-
-  private List<Alert> alerts;
+  private String policyName;
 
   @Autowired
   public SecuritySteps(ClientApi zapProxyApi, ApplicationProperties applicationProperties) {
@@ -50,23 +46,19 @@ public class SecuritySteps {
     this.applicationProperties = applicationProperties;
   }
 
-  @Given("^import context from open API specification \"([^\"]*)\"$")
-  public void importContextFromOpenAPISpecification(String path) throws ClientApiException {
+  @Given("^I import context from open API specification \"([^\"]*)\"$")
+  public void iImportContextFromOpenAPISpecification(String path)
+      throws ClientApiException, InterruptedException {
     String url = getTargetUrl() + path;
     log.info("Import Open API from url: " + url);
     zapProxyApi.openapi.importUrl(url, null);
+
+    waitPassiveScanRunning();
+    verifyThatTheProxyHasCapturedHostInformation();
   }
 
-  @Given("^verify that the proxy has captured host information$")
-  public void verifyThatTheProxyHasCapturedHostInformation() throws ClientApiException {
-    ApiResponseList hosts = (ApiResponseList) zapProxyApi.core.hosts();
-
-    assertTrue(
-        hosts.getItems().stream().anyMatch(host -> getTargetUrl().contains(host.toString())));
-  }
-
-  @Given("^exclude urls from scan$")
-  public void excludeUrlsFromScan(List<DataType> data) {
+  @Given("^I exclude urls from scan$")
+  public void iExcludeUrlsFromScan(List<DataType> data) {
     data.forEach(
         type -> {
           try {
@@ -77,8 +69,8 @@ public class SecuritySteps {
         });
   }
 
-  @Given("^generate the session proxy$")
-  public void generateTheSessionProxy() throws ClientApiException {
+  @Given("^I generate the proxy session$")
+  public void iGenerateTheProxySession() throws ClientApiException {
     String sessionFolder = getDataFolder("security-session");
     log.info("Generate session in folder " + sessionFolder);
     deleteAndCreateFolder(sessionFolder);
@@ -87,8 +79,8 @@ public class SecuritySteps {
     zapProxyApi.core.saveSession(String.format("%s/%s", sessionFolder, "zap.log.session"), null);
   }
 
-  @Given("^generate (ACTIVE|PASSIVE) security test HTML report$")
-  public void generateSecurityTestHTMLReport(ScannerType scannerType)
+  @Given("^I generate security test HTML report with name \"([^\"]*)\"$")
+  public void iGenerateSecurityTestHTMLReportWithName(String name)
       throws ClientApiException, IOException {
     byte[] report = zapProxyApi.core.htmlreport();
 
@@ -96,7 +88,7 @@ public class SecuritySteps {
     log.info("Generate reports in folder " + reportFolder);
     new File(reportFolder).mkdirs();
 
-    File htmlReport = new File(reportFolder, getReportName(scannerType));
+    File htmlReport = new File(reportFolder, name + ".html");
     if (!htmlReport.createNewFile()) {
       log.warn("Occurred error in generate security test HTML report");
     }
@@ -106,22 +98,14 @@ public class SecuritySteps {
     }
   }
 
-  @Given("^remove all alerts$")
-  public void removeScanAlerts() throws ClientApiException {
+  @Given("^I remove all alerts$")
+  public void iRemoveScanAlerts() throws ClientApiException {
     zapProxyApi.alert.deleteAllAlerts();
   }
 
-  @Given("^wait passive scan running$")
-  public void waitPassiveScanRunning() throws InterruptedException, ClientApiException {
-    while (!"0".equals(zapProxyApi.pscan.recordsToScan().toString())) {
-      log.info("Running passive scan");
-      Thread.sleep(1000);
-    }
-    log.info("Finish record passive scan");
-  }
-
-  @When("^remove alerts$")
-  public void removeAlert(List<DataType> data) {
+  @When("^I remove alerts$")
+  public void iRemoveAlert(List<DataType> data) throws ClientApiException {
+    List<Alert> alerts = zapProxyApi.getAlerts(null, -1, -1);
     List<Alert> alertsExclude =
         alerts
             .stream()
@@ -136,19 +120,14 @@ public class SecuritySteps {
             fail(e.getMessage());
           }
         });
-
-    data.forEach(type -> alerts.removeIf(alert -> isExclude(alert, type)));
   }
 
-  @When("^recovery list of alerts$")
-  public void recoveryListOfAlerts() throws ClientApiException {
-    alerts = zapProxyApi.getAlerts(null, -1, -1);
-  }
+  @When("^I import scan policy \"([^\"]*)\" from file \"([^\"]*)\"$")
+  public void iImportScanPolicyFromFile(String policyName, String policy)
+      throws ClientApiException {
+    this.policyName = policyName;
 
-  @When("^import scan policy \"([^\"]*)\"$")
-  public void importScanPolicy(String policy) throws ClientApiException {
     ApiResponseList policies = (ApiResponseList) zapProxyApi.ascan.scanPolicyNames();
-    String policyName = "easycucumber";
     if (policies
         .getItems()
         .stream()
@@ -166,9 +145,9 @@ public class SecuritySteps {
     zapProxyApi.ascan.importScanPolicy(path);
   }
 
-  @When("^run active scan$")
-  public void runActiveScan() throws ClientApiException, InterruptedException {
-    zapProxyApi.ascan.scan(getTargetUrl(), "true", "false", "easycucumber", null, null);
+  @When("^I run active scan$")
+  public void iRunActiveScan() throws ClientApiException, InterruptedException {
+    zapProxyApi.ascan.scan(getTargetUrl(), "true", "false", policyName, null, null);
 
     while (ascanStatus()) {
       log.info("Running active scan");
@@ -178,7 +157,10 @@ public class SecuritySteps {
   }
 
   @Then("^the number of risks per category should not be greater than$")
-  public void theNumberOfRisksPerCategoryShouldNotBeGreaterThan(List<AlertRisk> risks) {
+  public void theNumberOfRisksPerCategoryShouldNotBeGreaterThan(List<AlertRisk> risks)
+      throws ClientApiException {
+    List<Alert> alerts = zapProxyApi.getAlerts(null, -1, -1);
+
     List<Alert> lowAlerts = getAlertsWithRisk(alerts, Alert.Risk.Low);
     log.info("Found {} low risk alerts", lowAlerts.size());
     List<Alert> mediumAlerts = getAlertsWithRisk(alerts, Alert.Risk.Medium);
@@ -244,15 +226,6 @@ public class SecuritySteps {
         .collect(Collectors.toList());
   }
 
-  public String getReportName(ScannerType scannerType) {
-    if (scannerType.equals(ScannerType.ACTIVE)) {
-      return "active-scan-report.html";
-    } else if (scannerType.equals(ScannerType.PASSIVE)) {
-      return "passive-scan-report.html";
-    }
-    throw new ValidationException("Scanner type is invalid with get report name");
-  }
-
   private boolean isExclude(Alert alert, DataType type) {
     Boolean exclude = null;
     if (StringUtils.isNotEmpty(type.getName())) {
@@ -291,5 +264,20 @@ public class SecuritySteps {
       sessionFolder = overwriteDataFolder + name;
     }
     return sessionFolder;
+  }
+
+  private void waitPassiveScanRunning() throws InterruptedException, ClientApiException {
+    while (!"0".equals(zapProxyApi.pscan.recordsToScan().toString())) {
+      log.info("Running passive scan");
+      Thread.sleep(1000);
+    }
+    log.info("Finish record passive scan");
+  }
+
+  private void verifyThatTheProxyHasCapturedHostInformation() throws ClientApiException {
+    ApiResponseList hosts = (ApiResponseList) zapProxyApi.core.hosts();
+
+    assertTrue(
+        hosts.getItems().stream().anyMatch(host -> getTargetUrl().contains(host.toString())));
   }
 }
