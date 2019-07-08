@@ -38,3 +38,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
