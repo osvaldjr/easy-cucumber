@@ -1,10 +1,13 @@
 package io.github.osvaldjr.gateways;
 
+import static java.text.MessageFormat.format;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.MessageFormat;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.CharStreams;
 
 @Component
 public class FileGateway {
@@ -31,7 +35,7 @@ public class FileGateway {
 
   public <T> T getObjectFromFile(String scenario, String file, Class<T> clazz)
       throws FileNotFoundException {
-    String filePath = MessageFormat.format("{0}/{1}/{2}.json", DATA_DIRECTORY, scenario, file);
+    String filePath = format("{0}/{1}/{2}.json", DATA_DIRECTORY, scenario, file);
     try (InputStream inputStream =
         new FileInputStream(
             new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
@@ -46,5 +50,25 @@ public class FileGateway {
 
   public String getJsonStringFromObject(Object response) throws JsonProcessingException {
     return objectMapper.writeValueAsString(response);
+  }
+
+  public String getFileContent(String path) throws IOException {
+    String filePath = format("{0}/{1}", DATA_DIRECTORY, path);
+
+    try (InputStream inputStream =
+        new FileInputStream(
+            new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
+      String text;
+      try (final Reader reader = new InputStreamReader(inputStream)) {
+        text = CharStreams.toString(reader);
+      }
+
+      return text;
+    } catch (IOException e) {
+      throw new FileNotFoundException(
+          "File ["
+              + filePath
+              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/sql/<YOUR FILE>' exists");
+    }
   }
 }

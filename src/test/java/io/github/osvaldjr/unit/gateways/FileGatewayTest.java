@@ -1,6 +1,7 @@
 package io.github.osvaldjr.unit.gateways;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -86,5 +87,17 @@ public class FileGatewayTest extends UnitTest {
         () -> fileGateway.getObjectFromFile(scenario, file, Object.class));
 
     verify(objectMapper, never()).readValue(any(InputStream.class), eq(Object.class));
+  }
+
+  @Test
+  void shouldGetStringFromFile() throws IOException {
+    String fileContent = fileGateway.getFileContent("unit/file.sql");
+    assertThat(fileContent, notNullValue());
+    assertThat(fileContent, equalTo("select * from my_table;"));
+  }
+
+  @Test
+  void shouldThrowExceptionWhenFileDoesNotExists() {
+    assertThrows(FileNotFoundException.class, () -> fileGateway.getFileContent("unit/invalid.sql"));
   }
 }

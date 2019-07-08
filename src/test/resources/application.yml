@@ -25,3 +25,16 @@ feign:
 
 features:
   DELETE_INTEGRATION: delete-integration
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easycucumber
+    username: postgres
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
