@@ -31,10 +31,17 @@ spring:
     url: jdbc:postgresql://localhost:5432/easycucumber
     username: postgres
     password: root
-
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
   jpa:
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
+
+queues:
+  names:
+  - test_data
