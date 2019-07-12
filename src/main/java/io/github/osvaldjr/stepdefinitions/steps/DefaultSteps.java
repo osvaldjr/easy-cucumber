@@ -34,6 +34,8 @@ import io.github.osvaldjr.usecases.RequestTargetUseCase;
 
 public class DefaultSteps {
 
+  public static final String JSON_FILE = ".json";
+
   private TargetRequest request;
   private ResponseEntity response;
   private String scenarioName;
@@ -68,7 +70,7 @@ public class DefaultSteps {
   @Given("I have a request with body ([^\"]*)")
   public void iHaveARequestWith(String requestPayload) throws IOException {
     Object body =
-        fileGateway.getObjectFromFile(scenarioName, requestPayload + ".json", Object.class);
+        fileGateway.getObjectFromFile(scenarioName, requestPayload + JSON_FILE, Object.class);
     request.setBody(body);
   }
 
@@ -89,7 +91,7 @@ public class DefaultSteps {
   @Then("I expect ([^\"]*) as response")
   public void iExpectAsResponse(String responsePayload) throws IOException, JSONException {
     String responseExpected =
-        fileGateway.getJsonStringFromFile(scenarioName, responsePayload + ".json");
+        fileGateway.getJsonStringFromFile(scenarioName, responsePayload + JSON_FILE);
     String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
@@ -114,7 +116,7 @@ public class DefaultSteps {
   public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
     request =
         fileGateway.getObjectFromFile(
-            scenarioName, requestSpecFilePath + ".json", TargetRequest.class);
+            scenarioName, requestSpecFilePath + JSON_FILE, TargetRequest.class);
     response = null;
     httpException = null;
 
@@ -143,7 +145,7 @@ public class DefaultSteps {
     String responseReceived;
 
     String responseExpected =
-        fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected + ".json");
+        fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected + JSON_FILE);
     if (response == null) {
       httpStatusReceived = httpException.getResponse().getStatus();
       responseReceived = httpException.getResponse().getJsonBody();

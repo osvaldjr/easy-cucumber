@@ -39,6 +39,7 @@ import org.springframework.jms.core.JmsTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.glytching.junit.extension.random.Random;
+import io.github.osvaldjr.domains.exceptions.QueueException;
 import io.github.osvaldjr.gateways.activemq.ActiveMQGateway;
 import io.github.osvaldjr.unit.UnitTest;
 
@@ -87,7 +88,7 @@ class ActiveMQGatewayTest extends UnitTest {
     when(objectMapper.readValue(mockMessage.getText(), Object.class))
         .thenThrow(new RuntimeException());
 
-    assertThrows(RuntimeException.class, () -> activeMQGateway.getMessageQueue(destinationQueue));
+    assertThrows(QueueException.class, () -> activeMQGateway.getMessageQueue(destinationQueue));
 
     verify(jmsTemplate, times(1)).receive(destinationQueue);
     verify(objectMapper, times(1)).readValue(mockMessage.getText(), Object.class);

@@ -44,6 +44,6 @@ public class Hooks {
 
   @Before("@CleanQueues")
   public void cleanupQueues() {
-    queueProperties.getNames().forEach(name -> cleanQueueUseCase.execute(name));
+    queueProperties.getNames().forEach(cleanQueueUseCase::execute);
   }
 }

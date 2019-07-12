@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.osvaldjr.domains.exceptions.QueueException;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -52,12 +53,12 @@ public class ActiveMQGateway {
         });
   }
 
-  public Object getMessageQueue(String destinationQueue) {
+  public Object getMessageQueue(String destinationQueue) throws QueueException {
     ActiveMQTextMessage message = ((ActiveMQTextMessage) jmsTemplate.receive(destinationQueue));
     try {
       return objectMapper.readValue(message.getText(), Object.class);
     } catch (Exception e) {
-      throw new RuntimeException("Error to receive message from ActiveMQ");
+      throw new QueueException("Error to receive message from ActiveMQ");
     }
   }
 }
