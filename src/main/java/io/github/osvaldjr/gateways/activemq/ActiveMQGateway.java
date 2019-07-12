@@ -53,7 +53,7 @@ public class ActiveMQGateway {
         });
   }
 
-  public Object getMessageQueue(String destinationQueue) throws QueueException {
+  public Object getMessageQueue(String destinationQueue) {
     ActiveMQTextMessage message = ((ActiveMQTextMessage) jmsTemplate.receive(destinationQueue));
     try {
       return objectMapper.readValue(message.getText(), Object.class);
