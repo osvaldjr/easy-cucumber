@@ -1,4 +1,3 @@
-@Ignore
 @CleanQueues
 Feature: Queue
   This feature is to test queue steps
