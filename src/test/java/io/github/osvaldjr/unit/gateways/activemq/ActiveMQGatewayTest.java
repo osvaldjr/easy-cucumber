@@ -5,6 +5,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,6 +32,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.jms.core.BrowserCallback;
 import org.springframework.jms.core.JmsTemplate;
 
@@ -96,6 +100,56 @@ class ActiveMQGatewayTest extends UnitTest {
     when(session.createConsumer(queueCaptor.capture(), messageSelectorCaptor.capture()))
         .thenReturn(messageConsumer);
     when(messageConsumer.receive(1000)).thenReturn(new ActiveMQTextMessage());
+
+    activeMQGateway.cleanQueue(destinationQueue);
+
+    BrowserCallback<?> browserCallback = actionCaptor.getValue();
+    assertThat(browserCallback, notNullValue());
+
+    Integer total = ((Integer) browserCallback.doInJms(session, queueBrowser));
+    assertThat(total, equalTo(2));
+    assertThat(queueNameCaptor.getValue(), equalTo(destinationQueue));
+    assertTrue(
+        queueCaptor
+            .getAllValues()
+            .stream()
+            .allMatch(
+                value -> {
+                  try {
+                    return value.getQueueName().equals(destinationQueue);
+                  } catch (Exception e) {
+                  }
+                  return false;
+                }));
+    assertThat(messageSelectorCaptor.getAllValues().get(0), equalTo("JMSMessageID='ID:1'"));
+    assertThat(messageSelectorCaptor.getAllValues().get(1), equalTo("JMSMessageID='ID:2'"));
+  }
+
+  @Test
+  void shouldCleanQueueWithoutMessages(@Random String destinationQueue) throws JMSException {
+    when(jmsTemplate.browse(queueNameCaptor.capture(), actionCaptor.capture())).thenReturn(null);
+    when(queueBrowser.getEnumeration())
+        .thenReturn(new IteratorEnumeration(new ArrayList<>().iterator()));
+
+    activeMQGateway.cleanQueue(destinationQueue);
+
+    BrowserCallback<?> browserCallback = actionCaptor.getValue();
+    assertThat(browserCallback, notNullValue());
+
+    Integer total = ((Integer) browserCallback.doInJms(session, queueBrowser));
+    assertThat(total, equalTo(0));
+    assertThat(queueNameCaptor.getValue(), equalTo(destinationQueue));
+    verify(session, never()).createConsumer(Mockito.any(), anyString());
+    verify(messageConsumer, never()).receive(anyInt());
+  }
+
+  @Test
+  void shouldCleanQueueWithReceiveNullable(@Random String destinationQueue) throws JMSException {
+    when(jmsTemplate.browse(queueNameCaptor.capture(), actionCaptor.capture())).thenReturn(null);
+    when(queueBrowser.getEnumeration()).thenReturn(getTextMessageEnumeration());
+    when(session.createConsumer(queueCaptor.capture(), messageSelectorCaptor.capture()))
+        .thenReturn(messageConsumer);
+    when(messageConsumer.receive(1000)).thenReturn(null);
 
     activeMQGateway.cleanQueue(destinationQueue);
 
