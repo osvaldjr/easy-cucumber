@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import gherkin.deps.com.google.gson.Gson;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyRequest;
-import io.github.osvaldjr.gateways.feign.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.stubby.assemblers.StubbyRequestAssembler;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
@@ -25,7 +25,7 @@ class StubbyRequestAssemblerTest extends UnitTest {
   void shouldAssembleRequestCorrectly(
       @Random StubbyRequest.RequestBody requestBody,
       @Random StubbyRequest.ResponseBody responseBody) {
-    final Gson gson = new Gson();
+    Gson gson = new Gson();
 
     StubbyJsonRequest stubbyJsonRequest =
         stubbyRequestAssembler.assemble(requestBody, responseBody);

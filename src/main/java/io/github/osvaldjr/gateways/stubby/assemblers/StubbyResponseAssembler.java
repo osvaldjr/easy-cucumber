@@ -1,4 +1,4 @@
-package io.github.osvaldjr.gateways.feign.assemblers;
+package io.github.osvaldjr.gateways.stubby.assemblers;
 
 import org.springframework.stereotype.Component;
 

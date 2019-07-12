@@ -1,4 +1,4 @@
-package io.github.osvaldjr.gateways.feign.assemblers;
+package io.github.osvaldjr.gateways.stubby.assemblers;
 
 import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
 import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;

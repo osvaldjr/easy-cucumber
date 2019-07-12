@@ -25,8 +25,8 @@ public class CreateStubbyUsecase {
   }
 
   public Integer execute(String scenario, String serviceName, String mockName) throws IOException {
-    String mockRequestFile = "mocks/" + mockName + "-request";
-    String mockResponseFile = "mocks/" + mockName + "-response";
+    String mockRequestFile = "mocks/" + mockName + "-request.json";
+    String mockResponseFile = "mocks/" + mockName + "-response.json";
 
     RequestBody stubbyRequestBody =
         fileGateway.getObjectFromFile(scenario, mockRequestFile, RequestBody.class);

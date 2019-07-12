@@ -67,7 +67,8 @@ public class DefaultSteps {
 
   @Given("I have a request with body ([^\"]*)")
   public void iHaveARequestWith(String requestPayload) throws IOException {
-    Object body = fileGateway.getObjectFromFile(scenarioName, requestPayload, Object.class);
+    Object body =
+        fileGateway.getObjectFromFile(scenarioName, requestPayload + ".json", Object.class);
     request.setBody(body);
   }
 
@@ -87,7 +88,8 @@ public class DefaultSteps {
 
   @Then("I expect ([^\"]*) as response")
   public void iExpectAsResponse(String responsePayload) throws IOException, JSONException {
-    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responsePayload);
+    String responseExpected =
+        fileGateway.getJsonStringFromFile(scenarioName, responsePayload + ".json");
     String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
@@ -110,7 +112,9 @@ public class DefaultSteps {
 
   @Given("I make a request defined in ([^\"]*)")
   public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
-    request = fileGateway.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
+    request =
+        fileGateway.getObjectFromFile(
+            scenarioName, requestSpecFilePath + ".json", TargetRequest.class);
     response = null;
     httpException = null;
 
@@ -138,7 +142,8 @@ public class DefaultSteps {
     int httpStatusReceived;
     String responseReceived;
 
-    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
+    String responseExpected =
+        fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected + ".json");
     if (response == null) {
       httpStatusReceived = httpException.getResponse().getStatus();
       responseReceived = httpException.getResponse().getJsonBody();

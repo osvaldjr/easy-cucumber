@@ -41,8 +41,8 @@ class CreateStubbyUsecaseTest extends UnitTest {
       @Random StubbyRequest.ResponseBody stubbyResponseBody,
       @Random Integer id)
       throws IOException {
-    String mockRequestFile = "mocks/" + mockName + "-request";
-    String mockResponseFile = "mocks/" + mockName + "-response";
+    String mockRequestFile = "mocks/" + mockName + "-request.json";
+    String mockResponseFile = "mocks/" + mockName + "-response.json";
     String url = stubbyRequestBody.getUrl();
     when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
         .thenReturn(stubbyRequestBody);
@@ -80,8 +80,8 @@ class CreateStubbyUsecaseTest extends UnitTest {
       throws IOException {
     stubbyRequestBody.setUrl(null);
 
-    String mockRequestFile = "mocks/" + mockName + "-request";
-    String mockResponseFile = "mocks/" + mockName + "-response";
+    String mockRequestFile = "mocks/" + mockName + "-request.json";
+    String mockResponseFile = "mocks/" + mockName + "-response.json";
     when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
         .thenReturn(stubbyRequestBody);
     when(fileGateway.getObjectFromFile(
@@ -106,8 +106,8 @@ class CreateStubbyUsecaseTest extends UnitTest {
       throws IOException {
     stubbyRequestBody.setMethod(null);
 
-    String mockRequestFile = "mocks/" + mockName + "-request";
-    String mockResponseFile = "mocks/" + mockName + "-response";
+    String mockRequestFile = "mocks/" + mockName + "-request.json";
+    String mockResponseFile = "mocks/" + mockName + "-response.json";
     when(fileGateway.getObjectFromFile(scenario, mockRequestFile, StubbyRequest.RequestBody.class))
         .thenReturn(stubbyRequestBody);
     when(fileGateway.getObjectFromFile(

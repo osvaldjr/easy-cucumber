@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyResponse;
-import io.github.osvaldjr.gateways.feign.assemblers.StubbyResponseAssembler;
+import io.github.osvaldjr.gateways.stubby.assemblers.StubbyResponseAssembler;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
 import io.github.osvaldjr.unit.UnitTest;
 

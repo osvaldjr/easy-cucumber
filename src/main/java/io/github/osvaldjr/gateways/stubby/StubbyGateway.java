@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.feign.StubbyClient;
-import io.github.osvaldjr.gateways.feign.assemblers.StubbyRequestAssembler;
-import io.github.osvaldjr.gateways.feign.assemblers.StubbyResponseAssembler;
+import io.github.osvaldjr.gateways.stubby.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.stubby.assemblers.StubbyResponseAssembler;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
 

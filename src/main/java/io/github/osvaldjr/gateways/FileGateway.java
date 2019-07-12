@@ -35,7 +35,7 @@ public class FileGateway {
 
   public <T> T getObjectFromFile(String scenario, String file, Class<T> clazz)
       throws FileNotFoundException {
-    String filePath = format("{0}/{1}/{2}.json", DATA_DIRECTORY, scenario, file);
+    String filePath = format("{0}/{1}/{2}", DATA_DIRECTORY, scenario, file);
     try (InputStream inputStream =
         new FileInputStream(
             new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
@@ -44,7 +44,7 @@ public class FileGateway {
       throw new FileNotFoundException(
           "File ["
               + filePath
-              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>.json' exists");
+              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/<YOUR FILE>' exists");
     }
   }
 
@@ -59,7 +59,7 @@ public class FileGateway {
         new FileInputStream(
             new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
       String text;
-      try (final Reader reader = new InputStreamReader(inputStream)) {
+      try (Reader reader = new InputStreamReader(inputStream)) {
         text = CharStreams.toString(reader);
       }
 
