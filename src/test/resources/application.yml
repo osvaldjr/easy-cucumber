@@ -35,12 +35,6 @@ spring:
     broker-url: tcp://localhost:61616
     user: admin
     password: admin
-  jpa:
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
 
 queues:
   names:

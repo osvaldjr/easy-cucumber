@@ -65,10 +65,7 @@ public class FileGateway {
 
       return text;
     } catch (IOException e) {
-      throw new FileNotFoundException(
-          "File ["
-              + filePath
-              + "] not found. \n Check if your 'resources/data/<YOUR_FEATURE_NAME>/sql/<YOUR FILE>' exists");
+      throw new FileNotFoundException("File [" + filePath + "] not found.");
     }
   }
 }

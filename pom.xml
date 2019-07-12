@@ -12,7 +12,7 @@
     <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.5</version>
+    <version>0.0.6-SNAPSHOT</version>
     <name>io.github.osvaldjr:easy-cucumber</name>
     <description>Easy Cucumber JVM Testing</description>
 
@@ -34,6 +34,8 @@
         <zap.clientapi.version>1.7.0</zap.clientapi.version>
         <swagger.version>2.9.2</swagger.version>
         <awaitility.version>3.1.6</awaitility.version>
+        <javax.interceptor-api.version>1.2</javax.interceptor-api.version>
+        <postgresql.version>9.4-1200-jdbc41</postgresql.version>
 
         <sonar.coverage.exclusions>
             **/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
@@ -203,7 +205,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.4-1200-jdbc41</version>
+            <version>${postgresql.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -213,6 +215,11 @@
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>${awaitility.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.interceptor</groupId>
+            <artifactId>javax.interceptor-api</artifactId>
+            <version>${javax.interceptor-api.version}</version>
         </dependency>
     </dependencies>
 
