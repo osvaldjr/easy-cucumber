@@ -76,7 +76,7 @@ public class QueueSteps extends Steps {
   @Then("^message match with value from file ([^\"]*)$")
   public void messageMatchWithValueFromFile(String bodyFile)
       throws FileNotFoundException, JsonProcessingException, JSONException {
-    String body = fileGateway.getJsonStringFromFile(scenarioName, "message/" + bodyFile);
+    String body = fileGateway.getJsonStringFromFile(scenarioName, "messages/" + bodyFile);
     JSONAssert.assertEquals(body, fileGateway.getJsonStringFromObject(message), false);
   }
 }

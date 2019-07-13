@@ -22,7 +22,7 @@ public class PutMessageQueueUseCase {
 
   public void execute(String scenario, String destinationQueue, String file)
       throws FileNotFoundException {
-    Object message = fileGateway.getObjectFromFile(scenario, "message/" + file, Object.class);
+    Object message = fileGateway.getObjectFromFile(scenario, "messages/" + file, Object.class);
     activeMQGateway.putMessageQueue(destinationQueue, message);
   }
 }

@@ -34,8 +34,6 @@ import io.github.osvaldjr.usecases.RequestTargetUseCase;
 
 public class DefaultSteps extends Steps {
 
-  public static final String JSON_FILE = ".json";
-
   private TargetRequest request;
   private ResponseEntity response;
   private String scenarioName;
@@ -69,8 +67,7 @@ public class DefaultSteps extends Steps {
 
   @Given("I have a request with body ([^\"]*)")
   public void iHaveARequestWith(String requestPayload) throws IOException {
-    Object body =
-        fileGateway.getObjectFromFile(scenarioName, requestPayload + JSON_FILE, Object.class);
+    Object body = fileGateway.getObjectFromFile(scenarioName, requestPayload, Object.class);
     request.setBody(body);
   }
 
@@ -90,8 +87,7 @@ public class DefaultSteps extends Steps {
 
   @Then("I expect ([^\"]*) as response")
   public void iExpectAsResponse(String responsePayload) throws IOException, JSONException {
-    String responseExpected =
-        fileGateway.getJsonStringFromFile(scenarioName, responsePayload + JSON_FILE);
+    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responsePayload);
     String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
@@ -114,9 +110,7 @@ public class DefaultSteps extends Steps {
 
   @Given("I make a request defined in ([^\"]*)")
   public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
-    request =
-        fileGateway.getObjectFromFile(
-            scenarioName, requestSpecFilePath + JSON_FILE, TargetRequest.class);
+    request = fileGateway.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
     response = null;
     httpException = null;
 
@@ -144,8 +138,7 @@ public class DefaultSteps extends Steps {
     int httpStatusReceived;
     String responseReceived;
 
-    String responseExpected =
-        fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected + JSON_FILE);
+    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
     if (response == null) {
       httpStatusReceived = httpException.getResponse().getStatus();
       responseReceived = httpException.getResponse().getJsonBody();

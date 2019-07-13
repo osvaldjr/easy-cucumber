@@ -31,7 +31,7 @@ class PutMessageQueueUseCaseTest extends UnitTest {
       @Random String file,
       @Random Object message)
       throws FileNotFoundException {
-    when(fileGateway.getObjectFromFile(scenario, "message/" + file, Object.class))
+    when(fileGateway.getObjectFromFile(scenario, "messages/" + file, Object.class))
         .thenReturn(message);
 
     putMessageQueueUseCase.execute(scenario, destinationQueue, file);
