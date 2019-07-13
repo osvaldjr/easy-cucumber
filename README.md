@@ -20,13 +20,14 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 
 ## Features
 * Make GET, POST, PUT and DELETE requests to your API;
-* Mock HTTP dependencies with request, response, request headers, response headers and desired http status using `gherkin` syntax;
+* Mock HTTP dependencies with request, response, request headers, response headers and desired http status;
 * Assert HTTP Status;
 * Assert successfully and failed response body;
 * Change FF4j features through defined step;
 * Execute security tests with OWASP ZAP;
-* Populate database tables and assert data using `gherkin` syntax;
+* Populate database tables and assert data;
 * Put, consume and assert messages in queues;
+* All features use `gherkin` syntax
 
 ## Requirements
 - [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
