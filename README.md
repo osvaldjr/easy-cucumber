@@ -27,7 +27,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 * Execute security tests with OWASP ZAP;
 * Populate database tables and assert data;
 * Put, consume and assert messages in queues;
-* All features use `gherkin` syntax
+* All features use `gherkin` syntax;
 
 ## Requirements
 - [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
