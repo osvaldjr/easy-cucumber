@@ -1,7 +1,7 @@
 package io.github.osvaldjr.domains.properties;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "features")
 public class FeaturesProperties {
 
-  private Map<String, String> features = new HashMap<>();
+  private List<String> names = new ArrayList<>();
 }

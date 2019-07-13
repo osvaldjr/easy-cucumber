@@ -3,24 +3,24 @@ Feature: Integration
   This feature is to test all steps
 
   Scenario: Validate the steps for feature toggle
-    Given the feature DELETE_INTEGRATION is ENABLE
+    Given the feature delete-integration is ENABLE
     And A have a mock http_delete_successful for dependency integration
     And I have a request with body http_delete_body_request.json
     When I make a DELETE to /test
     Then I expect to receive a 200 status
-    Given the feature DELETE_INTEGRATION is DISABLE
+    Given the feature delete-integration is DISABLE
     And I have a request with body http_delete_body_request.json
     When I make a DELETE to /test
     Then I expect to receive a 400 status
     Given the features toggle with status
       | name               | status |
-      | DELETE_INTEGRATION | ENABLE |
+      | delete-integration | ENABLE |
     And I have a request with body http_delete_body_request.json
     When I make a DELETE to /test
     Then I expect to receive a 200 status
     Given the features toggle with status
       | name               | status  |
-      | DELETE_INTEGRATION | DISABLE |
+      | delete-integration | DISABLE |
     And I have a request with body http_delete_body_request.json
     When I make a DELETE to /test
     Then I expect to receive a 400 status

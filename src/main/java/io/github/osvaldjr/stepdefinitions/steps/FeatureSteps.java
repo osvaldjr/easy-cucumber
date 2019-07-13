@@ -23,11 +23,10 @@ public class FeatureSteps extends Steps {
 
   @Given("^the feature ([^\"]*) is (ENABLE|DISABLE)$")
   public void theFeatureIs(String name, FeatureStatus status) {
-    String key = featuresProperties.getFeatures().get(name);
     if (FeatureStatus.ENABLE.equals(status)) {
-      featureGateway.enable(key);
+      featureGateway.enable(name);
     } else {
-      featureGateway.disable(key);
+      featureGateway.disable(name);
     }
   }
 
@@ -35,11 +34,10 @@ public class FeatureSteps extends Steps {
   public void theFeaturesToggleWithStatus(List<Feature> features) {
     features.forEach(
         feature -> {
-          String key = featuresProperties.getFeatures().get(feature.getName());
           if (FeatureStatus.ENABLE.equals(feature.getStatus())) {
-            featureGateway.enable(key);
+            featureGateway.enable(feature.getName());
           } else {
-            featureGateway.disable(key);
+            featureGateway.disable(feature.getName());
           }
         });
   }

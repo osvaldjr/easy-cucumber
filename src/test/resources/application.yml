@@ -1,4 +1,12 @@
 server.port: 9000
+logging:
+  level:
+    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
 
 target.url: http://localhost:9000
 
@@ -13,19 +21,6 @@ dependencies:
       server: localhost
       port: 6379
 
-logging:
-  level:
-    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
-
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: FULL
-
-features:
-  DELETE_INTEGRATION: delete-integration
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/easycucumber
@@ -35,6 +30,10 @@ spring:
     broker-url: tcp://localhost:61616
     user: admin
     password: admin
+
+features:
+  names:
+  - delete-integration
 
 queues:
   names:

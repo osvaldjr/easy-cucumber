@@ -3,7 +3,7 @@ Feature: DisableFeatures
   This feature is to test hook DisableFeatures
 
   Scenario: Enable feature toggle
-    Given the feature DELETE_INTEGRATION is ENABLE
+    Given the feature delete-integration is ENABLE
     And A have a mock successful for dependency integration
     And I have a request with body body_request.json
     When I make a DELETE to /test

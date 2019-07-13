@@ -1,8 +1,12 @@
 package io.github.osvaldjr.stepdefinitions.steps;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.api.java.Before;
+import io.github.osvaldjr.domains.properties.FeaturesProperties;
 import io.github.osvaldjr.domains.properties.QueueProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
@@ -14,17 +18,20 @@ public class Hooks {
   private final FeatureGateway featureGateway;
   private final CleanQueueUseCase cleanQueueUseCase;
   private final QueueProperties queueProperties;
+  private final FeaturesProperties featuresProperties;
 
   @Autowired
   public Hooks(
       StubbyGateway stubbyGateway,
       FeatureGateway featureGateway,
       CleanQueueUseCase cleanQueueUseCase,
-      QueueProperties queueProperties) {
+      QueueProperties queueProperties,
+      FeaturesProperties featuresProperties) {
     this.stubbyGateway = stubbyGateway;
     this.featureGateway = featureGateway;
     this.cleanQueueUseCase = cleanQueueUseCase;
     this.queueProperties = queueProperties;
+    this.featuresProperties = featuresProperties;
   }
 
   @Before("@CleanStubby")
@@ -34,12 +41,18 @@ public class Hooks {
 
   @Before("@EnableFeatures")
   public void enableFeatures() {
-    featureGateway.enableAllFeatures();
+    Optional.ofNullable(featuresProperties.getNames())
+        .orElseGet(ArrayList::new)
+        .stream()
+        .forEach(featureGateway::enable);
   }
 
   @Before("@DisableFeatures")
   public void disableFeatures() {
-    featureGateway.disableAllFeatures();
+    Optional.ofNullable(featuresProperties.getNames())
+        .orElseGet(ArrayList::new)
+        .stream()
+        .forEach(featureGateway::disable);
   }
 
   @Before("@CleanQueues")
