@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,7 +28,7 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.gateways.TargetGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.RequestTargetUseCase;
+import io.github.osvaldjr.usecases.RequestTargetUseCase;
 
 class RequestTargetUseCaseTest extends UnitTest {
 

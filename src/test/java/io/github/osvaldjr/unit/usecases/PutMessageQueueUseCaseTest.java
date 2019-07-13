@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
@@ -16,7 +16,7 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.activemq.ActiveMQGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.PutMessageQueueUseCase;
+import io.github.osvaldjr.usecases.PutMessageQueueUseCase;
 
 class PutMessageQueueUseCaseTest extends UnitTest {
 

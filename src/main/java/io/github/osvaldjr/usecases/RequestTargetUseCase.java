@@ -1,4 +1,4 @@
-package io.github.osvaldjr.usecase;
+package io.github.osvaldjr.usecases;
 
 import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertNotNull;

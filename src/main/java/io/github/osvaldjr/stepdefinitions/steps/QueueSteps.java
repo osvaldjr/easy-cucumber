@@ -20,8 +20,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecase.GetMessageQueueUseCase;
-import io.github.osvaldjr.usecase.PutMessageQueueUseCase;
+import io.github.osvaldjr.usecases.GetMessageQueueUseCase;
+import io.github.osvaldjr.usecases.PutMessageQueueUseCase;
 
 public class QueueSteps extends Steps {
 

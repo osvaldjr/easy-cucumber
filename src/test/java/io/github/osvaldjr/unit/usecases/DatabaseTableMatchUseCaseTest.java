@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,7 +26,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.DatabaseTableMatchUseCase;
+import io.github.osvaldjr.usecases.DatabaseTableMatchUseCase;
 
 class DatabaseTableMatchUseCaseTest extends UnitTest {
 

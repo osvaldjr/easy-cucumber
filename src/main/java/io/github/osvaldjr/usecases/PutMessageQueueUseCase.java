@@ -1,4 +1,4 @@
-package io.github.osvaldjr.usecase;
+package io.github.osvaldjr.usecases;
 
 import java.io.FileNotFoundException;
 

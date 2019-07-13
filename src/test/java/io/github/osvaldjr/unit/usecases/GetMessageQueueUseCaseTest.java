@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.gateways.activemq.ActiveMQGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.GetMessageQueueUseCase;
+import io.github.osvaldjr.usecases.GetMessageQueueUseCase;
 
 class GetMessageQueueUseCaseTest extends UnitTest {
 

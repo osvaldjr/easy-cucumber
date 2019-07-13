@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.gateways.activemq.ActiveMQGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.CleanQueueUseCase;
+import io.github.osvaldjr.usecases.CleanQueueUseCase;
 
 class CleanQueueUseCaseTest extends UnitTest {
 

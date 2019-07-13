@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecase;
+package io.github.osvaldjr.unit.usecases;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +22,7 @@ import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecase.CreateStubbyUseCase;
+import io.github.osvaldjr.usecases.CreateStubbyUseCase;
 
 class CreateStubbyUseCaseTest extends UnitTest {
 
