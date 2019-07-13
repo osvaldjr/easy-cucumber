@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecases;
+package io.github.osvaldjr.unit.usecase;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,7 +15,7 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecases.GetStubbyUseCase;
+import io.github.osvaldjr.usecase.GetStubbyUseCase;
 
 class GetStubbyUseCaseTest extends UnitTest {
 

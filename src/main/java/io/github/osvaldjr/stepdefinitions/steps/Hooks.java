@@ -6,7 +6,7 @@ import cucumber.api.java.Before;
 import io.github.osvaldjr.domains.properties.QueueProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.usecases.CleanQueueUseCase;
+import io.github.osvaldjr.usecase.CleanQueueUseCase;
 
 public class Hooks {
 

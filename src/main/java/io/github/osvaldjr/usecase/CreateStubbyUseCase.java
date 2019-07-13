@@ -1,4 +1,4 @@
-package io.github.osvaldjr.usecases;
+package io.github.osvaldjr.usecase;
 
 import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
 import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;

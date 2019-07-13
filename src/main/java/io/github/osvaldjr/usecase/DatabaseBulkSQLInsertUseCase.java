@@ -1,4 +1,4 @@
-package io.github.osvaldjr.usecases;
+package io.github.osvaldjr.usecase;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;

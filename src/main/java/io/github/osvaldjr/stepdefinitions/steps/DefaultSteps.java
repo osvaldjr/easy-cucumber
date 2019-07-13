@@ -28,9 +28,9 @@ import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.domains.exceptions.FeignException;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.CreateStubbyUseCase;
-import io.github.osvaldjr.usecases.GetStubbyUseCase;
-import io.github.osvaldjr.usecases.RequestTargetUseCase;
+import io.github.osvaldjr.usecase.CreateStubbyUseCase;
+import io.github.osvaldjr.usecase.GetStubbyUseCase;
+import io.github.osvaldjr.usecase.RequestTargetUseCase;
 
 public class DefaultSteps extends Steps {
 

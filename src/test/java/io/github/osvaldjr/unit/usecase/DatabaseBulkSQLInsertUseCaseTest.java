@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.usecases;
+package io.github.osvaldjr.unit.usecase;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
+import io.github.osvaldjr.usecase.DatabaseBulkSQLInsertUseCase;
 
 class DatabaseBulkSQLInsertUseCaseTest extends UnitTest {
 

@@ -1,4 +1,4 @@
-package io.github.osvaldjr.usecases;
+package io.github.osvaldjr.usecase;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;

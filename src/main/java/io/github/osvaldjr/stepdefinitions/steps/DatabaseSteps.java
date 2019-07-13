@@ -15,9 +15,9 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
-import io.github.osvaldjr.usecases.DatabaseTableInsertUseCase;
-import io.github.osvaldjr.usecases.DatabaseTableMatchUseCase;
+import io.github.osvaldjr.usecase.DatabaseBulkSQLInsertUseCase;
+import io.github.osvaldjr.usecase.DatabaseTableInsertUseCase;
+import io.github.osvaldjr.usecase.DatabaseTableMatchUseCase;
 
 public class DatabaseSteps extends Steps {
 
