@@ -22,13 +22,13 @@ import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecases.CreateStubbyUsecase;
+import io.github.osvaldjr.usecases.CreateStubbyUseCase;
 
-class CreateStubbyUsecaseTest extends UnitTest {
+class CreateStubbyUseCaseTest extends UnitTest {
 
   @Mock private FileGateway fileGateway;
   @Mock private StubbyGateway stubbyGateway;
-  @InjectMocks private CreateStubbyUsecase createStubbyUsecase;
+  @InjectMocks private CreateStubbyUseCase createStubbyUsecase;
   @Captor private ArgumentCaptor<StubbyRequest.RequestBody> stubbyRequestBodyArgumentCaptor;
   @Captor private ArgumentCaptor<StubbyRequest.ResponseBody> stubbyResponseBodyArgumentCaptor;
 

@@ -1,4 +1,4 @@
-package io.github.osvaldjr.confs;
+package io.github.osvaldjr.confs.feign.converter;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;

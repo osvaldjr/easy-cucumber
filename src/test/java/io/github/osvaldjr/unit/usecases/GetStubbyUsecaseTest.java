@@ -15,12 +15,12 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecases.GetStubbyUsecase;
+import io.github.osvaldjr.usecases.GetStubbyUseCase;
 
-class GetStubbyUsecaseTest extends UnitTest {
+class GetStubbyUseCaseTest extends UnitTest {
 
   @Mock private StubbyGateway stubbyGateway;
-  @InjectMocks private GetStubbyUsecase getStubbyUsecase;
+  @InjectMocks private GetStubbyUseCase getStubbyUsecase;
 
   @Test
   void shouldExecute(@Random Integer id, @Random StubbyResponse stubbyResponse) {

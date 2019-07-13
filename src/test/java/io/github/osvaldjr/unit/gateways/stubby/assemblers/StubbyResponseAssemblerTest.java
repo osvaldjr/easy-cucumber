@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.gateways.assemblers;
+package io.github.osvaldjr.unit.gateways.stubby.assemblers;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

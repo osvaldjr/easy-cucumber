@@ -13,13 +13,13 @@ import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 
 @Component
-public class CreateStubbyUsecase {
+public class CreateStubbyUseCase {
 
   private FileGateway fileGateway;
   private StubbyGateway stubbyGateway;
 
   @Autowired
-  public CreateStubbyUsecase(FileGateway fileGateway, StubbyGateway stubbyGateway) {
+  public CreateStubbyUseCase(FileGateway fileGateway, StubbyGateway stubbyGateway) {
     this.fileGateway = fileGateway;
     this.stubbyGateway = stubbyGateway;
   }

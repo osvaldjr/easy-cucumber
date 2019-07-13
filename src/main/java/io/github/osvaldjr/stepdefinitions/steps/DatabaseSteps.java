@@ -19,7 +19,7 @@ import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
 import io.github.osvaldjr.usecases.DatabaseTableInsertUseCase;
 import io.github.osvaldjr.usecases.DatabaseTableMatchUseCase;
 
-public class DatabaseSteps {
+public class DatabaseSteps extends Steps {
 
   private DatabaseTableMatchUseCase databaseTableMatchUseCase;
   private DatabaseBulkSQLInsertUseCase databaseBulkSQLInsertUseCase;

@@ -34,7 +34,7 @@ import io.github.osvaldjr.domains.properties.ApplicationProperties;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SecuritySteps {
+public class SecuritySteps extends Steps {
 
   private final ClientApi zapProxyApi;
   private final ApplicationProperties applicationProperties;

@@ -28,11 +28,11 @@ import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.domains.exceptions.FeignException;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.CreateStubbyUsecase;
-import io.github.osvaldjr.usecases.GetStubbyUsecase;
+import io.github.osvaldjr.usecases.CreateStubbyUseCase;
+import io.github.osvaldjr.usecases.GetStubbyUseCase;
 import io.github.osvaldjr.usecases.RequestTargetUseCase;
 
-public class DefaultSteps {
+public class DefaultSteps extends Steps {
 
   public static final String JSON_FILE = ".json";
 
@@ -42,8 +42,8 @@ public class DefaultSteps {
 
   private final FileGateway fileGateway;
   private final RequestTargetUseCase requestTargetUseCase;
-  private final CreateStubbyUsecase createStubbyUsecase;
-  private final GetStubbyUsecase getStubbyUsecase;
+  private final CreateStubbyUseCase createStubbyUsecase;
+  private final GetStubbyUseCase getStubbyUsecase;
   private FeignException httpException;
   private Map<String, Integer> stubbyIdMap;
 
@@ -51,8 +51,8 @@ public class DefaultSteps {
   public DefaultSteps(
       FileGateway fileGateway,
       RequestTargetUseCase requestTargetUseCase,
-      CreateStubbyUsecase createStubbyUsecase,
-      GetStubbyUsecase getStubbyUsecase) {
+      CreateStubbyUseCase createStubbyUsecase,
+      GetStubbyUseCase getStubbyUsecase) {
     this.fileGateway = fileGateway;
     this.requestTargetUseCase = requestTargetUseCase;
     this.createStubbyUsecase = createStubbyUsecase;

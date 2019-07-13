@@ -7,12 +7,12 @@ import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 
 @Component
-public class GetStubbyUsecase {
+public class GetStubbyUseCase {
 
   private StubbyGateway stubbyGateway;
 
   @Autowired
-  public GetStubbyUsecase(StubbyGateway stubbyGateway) {
+  public GetStubbyUseCase(StubbyGateway stubbyGateway) {
     this.stubbyGateway = stubbyGateway;
   }
 

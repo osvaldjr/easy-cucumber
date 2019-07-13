@@ -10,7 +10,7 @@ import io.github.osvaldjr.domains.FeatureStatus;
 import io.github.osvaldjr.domains.properties.FeaturesProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 
-public class FeatureSteps {
+public class FeatureSteps extends Steps {
 
   private final FeatureGateway featureGateway;
   private final FeaturesProperties featuresProperties;

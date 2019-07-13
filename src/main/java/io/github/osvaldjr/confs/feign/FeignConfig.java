@@ -1,4 +1,4 @@
-package io.github.osvaldjr.confs;
+package io.github.osvaldjr.confs.feign;
 
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
@@ -9,8 +9,9 @@ import feign.Contract;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
-import io.github.osvaldjr.confs.decoder.FeignDecoder;
-import io.github.osvaldjr.confs.decoder.FeignErrorDecoder;
+import io.github.osvaldjr.confs.feign.converter.MessageConverter;
+import io.github.osvaldjr.confs.feign.decoder.FeignDecoder;
+import io.github.osvaldjr.confs.feign.decoder.FeignErrorDecoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

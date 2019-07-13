@@ -1,4 +1,4 @@
-package io.github.osvaldjr.confs.decoder;
+package io.github.osvaldjr.confs.feign.decoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
