@@ -26,6 +26,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 * Change FF4j features through defined step;
 * Execute security tests with OWASP ZAP;
 * Populate database tables and assert data using `gherkin` syntax;
+* Put, consume and assert messages in queues;
 
 ## Requirements
 - [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -33,7 +34,8 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
 - [Stubby4node](https://github.com/mrak/stubby4node) _* If use mocks_
 - [FF4J](https://github.com/ff4j/ff4j) _* If use features toggles_
 - [OWASP ZAP](https://github.com/zaproxy/zaproxy) _* If use security test_
-- Relational databases
+- [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/) _* If use relational databases_
+- [ActiveMQ](https://activemq.apache.org/) _* If use queues_
 
 ## Setup
 #### Maven Dependency
