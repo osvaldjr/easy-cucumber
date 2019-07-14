@@ -7,18 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cucumber.api.java.en.Given;
 import io.github.osvaldjr.domains.Feature;
 import io.github.osvaldjr.domains.FeatureStatus;
-import io.github.osvaldjr.domains.properties.FeaturesProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 
 public class FeatureSteps extends Steps {
 
   private final FeatureGateway featureGateway;
-  private final FeaturesProperties featuresProperties;
 
   @Autowired
-  public FeatureSteps(FeatureGateway featureGateway, FeaturesProperties featuresProperties) {
+  public FeatureSteps(FeatureGateway featureGateway) {
     this.featureGateway = featureGateway;
-    this.featuresProperties = featuresProperties;
   }
 
   @Given("^the feature ([^\"]*) is (ENABLE|DISABLE)$")
