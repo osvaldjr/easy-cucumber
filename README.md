@@ -45,7 +45,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
     <dependency>
         <groupId>io.github.osvaldjr</groupId>
         <artifactId>easy-cucumber</artifactId>
-        <version>{ALTER TO LATEST VERSION}</version>
+        <version>{ALTER FOR THE LATEST VERSION}</version>
     </dependency>
 </dependencies>    
 <dependencyManagement>
@@ -53,7 +53,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
        <dependency>
            <groupId>io.github.osvaldjr</groupId>
            <artifactId>easy-cucumber</artifactId>
-           <version>{ALTER TO LATEST VERSION}</version>
+           <version>{ALTER FOR THE LATEST VERSION}</version>
            <type>pom</type>
            <scope>import</scope>
        </dependency>
