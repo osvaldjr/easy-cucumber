@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import io.github.osvaldjr.gateways.FileGateway;
+import io.github.osvaldjr.gateways.stubby.MockServerGateway;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 
 @Component
@@ -17,14 +18,17 @@ public class CreateStubbyUseCase {
 
   private FileGateway fileGateway;
   private StubbyGateway stubbyGateway;
+  //  private MockServerGateway mockServerGateway;
 
   @Autowired
-  public CreateStubbyUseCase(FileGateway fileGateway, StubbyGateway stubbyGateway) {
+  public CreateStubbyUseCase(
+      FileGateway fileGateway, StubbyGateway stubbyGateway, MockServerGateway mockServerGateway) {
     this.fileGateway = fileGateway;
     this.stubbyGateway = stubbyGateway;
+    //    this.mockServerGateway = mockServerGateway;
   }
 
-  public Integer execute(String scenario, String serviceName, String mockName) throws IOException {
+  public String execute(String scenario, String serviceName, String mockName) throws IOException {
     String mockRequestFile = "mocks/" + mockName + "-request.json";
     String mockResponseFile = "mocks/" + mockName + "-response.json";
 

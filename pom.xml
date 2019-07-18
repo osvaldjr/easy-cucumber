@@ -40,6 +40,7 @@
         <sonar.coverage.exclusions>
             **/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
         </sonar.coverage.exclusions>
+        <mockserver-netty.version>5.6.0</mockserver-netty.version>
     </properties>
 
     <dependencies>
@@ -220,6 +221,11 @@
             <groupId>javax.interceptor</groupId>
             <artifactId>javax.interceptor-api</artifactId>
             <version>${javax.interceptor-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-netty</artifactId>
+            <version>${mockserver-netty.version}</version>
         </dependency>
     </dependencies>
 

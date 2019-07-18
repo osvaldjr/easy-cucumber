@@ -3,6 +3,7 @@ package io.github.osvaldjr.stepdefinitions.steps;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,12 +25,11 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.domains.exceptions.FeignException;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.usecases.CreateStubbyUseCase;
-import io.github.osvaldjr.usecases.GetStubbyUseCase;
+import io.github.osvaldjr.usecases.HitsMatcherUseCase;
 import io.github.osvaldjr.usecases.RequestTargetUseCase;
 
 public class DefaultSteps extends Steps {
@@ -41,20 +41,20 @@ public class DefaultSteps extends Steps {
   private final FileGateway fileGateway;
   private final RequestTargetUseCase requestTargetUseCase;
   private final CreateStubbyUseCase createStubbyUsecase;
-  private final GetStubbyUseCase getStubbyUsecase;
+  private final HitsMatcherUseCase hitsMatcherUsecase;
   private FeignException httpException;
-  private Map<String, Integer> stubbyIdMap;
+  private Map<String, String> stubbyIdMap;
 
   @Autowired
   public DefaultSteps(
       FileGateway fileGateway,
       RequestTargetUseCase requestTargetUseCase,
       CreateStubbyUseCase createStubbyUsecase,
-      GetStubbyUseCase getStubbyUsecase) {
+      HitsMatcherUseCase hitsMatcherUsecase) {
     this.fileGateway = fileGateway;
     this.requestTargetUseCase = requestTargetUseCase;
     this.createStubbyUsecase = createStubbyUsecase;
-    this.getStubbyUsecase = getStubbyUsecase;
+    this.hitsMatcherUsecase = hitsMatcherUsecase;
     request = new TargetRequest<>();
     stubbyIdMap = new HashMap<>();
     httpException = null;
@@ -94,7 +94,7 @@ public class DefaultSteps extends Steps {
 
   @Then("A have a mock ([^\"]*) for dependency ([^\"]*)")
   public void aHaveAMockForDependency(String mockName, String serviceName) throws IOException {
-    Integer stubbyId = createStubbyUsecase.execute(scenarioName, serviceName, mockName);
+    String stubbyId = createStubbyUsecase.execute(scenarioName, serviceName, mockName);
     stubbyIdMap.put(getStubbyKey(scenarioName, serviceName, mockName), stubbyId);
   }
 
@@ -102,10 +102,9 @@ public class DefaultSteps extends Steps {
   public void iExpectMockForDependencyToHaveBeenCalledTimes(
       String mockName, String serviceName, int times) {
     String mapKey = getStubbyKey(scenarioName, serviceName, mockName);
-    Integer stubbyId = stubbyIdMap.get(mapKey);
+    String stubbyId = stubbyIdMap.get(mapKey);
 
-    StubbyResponse stubby = getStubbyUsecase.execute(stubbyId);
-    assertThat(stubby.getHits(), equalTo(times));
+    assertTrue(hitsMatcherUsecase.execute(stubbyId, times));
   }
 
   @Given("I make a request defined in ([^\"]*)")

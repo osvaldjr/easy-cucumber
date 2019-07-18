@@ -20,7 +20,7 @@ import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
 
 @Component
-public class StubbyGateway {
+public class StubbyGateway implements MockGateway {
 
   private StubbyClient stubbyClient;
   private StubbyRequestAssembler stubbyRequestAssembler;
@@ -36,11 +36,13 @@ public class StubbyGateway {
     this.stubbyResponseAssembler = stubbyResponseAssembler;
   }
 
-  public Integer createStubbyRequest(RequestBody request, ResponseBody response) {
+  @Override
+  public String createStubbyRequest(RequestBody request, ResponseBody response) {
     StubbyJsonRequest stubbyJsonRequest = stubbyRequestAssembler.assemble(request, response);
     return getStubbyId(stubbyClient.create(stubbyJsonRequest));
   }
 
+  @Override
   public void deleteAllServices() {
     List<StubbyJsonResponse> allServices = stubbyClient.getAllServices();
     if (CollectionUtils.isNotEmpty(allServices)) {
@@ -48,13 +50,14 @@ public class StubbyGateway {
     }
   }
 
-  public StubbyResponse getStubbyResponse(Integer id) {
-    return stubbyResponseAssembler.assemble(stubbyClient.getService(id));
+  @Override
+  public StubbyResponse getStubbyResponse(String id) {
+    return stubbyResponseAssembler.assemble(stubbyClient.getService(Integer.valueOf(id)));
   }
 
-  private static Integer getStubbyId(ResponseEntity response) {
+  private static String getStubbyId(ResponseEntity response) {
     String location = response.getHeaders().getFirst("location");
     Matcher matcher = Pattern.compile(".*?\\/(\\d+)").matcher(location);
-    return matcher.find() ? Integer.parseInt(matcher.group(1)) : null;
+    return matcher.find() ? matcher.group(1) : null;
   }
 }

@@ -39,7 +39,7 @@ class CreateStubbyUseCaseTest extends UnitTest {
       @Random String mockName,
       @Random StubbyRequest.RequestBody stubbyRequestBody,
       @Random StubbyRequest.ResponseBody stubbyResponseBody,
-      @Random Integer id)
+      @Random String id)
       throws IOException {
     String mockRequestFile = "mocks/" + mockName + "-request.json";
     String mockResponseFile = "mocks/" + mockName + "-response.json";
@@ -53,7 +53,7 @@ class CreateStubbyUseCaseTest extends UnitTest {
             stubbyRequestBodyArgumentCaptor.capture(), stubbyResponseBodyArgumentCaptor.capture()))
         .thenReturn(id);
 
-    Integer stubbyId = createStubbyUsecase.execute(scenario, serviceName, mockName);
+    String stubbyId = createStubbyUsecase.execute(scenario, serviceName, mockName);
 
     assertThat(stubbyId, equalTo(id));
     StubbyRequest.RequestBody requestBody = stubbyRequestBodyArgumentCaptor.getValue();

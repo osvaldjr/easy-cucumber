@@ -20,6 +20,8 @@ dependencies:
     redis:
       server: localhost
       port: 6379
+#  mockserver:
+#    port: 9090
 
 spring:
   datasource:
@@ -33,8 +35,8 @@ spring:
 
 features:
   names:
-  - delete-integration
+    - delete-integration
 
 queues:
   names:
-  - test_data
+    - test_data

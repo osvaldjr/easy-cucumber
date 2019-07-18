@@ -47,7 +47,7 @@ public class StubbyGatewayTest extends UnitTest {
     when(stubbyClient.getService(id)).thenReturn(stubbyJsonResponseMock);
     when(stubbyResponseAssembler.assemble(stubbyJsonResponseMock)).thenReturn(stubbyResponseMock);
 
-    StubbyResponse stubbyResponseReturned = stubbyGateway.getStubbyResponse(id);
+    StubbyResponse stubbyResponseReturned = stubbyGateway.getStubbyResponse(String.valueOf(id));
 
     assertThat(stubbyResponseReturned, equalTo(stubbyResponseMock));
     verify(stubbyClient, times(1)).getService(id);
@@ -87,7 +87,7 @@ public class StubbyGatewayTest extends UnitTest {
     when(stubbyClient.create(stubbyRequestArgumentCaptor.capture())).thenReturn(responseEntity);
     when(stubbyRequestAssembler.assemble(request, response)).thenReturn(stubbyJsonRequestMock);
 
-    Integer stubbyId = stubbyGateway.createStubbyRequest(request, response);
+    String stubbyId = stubbyGateway.createStubbyRequest(request, response);
 
     verify(stubbyClient, times(1)).create(any(StubbyJsonRequest.class));
     verify(stubbyRequestAssembler, times(1))
@@ -99,7 +99,7 @@ public class StubbyGatewayTest extends UnitTest {
     assertThat(
         stubbyRequestArgumentCaptor.getValue().getResponse(),
         equalTo(stubbyJsonRequestMock.getResponse()));
-    assertThat(stubbyId, equalTo(1));
+    assertThat(stubbyId, equalTo("1"));
   }
 
   @Test
@@ -113,7 +113,7 @@ public class StubbyGatewayTest extends UnitTest {
     when(stubbyClient.create(stubbyRequestArgumentCaptor.capture())).thenReturn(responseEntity);
     when(stubbyRequestAssembler.assemble(request, response)).thenReturn(stubbyJsonRequestMock);
 
-    Integer stubbyId = stubbyGateway.createStubbyRequest(request, response);
+    String stubbyId = stubbyGateway.createStubbyRequest(request, response);
 
     verify(stubbyClient, times(1)).create(any(StubbyJsonRequest.class));
     assertThat(

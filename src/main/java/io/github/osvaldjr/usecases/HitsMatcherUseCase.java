@@ -3,20 +3,19 @@ package io.github.osvaldjr.usecases;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.stubby.StubbyGateway;
 
 @Component
-public class GetStubbyUseCase {
+public class HitsMatcherUseCase {
 
   private StubbyGateway stubbyGateway;
 
   @Autowired
-  public GetStubbyUseCase(StubbyGateway stubbyGateway) {
+  public HitsMatcherUseCase(StubbyGateway stubbyGateway) {
     this.stubbyGateway = stubbyGateway;
   }
 
-  public StubbyResponse execute(Integer id) {
-    return stubbyGateway.getStubbyResponse(id);
+  public boolean execute(String id, Integer hits) {
+    return stubbyGateway.getStubbyResponse(id).getHits().equals(hits);
   }
 }
