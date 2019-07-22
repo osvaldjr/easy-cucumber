@@ -11,24 +11,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import io.github.glytching.junit.extension.random.Random;
-import io.github.osvaldjr.domains.StubbyResponse;
-import io.github.osvaldjr.gateways.stubby.StubbyGateway;
+import io.github.osvaldjr.gateways.mock.MockGateway;
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.HitsMatcherUseCase;
 
 class HitsMatcherUseCaseTest extends UnitTest {
 
-  @Mock private StubbyGateway stubbyGateway;
+  @Mock private MockGateway mockGateway;
   @InjectMocks private HitsMatcherUseCase hitsMatcherUsecase;
 
   @Test
-  void shouldExecute(@Random String id, @Random StubbyResponse stubbyResponse) {
-    stubbyResponse.setHits(10);
-    when(stubbyGateway.getStubbyResponse(id)).thenReturn(stubbyResponse);
+  void shouldExecute(@Random String id) {
+    Integer hits = 10;
+    when(mockGateway.getMockHits(id)).thenReturn(hits);
 
-    boolean match = hitsMatcherUsecase.execute(id, 10);
+    boolean match = hitsMatcherUsecase.execute(id, hits);
 
     Assertions.assertTrue(match);
-    verify(stubbyGateway, times(1)).getStubbyResponse(anyString());
+    verify(mockGateway, times(1)).getMockHits(anyString());
   }
 }

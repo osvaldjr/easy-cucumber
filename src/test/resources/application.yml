@@ -1,7 +1,7 @@
 server.port: 9000
 logging:
   level:
-    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
+    io.github.osvaldjr.gateways.feign.IntegrationClient: FULL
 feign:
   client:
     config:
@@ -21,7 +21,8 @@ dependencies:
       server: localhost
       port: 6379
 #  mockserver:
-#    port: 9090
+#    port: 1080
+#    host: yourhost #optional - default localhost
 
 spring:
   datasource:

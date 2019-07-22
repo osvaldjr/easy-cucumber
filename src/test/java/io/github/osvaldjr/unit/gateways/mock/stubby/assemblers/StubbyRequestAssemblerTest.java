@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.gateways.stubby.assemblers;
+package io.github.osvaldjr.unit.gateways.mock.stubby.assemblers;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -11,10 +11,10 @@ import org.mockito.InjectMocks;
 import gherkin.deps.com.google.gson.Gson;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyRequest;
-import io.github.osvaldjr.gateways.stubby.assemblers.StubbyRequestAssembler;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyResponseBody;
+import io.github.osvaldjr.gateways.mock.stubby.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyRequestBody;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyResponseBody;
 import io.github.osvaldjr.unit.UnitTest;
 
 class StubbyRequestAssemblerTest extends UnitTest {

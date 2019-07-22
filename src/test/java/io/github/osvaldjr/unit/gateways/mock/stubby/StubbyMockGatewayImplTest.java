@@ -1,4 +1,4 @@
-package io.github.osvaldjr.unit.gateways.stubby;
+package io.github.osvaldjr.unit.gateways.mock.stubby;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -23,35 +23,31 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.domains.StubbyResponse;
 import io.github.osvaldjr.gateways.feign.StubbyClient;
-import io.github.osvaldjr.gateways.stubby.StubbyGateway;
-import io.github.osvaldjr.gateways.stubby.assemblers.StubbyRequestAssembler;
-import io.github.osvaldjr.gateways.stubby.assemblers.StubbyResponseAssembler;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
+import io.github.osvaldjr.gateways.mock.stubby.StubbyMockGatewayImpl;
+import io.github.osvaldjr.gateways.mock.stubby.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonResponse;
 import io.github.osvaldjr.unit.UnitTest;
 
-public class StubbyGatewayTest extends UnitTest {
+class StubbyMockGatewayImplTest extends UnitTest {
 
   @Mock StubbyClient stubbyClient;
-  @Mock StubbyResponseAssembler stubbyResponseAssembler;
   @Mock StubbyRequestAssembler stubbyRequestAssembler;
-  @InjectMocks StubbyGateway stubbyGateway;
+  @InjectMocks StubbyMockGatewayImpl stubbyGateway;
   @Captor private ArgumentCaptor<Integer> integerArgumentCaptor;
   @Captor private ArgumentCaptor<StubbyJsonRequest> stubbyRequestArgumentCaptor;
 
   @Test
-  void shouldGetStubbyResponse(
+  void shouldGetMockHits(
       @Random Integer id,
       @Random StubbyJsonResponse stubbyJsonResponseMock,
       @Random StubbyResponse stubbyResponseMock) {
     when(stubbyClient.getService(id)).thenReturn(stubbyJsonResponseMock);
-    when(stubbyResponseAssembler.assemble(stubbyJsonResponseMock)).thenReturn(stubbyResponseMock);
 
-    StubbyResponse stubbyResponseReturned = stubbyGateway.getStubbyResponse(String.valueOf(id));
+    Integer mockHits = stubbyGateway.getMockHits(id);
 
-    assertThat(stubbyResponseReturned, equalTo(stubbyResponseMock));
+    assertThat(mockHits, equalTo(stubbyJsonResponseMock.getHits()));
     verify(stubbyClient, times(1)).getService(id);
-    verify(stubbyResponseAssembler, times(1)).assemble(stubbyJsonResponseMock);
   }
 
   @Test

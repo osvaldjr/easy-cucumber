@@ -43,7 +43,7 @@ public class DefaultSteps extends Steps {
   private final CreateStubbyUseCase createStubbyUsecase;
   private final HitsMatcherUseCase hitsMatcherUsecase;
   private FeignException httpException;
-  private Map<String, String> stubbyIdMap;
+  private Map<String, Object> stubbyIdMap;
 
   @Autowired
   public DefaultSteps(
@@ -94,7 +94,7 @@ public class DefaultSteps extends Steps {
 
   @Then("A have a mock ([^\"]*) for dependency ([^\"]*)")
   public void aHaveAMockForDependency(String mockName, String serviceName) throws IOException {
-    String stubbyId = createStubbyUsecase.execute(scenarioName, serviceName, mockName);
+    Object stubbyId = createStubbyUsecase.execute(scenarioName, serviceName, mockName);
     stubbyIdMap.put(getStubbyKey(scenarioName, serviceName, mockName), stubbyId);
   }
 
@@ -102,7 +102,7 @@ public class DefaultSteps extends Steps {
   public void iExpectMockForDependencyToHaveBeenCalledTimes(
       String mockName, String serviceName, int times) {
     String mapKey = getStubbyKey(scenarioName, serviceName, mockName);
-    String stubbyId = stubbyIdMap.get(mapKey);
+    Object stubbyId = stubbyIdMap.get(mapKey);
 
     assertTrue(hitsMatcherUsecase.execute(stubbyId, times));
   }

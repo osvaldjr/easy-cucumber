@@ -1,4 +1,4 @@
-package io.github.osvaldjr.gateways.stubby.jsons;
+package io.github.osvaldjr.gateways.mock.stubby.jsons;
 
 import java.io.Serializable;
 import java.util.Map;

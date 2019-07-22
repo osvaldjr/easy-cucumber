@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import feign.Param;
 import feign.RequestLine;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.gateways.stubby.jsons.StubbyJsonResponse;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonResponse;
 
 @FeignClient(value = "stubby-client", url = "${dependencies.stubby.url:}")
 public interface StubbyClient {

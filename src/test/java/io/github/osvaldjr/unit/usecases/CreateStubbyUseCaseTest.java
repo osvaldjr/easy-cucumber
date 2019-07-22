@@ -20,14 +20,14 @@ import org.mockito.Mock;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.gateways.stubby.StubbyGateway;
+import io.github.osvaldjr.gateways.mock.MockGateway;
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.CreateStubbyUseCase;
 
 class CreateStubbyUseCaseTest extends UnitTest {
 
   @Mock private FileGateway fileGateway;
-  @Mock private StubbyGateway stubbyGateway;
+  @Mock private MockGateway mockGateway;
   @InjectMocks private CreateStubbyUseCase createStubbyUsecase;
   @Captor private ArgumentCaptor<StubbyRequest.RequestBody> stubbyRequestBodyArgumentCaptor;
   @Captor private ArgumentCaptor<StubbyRequest.ResponseBody> stubbyResponseBodyArgumentCaptor;
@@ -49,11 +49,11 @@ class CreateStubbyUseCaseTest extends UnitTest {
     when(fileGateway.getObjectFromFile(
             scenario, mockResponseFile, StubbyRequest.ResponseBody.class))
         .thenReturn(stubbyResponseBody);
-    when(stubbyGateway.createStubbyRequest(
+    when(mockGateway.createStubbyRequest(
             stubbyRequestBodyArgumentCaptor.capture(), stubbyResponseBodyArgumentCaptor.capture()))
         .thenReturn(id);
 
-    String stubbyId = createStubbyUsecase.execute(scenario, serviceName, mockName);
+    Object stubbyId = createStubbyUsecase.execute(scenario, serviceName, mockName);
 
     assertThat(stubbyId, equalTo(id));
     StubbyRequest.RequestBody requestBody = stubbyRequestBodyArgumentCaptor.getValue();
@@ -65,7 +65,7 @@ class CreateStubbyUseCaseTest extends UnitTest {
     StubbyRequest.ResponseBody responseBody = stubbyResponseBodyArgumentCaptor.getValue();
     assertThat(responseBody, equalTo(stubbyResponseBody));
     verify(fileGateway, times(2)).getObjectFromFile(anyString(), anyString(), any());
-    verify(stubbyGateway, times(1))
+    verify(mockGateway, times(1))
         .createStubbyRequest(
             any(StubbyRequest.RequestBody.class), any(StubbyRequest.ResponseBody.class));
   }
