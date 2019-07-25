@@ -14,6 +14,7 @@ import org.mockserver.mock.Expectation;
 import org.mockserver.model.Headers;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
+import org.mockserver.model.Parameters;
 
 import gherkin.deps.com.google.gson.Gson;
 import io.github.glytching.junit.extension.random.Random;
@@ -35,6 +36,7 @@ class ExpectationRequestAssemblerTest extends UnitTest {
     map.put("key", "value");
     requestBody.setBody(map);
     requestBody.setHeaders(map);
+    requestBody.setQueryParams(map);
 
     Expectation expectation =
         expectationRequestAssembler.assemble(requestBody, responseBody, maxHits);
@@ -44,6 +46,7 @@ class ExpectationRequestAssemblerTest extends UnitTest {
     assertThat(request, notNullValue());
 
     assertHeaders(requestBody.getHeaders(), request.getHeaders());
+    assertQueryParams(requestBody.getQueryParams(), request.getQueryStringParameters());
     assertThat(request.getMethod(), equalTo(requestBody.getMethod()));
     assertThat(request.getBodyAsString(), equalTo(gson.toJson(requestBody.getBody())));
     assertThat(request.getPath(), equalTo("/" + requestBody.getUrl()));
@@ -62,6 +65,15 @@ class ExpectationRequestAssemblerTest extends UnitTest {
         (k, v) -> {
           assertTrue(headers.containsEntry(k));
           assertThat(headers.getFirstValue(k), equalTo(v));
+        });
+  }
+
+  private void assertQueryParams(Map<String, String> parametersMap, Parameters parameters) {
+
+    parametersMap.forEach(
+        (k, v) -> {
+          assertTrue(parameters.containsEntry(k));
+          assertThat(parameters.getFirstValue(k), equalTo(v));
         });
   }
 }

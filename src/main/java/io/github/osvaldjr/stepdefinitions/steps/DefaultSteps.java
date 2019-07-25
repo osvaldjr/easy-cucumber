@@ -92,7 +92,7 @@ public class DefaultSteps extends Steps {
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
 
-  @Then("A have a mock ([^\"]*) for dependency ([^\"]*)")
+  @Then("I have a mock ([^\"]*) for dependency ([^\"]*)")
   public void aHaveAMockForDependency(String mockName, String serviceName) throws IOException {
     Object stubbyId = createStubbyUsecase.execute(scenarioName, serviceName, mockName);
     stubbyIdMap.put(getStubbyKey(scenarioName, serviceName, mockName), stubbyId);

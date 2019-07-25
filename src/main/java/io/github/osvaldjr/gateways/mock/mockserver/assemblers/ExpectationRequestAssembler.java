@@ -11,6 +11,7 @@ import org.mockserver.mock.Expectation;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
+import org.mockserver.model.Parameter;
 import org.springframework.stereotype.Component;
 
 import gherkin.deps.com.google.gson.Gson;
@@ -40,8 +41,15 @@ public class ExpectationRequestAssembler {
         .withMethod(request.getMethod())
         .withPath("/" + request.getUrl())
         .withHeaders(getHeaders(request.getHeaders()))
+        .withQueryStringParameters(getQueryParameters(request.getQueryParams()))
         .withBody(gson.toJson(request.getBody()));
     return httpRequest;
+  }
+
+  private List<Parameter> getQueryParameters(Map<String, String> queryParams) {
+    List<Parameter> parameters = new ArrayList<>();
+    queryParams.forEach((key, value) -> parameters.add(new Parameter(key, value)));
+    return parameters;
   }
 
   private List<Header> getHeaders(Map<String, String> headersMap) {
