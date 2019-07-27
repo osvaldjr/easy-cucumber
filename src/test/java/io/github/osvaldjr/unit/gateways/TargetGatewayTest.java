@@ -2,8 +2,10 @@ package io.github.osvaldjr.unit.gateways;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -86,6 +88,23 @@ public class TargetGatewayTest extends UnitTest {
     ResponseEntity response = targetGateway.delete(host, uri, body, headers);
 
     verify(feignClient, times(1)).delete(uri, body, headers);
+    verify(feignClient, never()).delete(any(), any());
+    verify(feignBuilder, times(1)).target(TargetClient.class, host);
+    assertThat(response, equalTo(responseEntity));
+  }
+
+  @Test
+  void shouldDeleteWithNullBody(
+      @Random String host,
+      @Random String uri,
+      @Random Map<String, String> headers,
+      @Random ResponseEntity responseEntity) {
+    when(feignClient.delete(uri, headers)).thenReturn(responseEntity);
+
+    ResponseEntity response = targetGateway.delete(host, uri, null, headers);
+
+    verify(feignClient, times(1)).delete(uri, headers);
+    verify(feignClient, never()).delete(any(), any(), any());
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }

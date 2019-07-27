@@ -54,3 +54,6 @@ Feature: Integration
     Then I expect to receive a 200 status with body http_get_body_complete_response.json
     Then response contains property [0].request.json.name with value Linux
     Then response does not contain property [1]updatedDate
+    Then I clear all mocks
+    And I make a GET to /
+    And I expect to receive a 204 status

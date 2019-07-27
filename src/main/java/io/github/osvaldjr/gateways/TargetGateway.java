@@ -1,5 +1,7 @@
 package io.github.osvaldjr.gateways;
 
+import static java.util.Optional.ofNullable;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,20 @@ public class TargetGateway {
 
   public <T> ResponseEntity<Object> delete(
       String host, String uri, T body, Map<String, String> headers) {
-    return buildClient(host).delete(uri, body, headers);
+    return requestDelete(host, uri, body, headers);
+  }
+
+  private <T> ResponseEntity<Object> requestDelete(
+      String host, String uri, T body, Map<String, String> headers) {
+    TargetClient targetClient = buildClient(host);
+    ResponseEntity<Object> delete;
+
+    if (ofNullable(body).isPresent()) {
+      delete = targetClient.delete(uri, body, headers);
+    } else {
+      delete = targetClient.delete(uri, headers);
+    }
+    return delete;
   }
 
   public <T> ResponseEntity<Object> put(

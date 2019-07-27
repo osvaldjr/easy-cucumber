@@ -13,21 +13,21 @@ import org.mockito.Mock;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.osvaldjr.gateways.mock.MockGateway;
 import io.github.osvaldjr.unit.UnitTest;
-import io.github.osvaldjr.usecases.HitsMatcherUseCase;
+import io.github.osvaldjr.usecases.GetMockHitsUseCase;
 
-class HitsMatcherUseCaseTest extends UnitTest {
+class GetMockHitsUseCaseTest extends UnitTest {
 
   @Mock private MockGateway mockGateway;
-  @InjectMocks private HitsMatcherUseCase hitsMatcherUsecase;
+  @InjectMocks private GetMockHitsUseCase getMockHitsUsecase;
 
   @Test
   void shouldExecute(@Random String id) {
     Integer hits = 10;
     when(mockGateway.getMockHits(id)).thenReturn(hits);
 
-    boolean match = hitsMatcherUsecase.execute(id, hits);
+    Integer match = getMockHitsUsecase.execute(id);
 
-    Assertions.assertTrue(match);
+    Assertions.assertEquals(hits, match);
     verify(mockGateway, times(1)).getMockHits(anyString());
   }
 }

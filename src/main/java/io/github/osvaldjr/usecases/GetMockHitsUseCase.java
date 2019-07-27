@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 import io.github.osvaldjr.gateways.mock.MockGateway;
 
 @Component
-public class HitsMatcherUseCase {
+public class GetMockHitsUseCase {
 
   private MockGateway mockGateway;
 
   @Autowired
-  public HitsMatcherUseCase(MockGateway mockGateway) {
+  public GetMockHitsUseCase(MockGateway mockGateway) {
     this.mockGateway = mockGateway;
   }
 
-  public <T> boolean execute(T id, Integer hits) {
-    return mockGateway.getMockHits(id).equals(hits);
+  public <T> Integer execute(T id) {
+    return mockGateway.getMockHits(id);
   }
 }

@@ -17,17 +17,20 @@ public interface TargetClient {
   ResponseEntity<Object> get(@Param("url") String url, @HeaderMap Map<String, String> headers);
 
   @RequestLine("POST {url}")
-  @Body("{request}")
+  @Body("{body}")
   <R> ResponseEntity<Object> post(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
   @RequestLine("DELETE {url}")
-  @Body("{request}")
+  @Body("{body}")
   <R> ResponseEntity<Object> delete(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 
+  @RequestLine("DELETE {url}")
+  ResponseEntity<Object> delete(@Param("url") String uri, @HeaderMap Map<String, String> headers);
+
   @RequestLine("PUT {url}")
-  @Body("{request}")
+  @Body("{body}")
   <R> ResponseEntity<Object> put(
       @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
 }
