@@ -1,9 +1,9 @@
 package io.github.osvaldjr;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringCloudApplication
+@SpringBootApplication
 public class ApplicationConfiguration {
 
   public static void main(String[] args) {

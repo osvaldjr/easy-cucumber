@@ -12,7 +12,7 @@
     <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.9</version>
+    <version>0.0.10-SNAPSHOT</version>
     <name>io.github.osvaldjr:easy-cucumber</name>
     <description>Easy Cucumber JVM Testing</description>
 

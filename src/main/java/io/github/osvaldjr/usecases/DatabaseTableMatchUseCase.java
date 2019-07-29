@@ -9,17 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseTableMatchUseCase<V> {
 
+  @PersistenceContext(unitName = "easyCucumberEntityManagerFactory")
   EntityManager entityManager;
-
-  public DatabaseTableMatchUseCase(EntityManager entityManager) {
-    this.entityManager = entityManager;
-  }
 
   public boolean execute(String tableName, List<Map<String, V>> lines) {
     String selectQuery = getSelectQuery(tableName, lines.get(0));

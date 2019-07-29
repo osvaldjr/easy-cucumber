@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -13,15 +14,22 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration(
     exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@EnableTransactionManagement
+@EnableJpaRepositories(
+    entityManagerFactoryRef = "easyCucumberEntityManagerFactory",
+    transactionManagerRef = "easyCucumberTransactionManager",
+    basePackages = {"io.github.osvaldjr"})
 public class DatabaseConfig {
 
   @Value("${spring.datasource.url:}")
@@ -36,19 +44,20 @@ public class DatabaseConfig {
   @Value("${spring.jpa.properties.hibernate.dialect:org.hibernate.dialect.PostgreSQLDialect}")
   private String hibernateDialect;
 
-  @Bean
+  @Bean(name = "easyCucumberDataSource")
   @ConditionalOnProperty("spring.datasource.url")
   public DataSource dataSource() {
     return DataSourceBuilder.create().url(url).username(username).password(password).build();
   }
 
-  @Bean
+  @Bean(name = "easyCucumberDataSource")
   public DataSource noDBDataSource() {
     return DataSourceBuilder.create().build();
   }
 
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+  @Bean(name = "easyCucumberEntityManagerFactory")
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+      @Qualifier("easyCucumberDataSource") DataSource dataSource) {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource);
     em.setPackagesToScan("io.github.osvaldjr");
@@ -59,8 +68,9 @@ public class DatabaseConfig {
     return em;
   }
 
-  @Bean
-  public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+  @Bean(name = "easyCucumberTransactionManager")
+  public PlatformTransactionManager transactionManager(
+      @Qualifier("easyCucumberEntityManagerFactory") EntityManagerFactory emf) {
     JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(emf);
 
