@@ -14,6 +14,7 @@ public class DatabaseBulkSQLInsertUseCase {
 
   @Transactional
   public void execute(String sql) {
+    entityManager.joinTransaction();
     entityManager.createNativeQuery(sql).executeUpdate();
   }
 }

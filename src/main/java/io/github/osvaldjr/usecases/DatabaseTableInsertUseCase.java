@@ -27,6 +27,7 @@ public class DatabaseTableInsertUseCase {
     String columns = getColumns(lines.get(0));
     String values = getInsertValues(lines);
     String query = format("INSERT INTO %s (%s) VALUES %s;", tableName, columns, values);
+    entityManager.joinTransaction();
     entityManager.createNativeQuery(query).executeUpdate();
   }
 
