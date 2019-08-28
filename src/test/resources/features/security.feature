@@ -14,7 +14,7 @@ Feature: Security
     And I generate the proxy session
     Then the number of risks per category should not be greater than
       | low | medium | high | informational |
-      | 4   | 0      | 0    | 0             |
+      | 5   | 0      | 0    | 0             |
 
   Scenario: Validate active scan
     Given I remove all alerts

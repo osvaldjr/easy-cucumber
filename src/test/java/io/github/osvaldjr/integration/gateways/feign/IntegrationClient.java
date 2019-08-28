@@ -4,26 +4,31 @@ import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-
-import feign.Body;
-import feign.HeaderMap;
-import feign.RequestLine;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(name = "integration", url = "${dependencies.integration.url}")
 public interface IntegrationClient {
 
-  @RequestLine("GET /get")
-  ResponseEntity<Object> get(@HeaderMap Map<String, String> headers);
+  @GetMapping(path = "/get")
+  ResponseEntity<Object> get(@RequestHeader Map<String, String> headers);
 
-  @RequestLine("PUT /put")
-  @Body("{body}")
-  ResponseEntity<Object> put(Object body, @HeaderMap Map<String, String> headers);
+  @PutMapping(path = "/put")
+  ResponseEntity<Object> put(@RequestBody Object body, @RequestHeader Map<String, String> headers);
 
-  @RequestLine("POST /post")
-  @Body("{body}")
-  ResponseEntity<Object> post(Object body, @HeaderMap Map<String, String> headers);
+  @PostMapping(path = "/post")
+  ResponseEntity<Object> post(@RequestBody Object body, @RequestHeader Map<String, String> headers);
 
-  @RequestLine("DELETE /delete")
-  @Body("{body}")
-  ResponseEntity<Object> delete(Object body, @HeaderMap Map<String, String> headers);
+  @DeleteMapping(path = "/delete")
+  ResponseEntity<Object> delete(
+      @RequestBody Object body, @RequestHeader Map<String, String> headers);
+
+  @PatchMapping(path = "/patch")
+  ResponseEntity<Object> patch(
+      @RequestBody Object body, @RequestHeader Map<String, String> headers);
 }

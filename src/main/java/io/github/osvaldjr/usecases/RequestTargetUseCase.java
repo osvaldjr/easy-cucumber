@@ -4,6 +4,7 @@ import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
@@ -62,9 +63,13 @@ public class RequestTargetUseCase {
             targetGateway.delete(
                 request.getHost(), request.getUrl(), request.getBody(), headersMap);
         break;
+      case PATCH:
+        response =
+            targetGateway.patch(request.getHost(), request.getUrl(), request.getBody(), headersMap);
+        break;
       default:
         throw new MethodNotAllowedException(
-            request.getMethod(), Arrays.asList(GET, POST, PUT, DELETE));
+            request.getMethod(), Arrays.asList(GET, POST, PUT, DELETE, PATCH));
     }
     return response;
   }

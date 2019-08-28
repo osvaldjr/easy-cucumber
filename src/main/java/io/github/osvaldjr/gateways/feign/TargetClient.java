@@ -4,33 +4,47 @@ import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-
-import feign.Body;
-import feign.HeaderMap;
-import feign.Param;
-import feign.RequestLine;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(value = "target-client")
 public interface TargetClient {
 
-  @RequestLine("GET {url}")
-  ResponseEntity<Object> get(@Param("url") String url, @HeaderMap Map<String, String> headers);
+  @GetMapping(path = "{url}")
+  ResponseEntity<Object> get(
+      @PathVariable("url") String url, @RequestHeader Map<String, String> headers);
 
-  @RequestLine("POST {url}")
-  @Body("{body}")
+  @PostMapping(path = "{url}")
   <R> ResponseEntity<Object> post(
-      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
+      @PathVariable("url") String uri,
+      @RequestBody R body,
+      @RequestHeader Map<String, String> headers);
 
-  @RequestLine("DELETE {url}")
-  @Body("{body}")
+  @DeleteMapping(path = "{url}")
   <R> ResponseEntity<Object> delete(
-      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
+      @PathVariable("url") String uri,
+      @RequestBody R body,
+      @RequestHeader Map<String, String> headers);
 
-  @RequestLine("DELETE {url}")
-  ResponseEntity<Object> delete(@Param("url") String uri, @HeaderMap Map<String, String> headers);
+  @DeleteMapping(path = "{url}")
+  ResponseEntity<Object> delete(
+      @PathVariable("url") String uri, @RequestHeader Map<String, String> headers);
 
-  @RequestLine("PUT {url}")
-  @Body("{body}")
+  @PutMapping(path = "{url}")
   <R> ResponseEntity<Object> put(
-      @Param("url") String uri, R body, @HeaderMap Map<String, String> headers);
+      @PathVariable("url") String uri,
+      @RequestBody R body,
+      @RequestHeader Map<String, String> headers);
+
+  @PatchMapping(path = "{url}")
+  <R> ResponseEntity<Object> patch(
+      @PathVariable("url") String uri,
+      @RequestBody R body,
+      @RequestHeader Map<String, String> headers);
 }

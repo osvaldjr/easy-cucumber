@@ -5,7 +5,6 @@ import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import feign.Contract;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -21,11 +20,6 @@ public class FeignConfig {
   @Bean
   public ErrorDecoder errorDecoder() {
     return new FeignErrorDecoder();
-  }
-
-  @Bean
-  public Contract feignContract() {
-    return new Contract.Default();
   }
 
   @Bean

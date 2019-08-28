@@ -2,11 +2,14 @@ server.port: 9000
 logging:
   level:
     io.github.osvaldjr.gateways.feign.IntegrationClient: FULL
+    root: debug
 feign:
   client:
     config:
       default:
         loggerLevel: FULL
+  okhttp:
+    enabled: true
 
 target.url: http://localhost:9000
 

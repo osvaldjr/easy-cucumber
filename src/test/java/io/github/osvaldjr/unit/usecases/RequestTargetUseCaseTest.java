@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.HEAD;
+import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
@@ -111,7 +112,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             MethodNotAllowedException.class, () -> requestTargetUseCase.execute(targetRequest));
 
     assertThat(throwable.getHttpMethod(), equalTo(HEAD.name()));
-    assertThat(throwable.getSupportedMethods(), containsInAnyOrder(GET, POST, PUT, DELETE));
+    assertThat(throwable.getSupportedMethods(), containsInAnyOrder(GET, POST, PUT, DELETE, PATCH));
     verify(targetGateway, never()).delete(any(), any(), any(), any());
   }
 
@@ -143,5 +144,24 @@ class RequestTargetUseCaseTest extends UnitTest {
         assertThrows(AssertionError.class, () -> requestTargetUseCase.execute(targetRequest));
 
     assertThat(throwable.getMessage(), equalTo("host cannot be null in make request"));
+  }
+
+  @Test
+  void shouldExecutePatch(
+      @Random TargetRequest targetRequest,
+      @Random ResponseEntity responseEntity,
+      @Random Object body) {
+    targetRequest.setMethod(PATCH.name());
+    targetRequest.setBody(body);
+    targetRequest.setHost(null);
+    ReflectionTestUtils.setField(requestTargetUseCase, "targetHost", "http://localhost:9001");
+    when(targetGateway.patch(
+            "http://localhost:9001", targetRequest.getUrl(), body, targetRequest.getHeaders()))
+        .thenReturn(responseEntity);
+
+    ResponseEntity response = requestTargetUseCase.execute(targetRequest);
+
+    assertThat(response, equalTo(responseEntity));
+    verify(targetGateway, times(1)).patch(any(), any(), any(), any());
   }
 }

@@ -5,14 +5,15 @@ import static java.util.Optional.ofNullable;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import feign.Contract;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
+import feign.okhttp.OkHttpClient;
 import io.github.osvaldjr.gateways.feign.TargetClient;
 
 @Component
@@ -21,14 +22,14 @@ public class TargetGateway {
   private Feign.Builder feignBuilder;
 
   @Autowired
-  public TargetGateway(
-      Decoder decoder, Encoder encoder, Contract contract, ErrorDecoder errorDecoder) {
+  public TargetGateway(Decoder decoder, Encoder encoder, ErrorDecoder errorDecoder) {
     this.feignBuilder =
         Feign.builder()
             .decoder(decoder)
             .encoder(encoder)
             .errorDecoder(errorDecoder)
-            .contract(contract);
+            .contract(new SpringMvcContract())
+            .client(new OkHttpClient());
   }
 
   public ResponseEntity<Object> get(String host, String uri, Map<String, String> headers) {
@@ -61,6 +62,11 @@ public class TargetGateway {
   public <T> ResponseEntity<Object> put(
       String host, String uri, T body, Map<String, String> headers) {
     return buildClient(host).put(uri, body, headers);
+  }
+
+  public <T> ResponseEntity<Object> patch(
+      String host, String uri, T body, Map<String, String> headers) {
+    return buildClient(host).patch(uri, body, headers);
   }
 
   private TargetClient buildClient(String host) {

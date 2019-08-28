@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,5 +69,13 @@ public class TestController {
       @ApiParam(value = "body") @RequestBody Object body,
       @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     return client.post(body, headers);
+  }
+
+  @ApiOperation(value = "patch")
+  @PatchMapping
+  public ResponseEntity<Object> patch(
+      @ApiParam(value = "body") @RequestBody Object body,
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
+    return client.patch(body, headers);
   }
 }

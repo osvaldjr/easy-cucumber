@@ -4,25 +4,27 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import feign.Param;
-import feign.RequestLine;
 import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonResponse;
 
 @FeignClient(value = "stubby-client", url = "${dependencies.stubby.url:}")
 public interface StubbyClient {
 
-  @RequestLine("GET /")
+  @GetMapping
   List<StubbyJsonResponse> getAllServices();
 
-  @RequestLine("POST /")
+  @PostMapping
   ResponseEntity<StubbyJsonResponse> create(@RequestBody StubbyJsonRequest request);
 
-  @RequestLine("DELETE /{id}")
-  void delete(@Param("id") Integer id);
+  @DeleteMapping(path = "/{id}")
+  void delete(@PathVariable("id") Integer id);
 
-  @RequestLine("GET /{id}")
-  StubbyJsonResponse getService(@Param("id") Integer id);
+  @GetMapping(path = "/{id}")
+  StubbyJsonResponse getService(@PathVariable("id") Integer id);
 }

@@ -57,3 +57,8 @@ Feature: Integration
     Then I clear all mocks
     And I make a GET to /
     And I expect to receive a 204 status
+
+  Scenario: Validate a default steps with request defined with PATCH method
+    Given I have a mock http_patch_successful for dependency integration
+    When I make a request defined in http_patch_defined_body_request.json
+    Then I expect to receive a 200 status

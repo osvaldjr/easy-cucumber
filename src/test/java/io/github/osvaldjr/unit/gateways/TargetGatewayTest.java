@@ -124,4 +124,20 @@ public class TargetGatewayTest extends UnitTest {
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
+
+  @Test
+  void shouldPatch(
+      @Random String host,
+      @Random String uri,
+      @Random Object body,
+      @Random Map<String, String> headers,
+      @Random ResponseEntity responseEntity) {
+    when(feignClient.patch(uri, body, headers)).thenReturn(responseEntity);
+
+    ResponseEntity response = targetGateway.patch(host, uri, body, headers);
+
+    verify(feignClient, times(1)).patch(uri, body, headers);
+    verify(feignBuilder, times(1)).target(TargetClient.class, host);
+    assertThat(response, equalTo(responseEntity));
+  }
 }
