@@ -20,7 +20,7 @@ public class FF4jConfig {
   private Integer redisPort;
 
   @Value("${dependencies.ff4j.test:false}")
-  private Boolean isTest;
+  private boolean isTest;
 
   @Bean
   public FF4j getFF4j() {
