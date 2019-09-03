@@ -1,7 +1,10 @@
 package io.github.osvaldjr.usecases;
 
 import static java.lang.String.format;
+import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang.StringUtils.trim;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +16,9 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class DatabaseTableMatchUseCase<V> {
 
@@ -23,24 +29,38 @@ public class DatabaseTableMatchUseCase<V> {
     String selectQuery = getSelectQuery(tableName, lines.get(0));
 
     List resultList = entityManager.createNativeQuery(selectQuery).getResultList();
-    return lines.stream().allMatch(line -> matchLine(new ArrayList<>(line.values()), resultList));
+    return lines.stream()
+        .allMatch(line -> matchLine(tableName, new ArrayList<>(line.values()), resultList));
   }
 
-  private boolean matchLine(List<V> expectedLine, List<V[]> allResults) {
-    return allResults.stream()
-        .anyMatch(
-            resultLine -> {
-              List<V> objects = Arrays.asList((V[]) resultLine);
-              return matchAllColumns(expectedLine, objects);
-            });
+  private boolean matchLine(String tableName, List<V> expectedLine, List<V[]> allResults) {
+    boolean matchAllColumns =
+        allResults.stream()
+            .anyMatch(resultLine -> matchAllColumns(expectedLine, Arrays.asList((V[]) resultLine)));
+
+    if (!matchAllColumns) {
+      throw new AssertionError(
+          format(
+              "Assert failed in match columns of table %s:\nExpected: %s\nGot table: %s",
+              tableName,
+              expectedLine.toString(),
+              allResults.stream().map(result -> Arrays.toString(result)).collect(toList())));
+    }
+
+    return matchAllColumns;
   }
 
   private boolean matchAllColumns(List<V> expectedLine, List<V> resultLine) {
     return expectedLine.stream()
         .allMatch(
             column ->
-                resultLine.stream()
-                    .anyMatch(resultColumn -> resultColumn.toString().equals(column)));
+                resultLine.stream().anyMatch(resultColumn -> matchColumn(column, resultColumn)));
+  }
+
+  private boolean matchColumn(V column, V resultColumn) {
+    String returnValue = trim(valueOf(resultColumn));
+    String expectValue = valueOf(column);
+    return returnValue.equals(expectValue) || returnValue.matches(expectValue);
   }
 
   private String getSelectQuery(String tableName, Map<String, V> map) {

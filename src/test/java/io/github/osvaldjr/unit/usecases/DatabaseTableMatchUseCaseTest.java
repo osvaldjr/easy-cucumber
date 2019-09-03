@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -18,6 +17,7 @@ import java.util.TreeMap;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -82,8 +82,9 @@ class DatabaseTableMatchUseCaseTest extends UnitTest {
     resultList.add(line2);
 
     when(query.getResultList()).thenReturn(resultList);
-    boolean match = databaseTableMatchUseCase.execute(tableName, mockTableLines());
-    assertFalse(match);
+    Assertions.assertThrows(
+        AssertionError.class, () -> databaseTableMatchUseCase.execute(tableName, mockTableLines()));
+
     verify(query, times(1)).getResultList();
     verify(entityManager, times(1)).createNativeQuery(argumentCaptor.capture());
     String query = argumentCaptor.getValue();
@@ -99,8 +100,9 @@ class DatabaseTableMatchUseCaseTest extends UnitTest {
     resultList.add(line);
 
     when(query.getResultList()).thenReturn(resultList);
-    boolean match = databaseTableMatchUseCase.execute(tableName, mockTableLines());
-    assertFalse(match);
+    Assertions.assertThrows(
+        AssertionError.class, () -> databaseTableMatchUseCase.execute(tableName, mockTableLines()));
+
     verify(query, times(1)).getResultList();
     verify(entityManager, times(1)).createNativeQuery(argumentCaptor.capture());
     String query = argumentCaptor.getValue();
@@ -112,9 +114,11 @@ class DatabaseTableMatchUseCaseTest extends UnitTest {
   private List<String[]> mockResultList() {
     String[] line1 = {"1812-01-20", "John Snow", "1"};
     String[] line2 = {"1852-06-01", "Arya Stark", "0"};
+    String[] line3 = {null, null, "0"};
     List<String[]> list = new ArrayList<>();
     list.add(line1);
     list.add(line2);
+    list.add(line3);
     return list;
   }
 
@@ -127,8 +131,13 @@ class DatabaseTableMatchUseCaseTest extends UnitTest {
     TreeMap<String, String> line2 = new TreeMap<>();
     line2.put("name", "Arya Stark");
     line2.put("birth_date", "1852-06-01");
-    line2.put("deaths", "0");
+    line2.put("deaths", "[0-9]");
 
-    return asList(line1, line2);
+    TreeMap<String, String> line3 = new TreeMap<>();
+    line3.put("name", "null");
+    line3.put("birth_date", "null");
+    line3.put("deaths", "0");
+
+    return asList(line1, line2, line3);
   }
 }
