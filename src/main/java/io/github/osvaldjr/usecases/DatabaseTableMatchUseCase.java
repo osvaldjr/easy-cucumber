@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang.StringUtils.trim;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,11 +41,11 @@ public class DatabaseTableMatchUseCase<V> {
 
     if (!matchAllColumns) {
       throw new AssertionError(
-          format(
-              "Assert failed in match columns of table %s:\nExpected: %s\nGot table: %s",
+          MessageFormat.format(
+              "Assert failed in match columns of table {0}:\nExpected: {1}\nGot table: {2}",
               tableName,
               expectedLine.toString(),
-              allResults.stream().map(result -> Arrays.toString(result)).collect(toList())));
+              allResults.stream().map(Arrays::toString).collect(toList())));
     }
 
     return matchAllColumns;
