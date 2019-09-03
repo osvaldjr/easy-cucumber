@@ -112,7 +112,7 @@ class DatabaseTableMatchUseCaseTest extends UnitTest {
   }
 
   private List<String[]> mockResultList() {
-    String[] line1 = {"1812-01-20", "John Snow", "1"};
+    String[] line1 = {"1812-01-20", "John Snow   ", "1"};
     String[] line2 = {"1852-06-01", "Arya Stark", "0"};
     String[] line3 = {null, null, "0"};
     List<String[]> list = new ArrayList<>();
