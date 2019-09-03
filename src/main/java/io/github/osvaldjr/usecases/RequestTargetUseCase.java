@@ -43,29 +43,51 @@ public class RequestTargetUseCase {
     assertNotNull("host cannot be null in make request", request.getHost());
 
     ResponseEntity response;
-    Map<String, String> headersMap = getHeaders(request.getHeaders());
+    Map<String, String> headersMap = getMapOfNullable(request.getHeaders());
+    Map<String, String> queryParametersMap = getMapOfNullable(request.getQueryParameters());
+
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
 
     switch (httpMethod) {
       case GET:
-        response = targetGateway.get(request.getHost(), request.getUrl(), headersMap);
+        response =
+            targetGateway.get(request.getHost(), request.getUrl(), headersMap, queryParametersMap);
         break;
       case POST:
         response =
-            targetGateway.post(request.getHost(), request.getUrl(), request.getBody(), headersMap);
+            targetGateway.post(
+                request.getHost(),
+                request.getUrl(),
+                request.getBody(),
+                headersMap,
+                queryParametersMap);
         break;
       case PUT:
         response =
-            targetGateway.put(request.getHost(), request.getUrl(), request.getBody(), headersMap);
+            targetGateway.put(
+                request.getHost(),
+                request.getUrl(),
+                request.getBody(),
+                headersMap,
+                queryParametersMap);
         break;
       case DELETE:
         response =
             targetGateway.delete(
-                request.getHost(), request.getUrl(), request.getBody(), headersMap);
+                request.getHost(),
+                request.getUrl(),
+                request.getBody(),
+                headersMap,
+                queryParametersMap);
         break;
       case PATCH:
         response =
-            targetGateway.patch(request.getHost(), request.getUrl(), request.getBody(), headersMap);
+            targetGateway.patch(
+                request.getHost(),
+                request.getUrl(),
+                request.getBody(),
+                headersMap,
+                queryParametersMap);
         break;
       default:
         throw new MethodNotAllowedException(
@@ -74,7 +96,7 @@ public class RequestTargetUseCase {
     return response;
   }
 
-  private Map<String, String> getHeaders(Map<String, String> headers) {
+  private Map<String, String> getMapOfNullable(Map<String, String> headers) {
     return ofNullable(headers).orElseGet(HashMap::new);
   }
 }

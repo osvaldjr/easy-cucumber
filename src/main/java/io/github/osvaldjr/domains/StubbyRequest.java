@@ -27,6 +27,7 @@ public class StubbyRequest implements Serializable {
     private Object body;
     private Map<String, String> headers = new HashMap<>();
     private Map<String, String> queryParams = new HashMap<>();
+    private BodyType bodyType;
   }
 
   @Getter
@@ -37,5 +38,11 @@ public class StubbyRequest implements Serializable {
     private Map<String, String> headers;
     private Integer status;
     private Object body;
+    private BodyType bodyType;
+  }
+
+  public enum BodyType {
+    JSON,
+    RAW
   }
 }

@@ -41,13 +41,16 @@ class RequestTargetUseCaseTest extends UnitTest {
       @Random TargetRequest targetRequest, @Random ResponseEntity responseEntity) {
     targetRequest.setMethod(GET.name());
     when(targetGateway.get(
-            targetRequest.getHost(), targetRequest.getUrl(), targetRequest.getHeaders()))
+            targetRequest.getHost(),
+            targetRequest.getUrl(),
+            targetRequest.getHeaders(),
+            targetRequest.getQueryParameters()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).get(anyString(), anyString(), anyMap());
+    verify(targetGateway, times(1)).get(anyString(), anyString(), anyMap(), anyMap());
   }
 
   @Test
@@ -58,13 +61,17 @@ class RequestTargetUseCaseTest extends UnitTest {
     targetRequest.setMethod(POST.name());
     targetRequest.setBody(body);
     when(targetGateway.post(
-            targetRequest.getHost(), targetRequest.getUrl(), body, targetRequest.getHeaders()))
+            targetRequest.getHost(),
+            targetRequest.getUrl(),
+            body,
+            targetRequest.getHeaders(),
+            targetRequest.getQueryParameters()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).post(any(), any(), any(), any());
+    verify(targetGateway, times(1)).post(any(), any(), any(), any(), anyMap());
   }
 
   @Test
@@ -75,13 +82,17 @@ class RequestTargetUseCaseTest extends UnitTest {
     targetRequest.setMethod(PUT.name());
     targetRequest.setBody(body);
     when(targetGateway.put(
-            targetRequest.getHost(), targetRequest.getUrl(), body, targetRequest.getHeaders()))
+            targetRequest.getHost(),
+            targetRequest.getUrl(),
+            body,
+            targetRequest.getHeaders(),
+            targetRequest.getQueryParameters()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).put(any(), any(), any(), any());
+    verify(targetGateway, times(1)).put(any(), any(), any(), any(), any());
   }
 
   @Test
@@ -94,13 +105,17 @@ class RequestTargetUseCaseTest extends UnitTest {
     targetRequest.setHost(null);
     ReflectionTestUtils.setField(requestTargetUseCase, "targetHost", "http://localhost:9001");
     when(targetGateway.delete(
-            "http://localhost:9001", targetRequest.getUrl(), body, targetRequest.getHeaders()))
+            "http://localhost:9001",
+            targetRequest.getUrl(),
+            body,
+            targetRequest.getHeaders(),
+            targetRequest.getQueryParameters()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).delete(any(), any(), any(), any());
+    verify(targetGateway, times(1)).delete(any(), any(), any(), any(), anyMap());
   }
 
   @Test
@@ -113,7 +128,7 @@ class RequestTargetUseCaseTest extends UnitTest {
 
     assertThat(throwable.getHttpMethod(), equalTo(HEAD.name()));
     assertThat(throwable.getSupportedMethods(), containsInAnyOrder(GET, POST, PUT, DELETE, PATCH));
-    verify(targetGateway, never()).delete(any(), any(), any(), any());
+    verify(targetGateway, never()).delete(any(), any(), any(), any(), anyMap());
   }
 
   @Test
@@ -156,12 +171,16 @@ class RequestTargetUseCaseTest extends UnitTest {
     targetRequest.setHost(null);
     ReflectionTestUtils.setField(requestTargetUseCase, "targetHost", "http://localhost:9001");
     when(targetGateway.patch(
-            "http://localhost:9001", targetRequest.getUrl(), body, targetRequest.getHeaders()))
+            "http://localhost:9001",
+            targetRequest.getUrl(),
+            body,
+            targetRequest.getHeaders(),
+            targetRequest.getQueryParameters()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
 
     assertThat(response, equalTo(responseEntity));
-    verify(targetGateway, times(1)).patch(any(), any(), any(), any());
+    verify(targetGateway, times(1)).patch(any(), any(), any(), any(), any());
   }
 }

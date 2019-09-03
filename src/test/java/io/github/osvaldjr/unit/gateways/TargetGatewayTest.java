@@ -50,12 +50,13 @@ public class TargetGatewayTest extends UnitTest {
       @Random String host,
       @Random String uri,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
 
-    when(feignClient.get(uri, headers)).thenReturn(responseEntity);
-    ResponseEntity response = targetGateway.get(host, uri, headers);
+    when(feignClient.get(uri, headers, queryParams)).thenReturn(responseEntity);
+    ResponseEntity response = targetGateway.get(host, uri, headers, queryParams);
 
-    verify(feignClient, times(1)).get(uri, headers);
+    verify(feignClient, times(1)).get(uri, headers, queryParams);
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
@@ -66,12 +67,13 @@ public class TargetGatewayTest extends UnitTest {
       @Random String uri,
       @Random Object body,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
-    when(feignClient.post(uri, body, headers)).thenReturn(responseEntity);
+    when(feignClient.post(uri, body, headers, queryParams)).thenReturn(responseEntity);
 
-    ResponseEntity response = targetGateway.post(host, uri, body, headers);
+    ResponseEntity response = targetGateway.post(host, uri, body, headers, queryParams);
 
-    verify(feignClient, times(1)).post(uri, body, headers);
+    verify(feignClient, times(1)).post(uri, body, headers, queryParams);
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
@@ -82,13 +84,14 @@ public class TargetGatewayTest extends UnitTest {
       @Random String uri,
       @Random Object body,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
-    when(feignClient.delete(uri, body, headers)).thenReturn(responseEntity);
+    when(feignClient.delete(uri, body, headers, queryParams)).thenReturn(responseEntity);
 
-    ResponseEntity response = targetGateway.delete(host, uri, body, headers);
+    ResponseEntity response = targetGateway.delete(host, uri, body, headers, queryParams);
 
-    verify(feignClient, times(1)).delete(uri, body, headers);
-    verify(feignClient, never()).delete(any(), any());
+    verify(feignClient, times(1)).delete(uri, body, headers, queryParams);
+    verify(feignClient, never()).delete(any(), any(), any());
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
@@ -98,13 +101,14 @@ public class TargetGatewayTest extends UnitTest {
       @Random String host,
       @Random String uri,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
-    when(feignClient.delete(uri, headers)).thenReturn(responseEntity);
+    when(feignClient.delete(uri, headers, queryParams)).thenReturn(responseEntity);
 
-    ResponseEntity response = targetGateway.delete(host, uri, null, headers);
+    ResponseEntity response = targetGateway.delete(host, uri, null, headers, queryParams);
 
-    verify(feignClient, times(1)).delete(uri, headers);
-    verify(feignClient, never()).delete(any(), any(), any());
+    verify(feignClient, times(1)).delete(uri, headers, queryParams);
+    verify(feignClient, never()).delete(any(), any(), any(), any());
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
@@ -115,12 +119,13 @@ public class TargetGatewayTest extends UnitTest {
       @Random String uri,
       @Random Object body,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
-    when(feignClient.put(uri, body, headers)).thenReturn(responseEntity);
+    when(feignClient.put(uri, body, headers, queryParams)).thenReturn(responseEntity);
 
-    ResponseEntity response = targetGateway.put(host, uri, body, headers);
+    ResponseEntity response = targetGateway.put(host, uri, body, headers, queryParams);
 
-    verify(feignClient, times(1)).put(uri, body, headers);
+    verify(feignClient, times(1)).put(uri, body, headers, queryParams);
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }
@@ -131,12 +136,13 @@ public class TargetGatewayTest extends UnitTest {
       @Random String uri,
       @Random Object body,
       @Random Map<String, String> headers,
+      @Random Map<String, String> queryParams,
       @Random ResponseEntity responseEntity) {
-    when(feignClient.patch(uri, body, headers)).thenReturn(responseEntity);
+    when(feignClient.patch(uri, body, headers, queryParams)).thenReturn(responseEntity);
 
-    ResponseEntity response = targetGateway.patch(host, uri, body, headers);
+    ResponseEntity response = targetGateway.patch(host, uri, body, headers, queryParams);
 
-    verify(feignClient, times(1)).patch(uri, body, headers);
+    verify(feignClient, times(1)).patch(uri, body, headers, queryParams);
     verify(feignBuilder, times(1)).target(TargetClient.class, host);
     assertThat(response, equalTo(responseEntity));
   }

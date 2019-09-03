@@ -34,9 +34,12 @@ class ExpectationRequestAssemblerTest extends UnitTest {
     Gson gson = new Gson();
     Map<String, String> map = new HashMap<>();
     map.put("key", "value");
-    requestBody.setBody(map);
+    requestBody.setBody("anotherKey=anotherValue");
     requestBody.setHeaders(map);
     requestBody.setQueryParams(map);
+    requestBody.setBodyType(StubbyRequest.BodyType.JSON);
+    responseBody.setBodyType(StubbyRequest.BodyType.JSON);
+    responseBody.setBody("anotherKey=anotherValue");
 
     Expectation expectation =
         expectationRequestAssembler.assemble(requestBody, responseBody, maxHits);
@@ -57,6 +60,42 @@ class ExpectationRequestAssemblerTest extends UnitTest {
     assertHeaders(responseBody.getHeaders(), response.getHeaders());
     assertThat(response.getStatusCode(), equalTo(responseBody.getStatus()));
     assertThat(response.getBodyAsString(), equalTo(gson.toJson(responseBody.getBody())));
+  }
+
+  @Test
+  void shouldAssembleCorrectlyWithRawBody(
+      @Random StubbyRequest.RequestBody requestBody,
+      @Random StubbyRequest.ResponseBody responseBody,
+      @Random int maxHits) {
+    Gson gson = new Gson();
+    Map<String, String> map = new HashMap<>();
+    map.put("key1", "value1");
+    requestBody.setBody("anotherKey=anotherValue");
+    requestBody.setHeaders(map);
+    requestBody.setQueryParams(map);
+    requestBody.setBodyType(StubbyRequest.BodyType.RAW);
+    responseBody.setBodyType(StubbyRequest.BodyType.RAW);
+    responseBody.setBody("anotherKey=anotherValue");
+
+    Expectation expectation =
+        expectationRequestAssembler.assemble(requestBody, responseBody, maxHits);
+
+    assertThat(expectation, notNullValue());
+    HttpRequest request = expectation.getHttpRequest();
+    assertThat(request, notNullValue());
+
+    assertHeaders(requestBody.getHeaders(), request.getHeaders());
+    assertQueryParams(requestBody.getQueryParams(), request.getQueryStringParameters());
+    assertThat(request.getMethod(), equalTo(requestBody.getMethod()));
+    assertThat(request.getBodyAsString(), equalTo(requestBody.getBody()));
+    assertThat(request.getPath(), equalTo("/" + requestBody.getUrl()));
+
+    HttpResponse response = expectation.getHttpResponse();
+    assertThat(response, notNullValue());
+
+    assertHeaders(responseBody.getHeaders(), response.getHeaders());
+    assertThat(response.getStatusCode(), equalTo(responseBody.getStatus()));
+    assertThat(response.getBodyAsString(), equalTo(responseBody.getBody()));
   }
 
   private void assertHeaders(Map<String, String> headersMap, Headers headers) {

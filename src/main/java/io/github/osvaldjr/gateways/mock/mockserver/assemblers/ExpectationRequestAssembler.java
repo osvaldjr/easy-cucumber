@@ -28,11 +28,17 @@ public class ExpectationRequestAssembler {
 
     HttpResponse httpResponse =
         HttpResponse.response()
-            .withBody(gson.toJson(response.getBody()))
+            .withBody(getResponseBody(response))
             .withStatusCode(response.getStatus())
             .withHeaders(getHeaders(response.getHeaders()));
 
     return new Expectation(httpRequest, exactly(maxHits), unlimited()).thenRespond(httpResponse);
+  }
+
+  private String getResponseBody(StubbyRequest.ResponseBody response) {
+    return response.getBodyType() == StubbyRequest.BodyType.RAW
+        ? response.getBody().toString()
+        : gson.toJson(response.getBody());
   }
 
   private HttpRequest getHttpRequest(StubbyRequest.RequestBody request) {
@@ -42,8 +48,14 @@ public class ExpectationRequestAssembler {
         .withPath("/" + request.getUrl())
         .withHeaders(getHeaders(request.getHeaders()))
         .withQueryStringParameters(getQueryParameters(request.getQueryParams()))
-        .withBody(gson.toJson(request.getBody()));
+        .withBody(getRequestBody(request));
     return httpRequest;
+  }
+
+  private String getRequestBody(StubbyRequest.RequestBody request) {
+    return request.getBodyType() == StubbyRequest.BodyType.RAW
+        ? request.getBody().toString()
+        : gson.toJson(request.getBody());
   }
 
   private List<Parameter> getQueryParameters(Map<String, String> queryParams) {
