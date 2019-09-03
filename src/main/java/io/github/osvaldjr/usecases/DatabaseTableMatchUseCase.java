@@ -44,7 +44,7 @@ public class DatabaseTableMatchUseCase<V> {
           MessageFormat.format(
               "Assert failed in match columns of table {0}:\nExpected: {1}\nGot table: {2}",
               tableName,
-              expectedLine.toString(),
+              expectedLine,
               allResults.stream().map(Arrays::toString).collect(toList())));
     }
 
