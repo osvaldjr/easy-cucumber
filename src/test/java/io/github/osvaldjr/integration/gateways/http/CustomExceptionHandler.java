@@ -15,6 +15,7 @@ public class CustomExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
   public ErrorResponse handleException(Exception exception) {
+    exception.printStackTrace();
     return ErrorResponse.build(ErrorResponse.INTERNAL_SERVER_ERROR);
   }
 }

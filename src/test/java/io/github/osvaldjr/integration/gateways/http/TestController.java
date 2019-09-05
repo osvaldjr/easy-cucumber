@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.osvaldjr.integration.gateways.feign.IntegrationClient;
@@ -77,5 +78,13 @@ public class TestController {
       @ApiParam(value = "body") @RequestBody Object body,
       @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
     return client.patch(body, headers);
+  }
+
+  @ApiOperation(value = "post/plain")
+  @PostMapping(path = "/post/plain")
+  public ResponseEntity<Object> postPlain(
+      @ApiParam(value = "myParam") @RequestParam String myParam,
+      @ApiParam(value = "headers") @RequestHeader Map<String, String> headers) {
+    return client.post("myParam=" + myParam, headers);
   }
 }

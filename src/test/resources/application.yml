@@ -1,7 +1,8 @@
 server.port: 9000
 logging:
   level:
-    io.github.osvaldjr.gateways.feign.IntegrationClient: FULL
+    io.github.osvaldjr.gateways.feign.IntegrationClient: DEBUG
+    io.github.osvaldjr.integration: DEBUG
 feign:
   client:
     config:

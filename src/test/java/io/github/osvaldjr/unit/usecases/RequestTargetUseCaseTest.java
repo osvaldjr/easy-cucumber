@@ -44,7 +44,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             targetRequest.getHost(),
             targetRequest.getUrl(),
             targetRequest.getHeaders(),
-            targetRequest.getQueryParameters()))
+            targetRequest.getQueryParams()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -65,7 +65,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             targetRequest.getUrl(),
             body,
             targetRequest.getHeaders(),
-            targetRequest.getQueryParameters()))
+            targetRequest.getQueryParams()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -86,7 +86,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             targetRequest.getUrl(),
             body,
             targetRequest.getHeaders(),
-            targetRequest.getQueryParameters()))
+            targetRequest.getQueryParams()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -109,7 +109,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             targetRequest.getUrl(),
             body,
             targetRequest.getHeaders(),
-            targetRequest.getQueryParameters()))
+            targetRequest.getQueryParams()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);
@@ -175,7 +175,7 @@ class RequestTargetUseCaseTest extends UnitTest {
             targetRequest.getUrl(),
             body,
             targetRequest.getHeaders(),
-            targetRequest.getQueryParameters()))
+            targetRequest.getQueryParams()))
         .thenReturn(responseEntity);
 
     ResponseEntity response = requestTargetUseCase.execute(targetRequest);

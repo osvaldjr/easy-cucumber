@@ -6,6 +6,7 @@ import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;
 import org.springframework.stereotype.Component;
 
 import gherkin.deps.com.google.gson.Gson;
+import io.github.osvaldjr.domains.StubbyRequest;
 import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyRequestBody;
 import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyResponseBody;
@@ -32,12 +33,19 @@ public class StubbyRequestAssembler {
   }
 
   private StubbyRequestBody buildRequest(RequestBody stubbyRequestBody) {
-    return StubbyRequestBody.builder()
-        .headers(stubbyRequestBody.getHeaders())
-        .json(gson.toJson(stubbyRequestBody.getBody()))
-        .method(stubbyRequestBody.getMethod())
-        .query(stubbyRequestBody.getQueryParams())
-        .url(stubbyRequestBody.getUrl())
-        .build();
+
+    StubbyRequestBody.StubbyRequestBodyBuilder builder =
+        StubbyRequestBody.builder()
+            .headers(stubbyRequestBody.getHeaders())
+            .method(stubbyRequestBody.getMethod())
+            .query(stubbyRequestBody.getQueryParams())
+            .url(stubbyRequestBody.getUrl());
+    if (StubbyRequest.BodyType.RAW == stubbyRequestBody.getBodyType()) {
+      builder.post(stubbyRequestBody.getBody().toString());
+    } else {
+      builder.json(gson.toJson(stubbyRequestBody.getBody()));
+    }
+
+    return builder.build();
   }
 }

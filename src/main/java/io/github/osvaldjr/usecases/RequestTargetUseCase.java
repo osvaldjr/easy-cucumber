@@ -44,7 +44,7 @@ public class RequestTargetUseCase {
 
     ResponseEntity response;
     Map<String, String> headersMap = getMapOfNullable(request.getHeaders());
-    Map<String, String> queryParametersMap = getMapOfNullable(request.getQueryParameters());
+    Map<String, String> queryParametersMap = getMapOfNullable(request.getQueryParams());
 
     HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
 

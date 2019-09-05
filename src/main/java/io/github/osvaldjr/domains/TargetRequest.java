@@ -13,5 +13,5 @@ public class TargetRequest<T> {
   private String url;
   private T body;
   private Map<String, String> headers;
-  private Map<String, String> queryParameters;
+  private Map<String, String> queryParams;
 }
