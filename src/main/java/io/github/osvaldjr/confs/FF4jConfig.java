@@ -6,11 +6,14 @@ import org.ff4j.redis.RedisConnection;
 import org.ff4j.store.EventRepositoryRedis;
 import org.ff4j.store.FeatureStoreRedis;
 import org.ff4j.store.PropertyStoreRedis;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnMissingBean(FF4j.class)
 public class FF4jConfig {
 
   @Value("${dependencies.ff4j.redis.server:#{null}}")
@@ -22,8 +25,9 @@ public class FF4jConfig {
   @Value("${dependencies.ff4j.test:false}")
   private boolean isTest;
 
-  @Bean
-  public FF4j getFF4j() {
+  @Bean(name = "easyCucumberFF4J")
+  @Qualifier("easyCucumberFF4J")
+  public FF4j getEasyCucumberFF4j() {
     FF4j ff4j = new FF4j();
 
     if (redisServer != null && redisPort != null) {

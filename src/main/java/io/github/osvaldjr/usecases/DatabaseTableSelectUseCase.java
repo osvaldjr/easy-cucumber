@@ -4,19 +4,17 @@ import static java.text.MessageFormat.format;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseTableSelectUseCase {
 
-  @PersistenceContext(unitName = "easyCucumberEntityManagerFactory")
-  private EntityManager entityManager;
+  @Autowired private JdbcTemplate jdbcTemplate;
 
   public List execute(String tableName) {
     String selectQuery = format("SELECT * FROM {0}", tableName);
-    return entityManager.createNativeQuery(selectQuery).getResultList();
+    return jdbcTemplate.queryForList(selectQuery, String.class);
   }
 }

@@ -1,20 +1,15 @@
 package io.github.osvaldjr.usecases;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseBulkSQLInsertUseCase {
 
-  @PersistenceContext(unitName = "easyCucumberEntityManagerFactory")
-  EntityManager entityManager;
+  @Autowired JdbcTemplate jdbcTemplate;
 
-  @Transactional
   public void execute(String sql) {
-    entityManager.joinTransaction();
-    entityManager.createNativeQuery(sql).executeUpdate();
+    jdbcTemplate.execute(sql);
   }
 }

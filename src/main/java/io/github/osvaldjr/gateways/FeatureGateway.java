@@ -2,11 +2,13 @@ package io.github.osvaldjr.gateways;
 
 import org.ff4j.FF4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FeatureGateway {
 
+  @Qualifier("easyCucumberFF4J")
   private final FF4j ff4j;
 
   @Autowired

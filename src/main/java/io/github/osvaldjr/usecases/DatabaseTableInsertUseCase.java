@@ -10,25 +10,20 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseTableInsertUseCase {
 
-  @PersistenceContext(unitName = "easyCucumberEntityManagerFactory")
-  EntityManager entityManager;
+  @Autowired JdbcTemplate jdbcTemplate;
 
-  @Transactional
   public void execute(String tableName, List<TreeMap> lines) {
     String columns = getColumns(lines.get(0));
     String values = getInsertValues(lines);
     String query = format("INSERT INTO %s (%s) VALUES %s;", tableName, columns, values);
-    entityManager.joinTransaction();
-    entityManager.createNativeQuery(query).executeUpdate();
+    jdbcTemplate.execute(query);
   }
 
   private String getInsertValues(List<TreeMap> lines) {

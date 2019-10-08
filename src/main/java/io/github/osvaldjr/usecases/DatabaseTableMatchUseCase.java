@@ -3,49 +3,46 @@ package io.github.osvaldjr.usecases;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang.StringUtils.trim;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Component
 public class DatabaseTableMatchUseCase<V> {
 
-  @PersistenceContext(unitName = "easyCucumberEntityManagerFactory")
-  EntityManager entityManager;
+  @Autowired private JdbcTemplate jdbcTemplate;
 
   public boolean execute(String tableName, List<Map<String, V>> lines) {
     String selectQuery = getSelectQuery(tableName, lines.get(0));
 
-    List resultList = entityManager.createNativeQuery(selectQuery).getResultList();
+    List<Map<String, Object>> resultList = jdbcTemplate.queryForList(selectQuery);
     return lines.stream()
         .allMatch(line -> matchLine(tableName, new ArrayList<>(line.values()), resultList));
   }
 
-  private boolean matchLine(String tableName, List<V> expectedLine, List<V[]> allResults) {
+  private boolean matchLine(
+      String tableName, List<V> expectedLine, List<Map<String, Object>> allResults) {
+
     boolean matchAllColumns =
         allResults.stream()
-            .anyMatch(resultLine -> matchAllColumns(expectedLine, Arrays.asList((V[]) resultLine)));
+            .anyMatch(
+                resultLine -> {
+                  ArrayList<V> objects = new ArrayList(resultLine.values());
+                  return matchAllColumns(expectedLine, objects);
+                });
 
     if (!matchAllColumns) {
       throw new AssertionError(
           MessageFormat.format(
               "Assert failed in match columns of table {0}:\nExpected: {1}\nGot table: {2}",
-              tableName,
-              expectedLine,
-              allResults.stream().map(Arrays::toString).collect(toList())));
+              tableName, expectedLine, new ArrayList<>(allResults)));
     }
 
     return matchAllColumns;

@@ -4,22 +4,18 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.TreeMap;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.DatabaseTableInsertUseCase;
@@ -27,20 +23,15 @@ import io.github.osvaldjr.usecases.DatabaseTableInsertUseCase;
 class DatabaseTableInsertUseCaseTest extends UnitTest {
 
   @InjectMocks private DatabaseTableInsertUseCase databaseTableInsertUseCase;
-  @Mock private EntityManager entityManager;
-  @Mock private Query query;
+  @Mock private JdbcTemplate jdbcTemplate;
   @Captor private ArgumentCaptor<String> argumentCaptor;
 
   @Test
   void shouldExecuteSQLCorrectly() {
     String tableName = "my_table";
-    when(entityManager.createNativeQuery(any())).thenReturn(query);
-    when(query.executeUpdate()).thenReturn(1);
 
     databaseTableInsertUseCase.execute(tableName, mockTableLines());
-
-    verify(query, times(1)).executeUpdate();
-    verify(entityManager, times(1)).createNativeQuery(argumentCaptor.capture());
+    verify(jdbcTemplate, times(1)).execute(argumentCaptor.capture());
 
     String query = argumentCaptor.getValue();
     assertThat(query, notNullValue());

@@ -1,15 +1,17 @@
 package io.github.osvaldjr.unit.usecases;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import io.github.osvaldjr.unit.UnitTest;
 import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
@@ -17,18 +19,17 @@ import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
 class DatabaseBulkSQLInsertUseCaseTest extends UnitTest {
 
   @InjectMocks private DatabaseBulkSQLInsertUseCase databaseBulkSQLInsertUseCase;
-  @Mock private EntityManager entityManager;
-  @Mock private Query query;
+  @Mock private JdbcTemplate jdbcTemplate;
+  @Captor private ArgumentCaptor<String> argumentCaptor;
 
   @Test
   void shouldExecuteSQLCorrectly() {
     String sqlFilePath = "init.sql";
-    when(entityManager.createNativeQuery(sqlFilePath)).thenReturn(query);
-    when(query.executeUpdate()).thenReturn(1);
-
     databaseBulkSQLInsertUseCase.execute(sqlFilePath);
+    verify(jdbcTemplate, times(1)).execute(argumentCaptor.capture());
 
-    Mockito.verify(query, times(1)).executeUpdate();
-    Mockito.verify(entityManager, times(1)).createNativeQuery(sqlFilePath);
+    String query = argumentCaptor.getValue();
+    assertThat(query, notNullValue());
+    assertThat(query, equalTo(sqlFilePath));
   }
 }

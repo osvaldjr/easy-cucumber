@@ -47,18 +47,7 @@ Easy Cucumber is an easy to use, zero code, cucumber JVM based library witch off
         <artifactId>easy-cucumber</artifactId>
         <version>{ALTER FOR THE LATEST VERSION}</version>
     </dependency>
-</dependencies>    
-<dependencyManagement>
-   <dependencies>
-       <dependency>
-           <groupId>io.github.osvaldjr</groupId>
-           <artifactId>easy-cucumber</artifactId>
-           <version>{ALTER FOR THE LATEST VERSION}</version>
-           <type>pom</type>
-           <scope>import</scope>
-       </dependency>
-   </dependencies>
-</dependencyManagement>
+</dependencies>
 ```
 #### Junit Runner
 Create an empty class that uses the Cucumber JUnit runner, configure step definitions and features path:
@@ -68,7 +57,7 @@ Create an empty class that uses the Cucumber JUnit runner, configure step defini
     plugin = {"pretty", "json:target/jsonReports/cucumber.json"},
     features = {"src/test/resources/features"}, // Here is your features folder
     glue = {
-      "io.github.osvaldjr.stepdefinitions"
+      "io.github.osvaldjr.stepdefinitions.steps"
     },
     strict = true)
 public class RunCucumberTest extends EasyCucumberRunner
