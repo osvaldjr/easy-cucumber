@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-// import org.springframework.boot.jdbc.DataSourceBuilder;
-
 @Configuration
 @EnableAutoConfiguration(
     exclude = {
@@ -25,10 +23,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
       DataSourceTransactionManagerAutoConfiguration.class,
       HibernateJpaAutoConfiguration.class
     })
-// #spring.autoconfigure.exclude:
-// org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,
-// org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
-// org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
 public class DatabaseConfig {
 
   @Value("${spring.datasource.url:}")
