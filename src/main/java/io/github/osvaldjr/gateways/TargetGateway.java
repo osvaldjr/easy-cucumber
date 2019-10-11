@@ -5,7 +5,7 @@ import static java.util.Optional.ofNullable;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.cloud.netflix.feign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,6 @@ import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
-import feign.okhttp.OkHttpClient;
 import io.github.osvaldjr.gateways.feign.TargetClient;
 
 @Component
@@ -28,8 +27,8 @@ public class TargetGateway {
             .decoder(decoder)
             .encoder(encoder)
             .errorDecoder(errorDecoder)
-            .contract(new SpringMvcContract())
-            .client(new OkHttpClient());
+            .contract(new SpringMvcContract());
+    //            .client(new OkHttpClient());
   }
 
   public ResponseEntity<Object> get(
@@ -79,15 +78,6 @@ public class TargetGateway {
       Map<String, String> headers,
       Map<String, String> queryParameters) {
     return buildClient(host).put(uri, body, headers, queryParameters);
-  }
-
-  public <T> ResponseEntity<Object> patch(
-      String host,
-      String uri,
-      T body,
-      Map<String, String> headers,
-      Map<String, String> queryParameters) {
-    return buildClient(host).patch(uri, body, headers, queryParameters);
   }
 
   private TargetClient buildClient(String host) {

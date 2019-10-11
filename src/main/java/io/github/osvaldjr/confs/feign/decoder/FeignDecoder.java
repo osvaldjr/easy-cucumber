@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
-import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
+import org.springframework.cloud.netflix.feign.support.ResponseEntityDecoder;
+import org.springframework.cloud.netflix.feign.support.SpringDecoder;
 
 import feign.Response;
 import feign.codec.Decoder;
@@ -29,9 +29,7 @@ public class FeignDecoder implements Decoder {
 
   private boolean isContentTypeHtml(Response response) {
     Collection<String> contentType = response.headers().get("content-type");
-    return Optional.ofNullable(contentType)
-        .orElseGet(Collections::emptyList)
-        .stream()
+    return Optional.ofNullable(contentType).orElseGet(Collections::emptyList).stream()
         .anyMatch(s -> s.contains("text/html"));
   }
 }

@@ -2,11 +2,11 @@ package io.github.osvaldjr.gateways.feign;
 
 import java.util.Map;
 
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "target-client")
+@Component
 public interface TargetClient {
 
   @GetMapping(path = "{url}")
@@ -45,13 +46,6 @@ public interface TargetClient {
 
   @PutMapping(path = "{url}")
   <R> ResponseEntity<Object> put(
-      @PathVariable("url") String uri,
-      @RequestBody R body,
-      @RequestHeader Map<String, String> headers,
-      @RequestParam Map<String, String> queryParameters);
-
-  @PatchMapping(path = "{url}")
-  <R> ResponseEntity<Object> patch(
       @PathVariable("url") String uri,
       @RequestBody R body,
       @RequestHeader Map<String, String> headers,

@@ -1,9 +1,0 @@
-{
-  "url": "/patch",
-  "method": "PATCH",
-  "body": {
-    "name": "Linux"
-  },
-  "headers": {},
-  "queryParams": {}
-}

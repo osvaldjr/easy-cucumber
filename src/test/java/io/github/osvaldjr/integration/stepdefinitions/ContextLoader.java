@@ -1,7 +1,7 @@
 package io.github.osvaldjr.integration.stepdefinitions;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 import cucumber.api.java.Before;
 import io.github.osvaldjr.ApplicationConfiguration;

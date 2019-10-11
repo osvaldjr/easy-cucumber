@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.zaproxy.clientapi.core.Alert;
 import org.zaproxy.clientapi.core.ApiResponseElement;
@@ -107,8 +106,7 @@ public class SecuritySteps extends Steps {
   public void iRemoveAlert(List<DataType> data) throws ClientApiException {
     List<Alert> alerts = zapProxyApi.getAlerts(null, -1, -1);
     List<Alert> alertsExclude =
-        alerts
-            .stream()
+        alerts.stream()
             .filter(alert -> data.stream().anyMatch(type -> isExclude(alert, type)))
             .collect(Collectors.toList());
 
@@ -128,9 +126,7 @@ public class SecuritySteps extends Steps {
     this.policyName = policyName;
 
     ApiResponseList policies = (ApiResponseList) zapProxyApi.ascan.scanPolicyNames();
-    if (policies
-        .getItems()
-        .stream()
+    if (policies.getItems().stream()
         .anyMatch(item -> ((ApiResponseElement) item).getValue().equals(policyName))) {
       zapProxyApi.ascan.removeScanPolicy(policyName);
     }
@@ -205,8 +201,7 @@ public class SecuritySteps extends Steps {
   }
 
   private List<Alert> getAlertsWithRisk(List<Alert> alertsList, Alert.Risk risk) {
-    return alertsList
-        .stream()
+    return alertsList.stream()
         .filter(
             alert -> {
               boolean returned = alert.getRisk().equals(risk);
@@ -217,7 +212,7 @@ public class SecuritySteps extends Steps {
                     alert.getId(),
                     alert.getName(),
                     StringUtils.isEmpty(alert.getOther())
-                        ? Strings.EMPTY
+                        ? ""
                         : StringUtils.substring(alert.getOther(), 0, 200),
                     alert.getUrl());
               }

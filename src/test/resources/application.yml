@@ -8,8 +8,6 @@ feign:
     config:
       default:
         loggerLevel: FULL
-  okhttp:
-    enabled: true
 
 target.url: http://localhost:9000
 

@@ -4,7 +4,6 @@ import static java.util.Optional.ofNullable;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.MethodNotAllowedException;
 
 import io.github.osvaldjr.domains.TargetRequest;
 import io.github.osvaldjr.gateways.TargetGateway;
@@ -37,6 +35,7 @@ public class RequestTargetUseCase {
 
   public ResponseEntity execute(TargetRequest request) {
     request.setHost(ofNullable(request.getHost()).orElse(targetHost));
+    request.setUrl("/".equals(request.getUrl()) ? "" : request.getUrl());
 
     assertNotNull("url cannot be null in make request", request.getUrl());
     assertNotNull("method cannot be null in make request", request.getMethod());
@@ -80,18 +79,10 @@ public class RequestTargetUseCase {
                 headersMap,
                 queryParametersMap);
         break;
-      case PATCH:
-        response =
-            targetGateway.patch(
-                request.getHost(),
-                request.getUrl(),
-                request.getBody(),
-                headersMap,
-                queryParametersMap);
-        break;
       default:
-        throw new MethodNotAllowedException(
-            request.getMethod(), Arrays.asList(GET, POST, PUT, DELETE, PATCH));
+        throw new RuntimeException(request.getMethod() + Arrays.asList(GET, POST, PUT, DELETE));
+        //        throw new MethodNotAllowedException(
+        //            request.getMethod(), Arrays.asList(GET, POST, PUT, DELETE, PATCH));
     }
     return response;
   }
