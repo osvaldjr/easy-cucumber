@@ -12,7 +12,7 @@
     <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.16-SNAPSHOT</version>
+    <version>0.0.17-SNAPSHOT</version>
     <name>io.github.osvaldjr:easy-cucumber</name>
     <description>Easy Cucumber JVM Testing</description>
 
@@ -43,6 +43,7 @@
             **/stepdefinitions/**,**/confs/**,**/domains/**,**/jsons/**,**/*ApplicationConfiguration*,**/*EasyCucumberRunner*
         </sonar.coverage.exclusions>
         <feign-okhttp.version>10.3.0</feign-okhttp.version>
+        <org.everit.json.schema.version>1.12.0</org.everit.json.schema.version>
     </properties>
 
     <dependencies>
@@ -100,22 +101,22 @@
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.ff4j</groupId>
-            <artifactId>ff4j-store-redis</artifactId>
-            <version>${ff4j.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javassist</groupId>
-                    <artifactId>javassist</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.ff4j</groupId>
-            <artifactId>ff4j-spring-boot-starter</artifactId>
-            <version>${ff4j.version}</version>
-        </dependency>
+                <dependency>
+                    <groupId>org.ff4j</groupId>
+                    <artifactId>ff4j-store-redis</artifactId>
+                    <version>${ff4j.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>javassist</groupId>
+                            <artifactId>javassist</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.ff4j</groupId>
+                    <artifactId>ff4j-spring-boot-starter</artifactId>
+                    <version>${ff4j.version}</version>
+                </dependency>
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-random-core</artifactId>
@@ -234,6 +235,11 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
             <version>${feign-okhttp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.everit-org.json-schema</groupId>
+            <artifactId>org.everit.json.schema</artifactId>
+            <version>${org.everit.json.schema.version}</version>
         </dependency>
     </dependencies>
 
@@ -482,4 +488,11 @@
         <url>https://github.com/osvaldjr/easy-cucumber</url>
         <tag>HEAD</tag>
     </scm>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>

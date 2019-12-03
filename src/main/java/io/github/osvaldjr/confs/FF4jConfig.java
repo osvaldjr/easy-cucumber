@@ -8,18 +8,18 @@ import org.ff4j.store.FeatureStoreRedis;
 import org.ff4j.store.PropertyStoreRedis;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnMissingBean(FF4j.class)
+@ConditionalOnProperty("dependencies.ff4j.redis.server")
 public class FF4jConfig {
 
-  @Value("${dependencies.ff4j.redis.server:#{null}}")
+  @Value("${dependencies.ff4j.redis.server")
   private String redisServer;
 
-  @Value("${dependencies.ff4j.redis.port:#{null}}")
+  @Value("${dependencies.ff4j.redis.port}")
   private Integer redisPort;
 
   @Value("${dependencies.ff4j.test:false}")

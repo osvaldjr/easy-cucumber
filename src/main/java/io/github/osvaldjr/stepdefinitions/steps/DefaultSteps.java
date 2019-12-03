@@ -4,17 +4,23 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.Assert;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
@@ -174,6 +180,19 @@ public class DefaultSteps extends Steps {
       pathNotFound = true;
     }
     Assert.assertTrue(pathNotFound);
+  }
+
+  @Then("response is valid according to schema ([^\"]*)")
+  public void responseIsValidAccordingToSchema(String schemaPath)
+      throws FileNotFoundException, JsonProcessingException, JSONException {
+    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, schemaPath);
+    String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
+
+    JSONObject jsonSchema = new JSONObject(new JSONTokener(responseExpected));
+    JSONObject jsonSubject = new JSONObject(new JSONTokener(responseReceived));
+
+    Schema schema = SchemaLoader.load(jsonSchema);
+    schema.validate(jsonSubject);
   }
 
   @Given("I clear all mocks")

@@ -67,3 +67,9 @@ Feature: Integration
     Given I have a mock http_plaintext_body_successful for dependency integration
     When I make a request defined in http_plaintext_body_defined_body_request.json
     Then I expect to receive a 200 status
+
+  Scenario: Validate with json schema
+    Given I have a mock http_post_successful for dependency integration
+    When I make a request defined in http_post_defined_body_request.json
+    Then I expect to receive a 200 status
+    And response is valid according to schema schemas/schema.json
