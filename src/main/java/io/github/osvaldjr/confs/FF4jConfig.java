@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty("dependencies.ff4j.redis.server")
 public class FF4jConfig {
 
-  @Value("${dependencies.ff4j.redis.server")
+  @Value("${dependencies.ff4j.redis.server}")
   private String redisServer;
 
   @Value("${dependencies.ff4j.redis.port}")

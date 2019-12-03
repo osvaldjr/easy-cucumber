@@ -38,7 +38,7 @@ class DatabaseTableInsertUseCaseTest extends UnitTest {
     String expectedQuery =
         "INSERT INTO "
             + tableName
-            + " (\"birth_date\",\"deaths\",\"name\") VALUES ('1812-01-20',1,'John Snow'),('1852-06-01',0,'Arya Stark');";
+            + " (birth_date,deaths,name) VALUES ('1812-01-20',1,'John Snow'),('1852-06-01',0,'Arya Stark');";
     assertThat(query, equalTo(expectedQuery));
   }
 

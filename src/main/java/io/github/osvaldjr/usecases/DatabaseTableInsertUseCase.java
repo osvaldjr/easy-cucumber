@@ -40,6 +40,6 @@ public class DatabaseTableInsertUseCase {
   }
 
   private String getColumns(Map<String, Object> map) {
-    return map.keySet().stream().map(column -> format("\"%s\"", column)).collect(joining(","));
+    return map.keySet().stream().map(column -> format("%s", column)).collect(joining(","));
   }
 }
