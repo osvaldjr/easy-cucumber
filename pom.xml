@@ -12,7 +12,7 @@
     <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.17-SNAPSHOT</version>
+    <version>0.0.17</version>
     <name>io.github.osvaldjr:easy-cucumber</name>
     <description>Easy Cucumber JVM Testing</description>
 
@@ -101,22 +101,22 @@
             <artifactId>commons-collections</artifactId>
             <version>${commons.collections.version}</version>
         </dependency>
-                <dependency>
-                    <groupId>org.ff4j</groupId>
-                    <artifactId>ff4j-store-redis</artifactId>
-                    <version>${ff4j.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>javassist</groupId>
-                            <artifactId>javassist</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.ff4j</groupId>
-                    <artifactId>ff4j-spring-boot-starter</artifactId>
-                    <version>${ff4j.version}</version>
-                </dependency>
+        <dependency>
+            <groupId>org.ff4j</groupId>
+            <artifactId>ff4j-store-redis</artifactId>
+            <version>${ff4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.ff4j</groupId>
+            <artifactId>ff4j-spring-boot-starter</artifactId>
+            <version>${ff4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.jeasy</groupId>
             <artifactId>easy-random-core</artifactId>
