@@ -8,18 +8,23 @@ import javax.jms.TextMessage;
 
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.osvaldjr.confs.ActiveMQFeature;
 import io.github.osvaldjr.domains.exceptions.QueueException;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@ConditionalOnBean(ActiveMQFeature.class)
 public class ActiveMQGateway {
 
+  @Qualifier("easyCucumberJmsTemplate")
   private final JmsTemplate jmsTemplate;
   private final ObjectMapper objectMapper;
 

@@ -19,31 +19,40 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.osvaldjr.domains.properties.QueueProperties;
 import io.github.osvaldjr.gateways.FileGateway;
+import io.github.osvaldjr.usecases.CleanQueueUseCase;
 import io.github.osvaldjr.usecases.GetMessageQueueUseCase;
 import io.github.osvaldjr.usecases.PutMessageQueueUseCase;
 
 public class QueueSteps extends Steps {
 
-  private final PutMessageQueueUseCase putMessageQueueUseCase;
-  private final GetMessageQueueUseCase getMessageQueueUseCase;
-  private final FileGateway fileGateway;
+  @Autowired(required = false)
+  private PutMessageQueueUseCase putMessageQueueUseCase;
+
+  @Autowired(required = false)
+  private GetMessageQueueUseCase getMessageQueueUseCase;
+
+  @Autowired(required = false)
+  private CleanQueueUseCase cleanQueueUseCase;
+
+  @Autowired(required = false)
+  private FileGateway fileGateway;
+
+  @Autowired(required = false)
+  private QueueProperties queueProperties;
+
   private String scenarioName;
   private Object message;
-
-  @Autowired
-  public QueueSteps(
-      PutMessageQueueUseCase putMessageQueueUseCase,
-      GetMessageQueueUseCase getMessageQueueUseCase,
-      FileGateway fileGateway) {
-    this.putMessageQueueUseCase = putMessageQueueUseCase;
-    this.getMessageQueueUseCase = getMessageQueueUseCase;
-    this.fileGateway = fileGateway;
-  }
 
   @Before
   public void before(Scenario scenario) {
     scenarioName = FilenameUtils.getBaseName(scenario.getUri());
+  }
+
+  @Before("@CleanQueues")
+  public void cleanupQueues() {
+    queueProperties.getNames().forEach(cleanQueueUseCase::execute);
   }
 
   @Given("^I put message ([^\"]*) in queue ([^\"]*)$")

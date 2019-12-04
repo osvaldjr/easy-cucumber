@@ -10,8 +10,9 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class DependencyProperties {
+public class ActiveMQProperties {
 
-  private OwaspProperties owasp = new OwaspProperties();
-  private ActiveMQProperties activemq = new ActiveMQProperties();
+  private String brokerUrl = "tcp://localhost:61616";
+  private String user = "";
+  private String password = "";
 }

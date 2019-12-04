@@ -3,12 +3,15 @@ package io.github.osvaldjr.usecases;
 import java.io.FileNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
+import io.github.osvaldjr.confs.ActiveMQFeature;
 import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.gateways.activemq.ActiveMQGateway;
 
 @Component
+@ConditionalOnBean(ActiveMQFeature.class)
 public class PutMessageQueueUseCase {
 
   private final ActiveMQGateway activeMQGateway;
