@@ -1,0 +1,13 @@
+{
+  "url": "/test/post/plain",
+  "method": "POST",
+  "queryParams": {
+    "myParam": "123"
+  },
+  "body": {
+    "key": "value"
+  },
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  }
+}

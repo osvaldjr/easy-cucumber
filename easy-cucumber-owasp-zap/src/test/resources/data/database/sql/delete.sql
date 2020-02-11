@@ -1,0 +1,1 @@
+delete from public.db_test_data;
