@@ -1,4 +1,0 @@
-target.url: http://localhost:8080
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:9002/postgres

@@ -1,9 +1,0 @@
-{
-  "url": "/delete",
-  "method": "DELETE",
-  "body": {
-    "name": "Linux"
-  },
-  "headers": {},
-  "queryParams": {}
-}
