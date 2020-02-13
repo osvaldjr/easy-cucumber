@@ -8,10 +8,11 @@
         <artifactId>easy-cucumber-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+    <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber-core</artifactId>
     <packaging>jar</packaging>
     <name>io.github.osvaldjr:easy-cucumber-core</name>
-    <description>Easy Cucumber JVM Testing - Core</description>
+    <description>Easy Cucumber JVM Testing</description>
 
     <properties>
         <java.version>1.8</java.version>
