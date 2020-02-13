@@ -1,4 +1,4 @@
-package io.github.osvaldjr.utils.clients;
+package io.github.osvaldjr.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

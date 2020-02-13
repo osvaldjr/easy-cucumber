@@ -1,4 +1,4 @@
-package io.github.osvaldjr.utils.stubby.clients;
+package io.github.osvaldjr.clients;
 
 import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonResponse;

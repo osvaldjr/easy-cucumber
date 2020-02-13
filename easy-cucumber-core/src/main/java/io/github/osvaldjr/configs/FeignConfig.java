@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
-@EnableFeignClients(basePackages = {"io.github.osvaldjr.utils.clients"})
+@EnableFeignClients(basePackages = {"io.github.osvaldjr.clients"})
 public class FeignConfig {
 
   @Bean

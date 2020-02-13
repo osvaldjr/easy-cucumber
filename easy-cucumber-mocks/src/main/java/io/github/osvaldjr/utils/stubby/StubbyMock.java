@@ -1,9 +1,9 @@
 package io.github.osvaldjr.utils.stubby;
 
+import io.github.osvaldjr.clients.StubbyClient;
 import io.github.osvaldjr.utils.Mock;
 import io.github.osvaldjr.utils.mockserver.MockServerMock;
 import io.github.osvaldjr.utils.stubby.assemblers.StubbyRequestAssembler;
-import io.github.osvaldjr.utils.stubby.clients.StubbyClient;
 import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonResponse;
 import org.apache.commons.collections.CollectionUtils;

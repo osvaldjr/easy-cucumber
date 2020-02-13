@@ -5,7 +5,7 @@ import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.okhttp.OkHttpClient;
-import io.github.osvaldjr.utils.clients.TargetClient;
+import io.github.osvaldjr.clients.TargetClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
