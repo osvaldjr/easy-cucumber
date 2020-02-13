@@ -1,10 +1,10 @@
-package io.github.osvaldjr.gateways.mock.stubby.jsons;
-
-import java.io.Serializable;
+package io.github.osvaldjr.mock.stubby.jsons;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 @Getter
 @Setter

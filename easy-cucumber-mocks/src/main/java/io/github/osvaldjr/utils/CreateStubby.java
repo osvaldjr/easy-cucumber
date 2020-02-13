@@ -1,27 +1,25 @@
 package io.github.osvaldjr.utils;
 
+import io.github.osvaldjr.gateways.FileGateway;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
 import static io.github.osvaldjr.objects.StubbyRequest.RequestBody;
 import static io.github.osvaldjr.objects.StubbyRequest.ResponseBody;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.gateways.mock.MockGateway;
-
 @Component
-public class CreateStubbyUseCase {
+public class CreateStubby {
 
-  private FileGateway fileGateway;
-  private MockGateway mockGateway;
+  private final FileGateway fileGateway;
+  private final Mock mock;
 
   @Autowired
-  public CreateStubbyUseCase(FileGateway fileGateway, MockGateway mockGateway) {
+  public CreateStubby(FileGateway fileGateway, Mock mock) {
     this.fileGateway = fileGateway;
-    this.mockGateway = mockGateway;
+    this.mock = mock;
   }
 
   public Object execute(String scenario, String serviceName, String mockName) throws IOException {
@@ -37,7 +35,7 @@ public class CreateStubbyUseCase {
     assertNotNull("method cannot be null in create mock", stubbyRequestBody.getMethod());
 
     stubbyRequestBody.setUrl(getUrl(serviceName, stubbyRequestBody));
-    return mockGateway.createStubbyRequest(stubbyRequestBody, stubbyResponseBody);
+    return mock.createStubbyRequest(stubbyRequestBody, stubbyResponseBody);
   }
 
   private String getUrl(String serviceName, RequestBody stubbyRequestBody) {

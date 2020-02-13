@@ -1,11 +1,11 @@
-package io.github.osvaldjr.gateways.mock.stubby;
+package io.github.osvaldjr.utils.stubby;
 
-import io.github.osvaldjr.gateways.feign.StubbyClient;
-import io.github.osvaldjr.gateways.mock.MockGateway;
-import io.github.osvaldjr.gateways.mock.mockserver.MockServerMockGatewayImpl;
-import io.github.osvaldjr.gateways.mock.stubby.assemblers.StubbyRequestAssembler;
-import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonResponse;
+import io.github.osvaldjr.utils.Mock;
+import io.github.osvaldjr.utils.mockserver.MockServerMock;
+import io.github.osvaldjr.utils.stubby.assemblers.StubbyRequestAssembler;
+import io.github.osvaldjr.utils.stubby.clients.StubbyClient;
+import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,15 +20,14 @@ import static io.github.osvaldjr.objects.StubbyRequest.RequestBody;
 import static io.github.osvaldjr.objects.StubbyRequest.ResponseBody;
 
 @Component
-@ConditionalOnMissingBean(MockServerMockGatewayImpl.class)
-public class StubbyMockGatewayImpl implements MockGateway {
+@ConditionalOnMissingBean(MockServerMock.class)
+public class StubbyMock implements Mock {
 
   private StubbyClient stubbyClient;
   private StubbyRequestAssembler stubbyRequestAssembler;
 
   @Autowired
-  public StubbyMockGatewayImpl(
-      StubbyClient stubbyClient, StubbyRequestAssembler stubbyRequestAssembler) {
+  public StubbyMock(StubbyClient stubbyClient, StubbyRequestAssembler stubbyRequestAssembler) {
     this.stubbyClient = stubbyClient;
     this.stubbyRequestAssembler = stubbyRequestAssembler;
   }

@@ -1,46 +1,44 @@
-package io.github.osvaldjr.stepdefinitions.steps;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+package io.github.osvaldjr.stepdefinitions;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import io.github.osvaldjr.gateways.mock.MockGateway;
-import io.github.osvaldjr.utils.CreateStubbyUseCase;
-import io.github.osvaldjr.utils.GetMockHitsUseCase;
+import io.github.osvaldjr.stepdefinitions.steps.Steps;
+import io.github.osvaldjr.utils.CreateStubby;
+import io.github.osvaldjr.utils.GetMockHits;
+import io.github.osvaldjr.utils.Mock;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class DefaultSteps extends Steps {
+import java.io.IOException;
+import java.util.Map;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+public class MockSteps extends Steps {
+
+  @Autowired(required = false)
+  private CreateStubby createStubbyUsecase;
+
+  @Autowired(required = false)
+  private GetMockHits getMockHitsUsecase;
+
+  @Autowired(required = false)
+  private Mock mock;
 
   private String scenarioName;
-
-  private final CreateStubbyUseCase createStubbyUsecase;
-  private final GetMockHitsUseCase getMockHitsUsecase;
   private Map<String, Object> stubbyIdMap;
-  private final MockGateway mockGateway;
-
-  @Autowired
-  public DefaultSteps(
-      CreateStubbyUseCase createStubbyUsecase,
-      GetMockHitsUseCase getMockHitsUsecase,
-      MockGateway mockGateway) {
-    this.createStubbyUsecase = createStubbyUsecase;
-    this.getMockHitsUsecase = getMockHitsUsecase;
-    this.mockGateway = mockGateway;
-    stubbyIdMap = new HashMap<>();
-  }
 
   @Before
   public void before(Scenario scenario) {
     scenarioName = FilenameUtils.getBaseName(scenario.getUri());
+  }
+
+  @Before("@CleanStubby")
+  public void cleanupStubby() {
+    mock.deleteAllServices();
   }
 
   @Then("I have a mock ([^\"]*) for dependency ([^\"]*)")
@@ -60,7 +58,7 @@ public class DefaultSteps extends Steps {
 
   @Given("I clear all mocks")
   public void iClearAllMocks() {
-    mockGateway.deleteAllServices();
+    mock.deleteAllServices();
   }
 
   private String getStubbyKey(String scenario, String serviceName, String mockName) {

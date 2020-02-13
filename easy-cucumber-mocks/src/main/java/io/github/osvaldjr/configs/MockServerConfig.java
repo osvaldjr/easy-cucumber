@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty("dependencies.mockserver.port")
 public class MockServerConfig {
 
-  @Value("${dependencies.mockserver.port:}")
-  Integer mockServerPort;
-
   @Value("${dependencies.mockserver.host:localhost}")
   String mockServerHost;
+
+  @Value("${dependencies.mockserver.port:}")
+  Integer mockServerPort;
 
   @Bean
   public MockServerClient mockServerClient() {

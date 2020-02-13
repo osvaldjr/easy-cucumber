@@ -1,5 +1,8 @@
-package io.github.osvaldjr.gateways.mock.mockserver;
+package io.github.osvaldjr.utils.mockserver;
 
+import io.github.osvaldjr.objects.StubbyRequest;
+import io.github.osvaldjr.utils.Mock;
+import io.github.osvaldjr.utils.mockserver.assemblers.ExpectationRequestAssembler;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpRequest;
@@ -7,20 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import io.github.osvaldjr.objects.StubbyRequest;
-import io.github.osvaldjr.gateways.mock.MockGateway;
-import io.github.osvaldjr.gateways.mock.mockserver.assemblers.ExpectationRequestAssembler;
-
 @Component
 @ConditionalOnProperty("dependencies.mockserver.port")
-public class MockServerMockGatewayImpl implements MockGateway {
+public class MockServerMock implements Mock {
   private static final Integer MAX_HITS = Integer.MAX_VALUE;
 
   private final MockServerClient mockServerClient;
   private final ExpectationRequestAssembler expectationRequestAssembler;
 
   @Autowired
-  public MockServerMockGatewayImpl(
+  public MockServerMock(
       MockServerClient mockServerClient, ExpectationRequestAssembler expectationRequestAssembler) {
     this.mockServerClient = mockServerClient;
     this.expectationRequestAssembler = expectationRequestAssembler;

@@ -1,15 +1,14 @@
 package io.github.osvaldjr.gateways.mock.mockserver;
 
+import io.github.osvaldjr.gateways.mock.MockGateway;
+import io.github.osvaldjr.gateways.mock.mockserver.assemblers.ExpectationRequestAssembler;
+import io.github.osvaldjr.objects.StubbyRequest;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-
-import io.github.osvaldjr.objects.StubbyRequest;
-import io.github.osvaldjr.gateways.mock.MockGateway;
-import io.github.osvaldjr.gateways.mock.mockserver.assemblers.ExpectationRequestAssembler;
 
 @Component
 @ConditionalOnProperty("dependencies.mockserver.port")

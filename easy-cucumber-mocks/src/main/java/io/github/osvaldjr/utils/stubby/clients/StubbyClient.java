@@ -1,17 +1,12 @@
-package io.github.osvaldjr.gateways.feign;
+package io.github.osvaldjr.mock;
 
-import java.util.List;
-
+import io.github.osvaldjr.mock.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.mock.stubby.jsons.StubbyJsonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.gateways.mock.stubby.jsons.StubbyJsonResponse;
+import java.util.List;
 
 @FeignClient(value = "stubby-client", url = "${dependencies.stubby.url:}")
 public interface StubbyClient {
