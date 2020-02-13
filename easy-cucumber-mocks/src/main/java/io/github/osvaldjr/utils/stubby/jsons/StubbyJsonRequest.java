@@ -1,4 +1,4 @@
-package io.github.osvaldjr.mock.stubby.jsons;
+package io.github.osvaldjr.utils.stubby.jsons;
 
 import lombok.Builder;
 import lombok.Getter;

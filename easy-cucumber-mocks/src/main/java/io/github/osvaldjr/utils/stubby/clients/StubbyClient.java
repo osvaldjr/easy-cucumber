@@ -1,7 +1,7 @@
-package io.github.osvaldjr.mock;
+package io.github.osvaldjr.utils.stubby.clients;
 
-import io.github.osvaldjr.mock.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.mock.stubby.jsons.StubbyJsonResponse;
+import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonRequest;
+import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
