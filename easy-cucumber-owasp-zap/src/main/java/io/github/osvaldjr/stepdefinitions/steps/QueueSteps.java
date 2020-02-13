@@ -19,11 +19,11 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.domains.properties.QueueProperties;
+import io.github.osvaldjr.objects.properties.QueueProperties;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.CleanQueueUseCase;
-import io.github.osvaldjr.usecases.GetMessageQueueUseCase;
-import io.github.osvaldjr.usecases.PutMessageQueueUseCase;
+import io.github.osvaldjr.utils.CleanQueueUseCase;
+import io.github.osvaldjr.utils.GetMessageQueueUseCase;
+import io.github.osvaldjr.utils.PutMessageQueueUseCase;
 
 public class QueueSteps extends Steps {
 

@@ -1,6 +1,6 @@
 package io.github.osvaldjr.gateways.mock;
 
-import io.github.osvaldjr.domains.StubbyRequest;
+import io.github.osvaldjr.objects.StubbyRequest;
 
 public interface MockGateway {
   Object createStubbyRequest(

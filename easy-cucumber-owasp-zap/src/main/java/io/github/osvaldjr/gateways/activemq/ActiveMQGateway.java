@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.osvaldjr.confs.ActiveMQFeature;
-import io.github.osvaldjr.domains.exceptions.QueueException;
+import io.github.osvaldjr.configs.ActiveMQFeature;
+import io.github.osvaldjr.objects.exceptions.QueueException;
 import lombok.extern.slf4j.Slf4j;
 
 @Component

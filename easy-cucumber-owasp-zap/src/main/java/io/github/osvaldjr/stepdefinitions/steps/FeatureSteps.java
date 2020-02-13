@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.api.java.en.Given;
-import io.github.osvaldjr.domains.Feature;
-import io.github.osvaldjr.domains.FeatureStatus;
+import io.github.osvaldjr.objects.Feature;
+import io.github.osvaldjr.objects.FeatureStatus;
 import io.github.osvaldjr.gateways.FeatureGateway;
 
 public class FeatureSteps extends Steps {

@@ -1,7 +1,7 @@
 package io.github.osvaldjr.gateways.mock.stubby;
 
-import static io.github.osvaldjr.domains.StubbyRequest.RequestBody;
-import static io.github.osvaldjr.domains.StubbyRequest.ResponseBody;
+import static io.github.osvaldjr.objects.StubbyRequest.RequestBody;
+import static io.github.osvaldjr.objects.StubbyRequest.ResponseBody;
 
 import java.util.List;
 import java.util.regex.Matcher;

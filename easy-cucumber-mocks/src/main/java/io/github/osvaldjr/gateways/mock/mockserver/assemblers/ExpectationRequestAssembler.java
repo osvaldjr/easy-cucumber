@@ -15,7 +15,7 @@ import org.mockserver.model.Parameter;
 import org.springframework.stereotype.Component;
 
 import gherkin.deps.com.google.gson.Gson;
-import io.github.osvaldjr.domains.StubbyRequest;
+import io.github.osvaldjr.objects.StubbyRequest;
 
 @Component
 public class ExpectationRequestAssembler {

@@ -19,7 +19,7 @@
     <modules>
         <module>easy-cucumber-core</module>
         <module>easy-cucumber-mocks</module>
-        <module>easy-cucumber-database</module>
+        <module>easy-cucumber-databases</module>
         <module>easy-cucumber-owasp-zap</module>
         <module>easy-cucumber-active-mq</module>
     </modules>

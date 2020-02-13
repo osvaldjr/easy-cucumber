@@ -28,10 +28,10 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.domains.TargetRequest;
-import io.github.osvaldjr.domains.exceptions.FeignException;
+import io.github.osvaldjr.objects.TargetRequest;
+import io.github.osvaldjr.objects.exceptions.FeignException;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.RequestTargetUseCase;
+import io.github.osvaldjr.utils.RequestTargetUseCase;
 
 public class DefaultSteps extends Steps {
 

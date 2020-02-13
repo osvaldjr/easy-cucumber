@@ -13,10 +13,10 @@ import io.cucumber.datatable.DataTableType;
 import io.cucumber.datatable.TableCellByTypeTransformer;
 import io.cucumber.datatable.TableEntryByTypeTransformer;
 import io.cucumber.datatable.TableEntryTransformer;
-import io.github.osvaldjr.domains.AlertRisk;
-import io.github.osvaldjr.domains.DataType;
-import io.github.osvaldjr.domains.Feature;
-import io.github.osvaldjr.domains.FeatureStatus;
+import io.github.osvaldjr.objects.AlertRisk;
+import io.github.osvaldjr.objects.DataType;
+import io.github.osvaldjr.objects.Feature;
+import io.github.osvaldjr.objects.FeatureStatus;
 
 public class Transformers implements TypeRegistryConfigurer {
   @Override

@@ -28,9 +28,9 @@ import org.zaproxy.clientapi.core.ClientApiException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.domains.AlertRisk;
-import io.github.osvaldjr.domains.DataType;
-import io.github.osvaldjr.domains.properties.ApplicationProperties;
+import io.github.osvaldjr.objects.AlertRisk;
+import io.github.osvaldjr.objects.DataType;
+import io.github.osvaldjr.objects.properties.ApplicationProperties;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

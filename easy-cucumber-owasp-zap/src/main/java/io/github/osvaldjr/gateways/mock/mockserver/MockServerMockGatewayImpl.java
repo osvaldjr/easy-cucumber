@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
-import io.github.osvaldjr.domains.StubbyRequest;
+import io.github.osvaldjr.objects.StubbyRequest;
 import io.github.osvaldjr.gateways.mock.MockGateway;
 import io.github.osvaldjr.gateways.mock.mockserver.assemblers.ExpectationRequestAssembler;
 

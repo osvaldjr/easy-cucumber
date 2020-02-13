@@ -15,8 +15,8 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.osvaldjr.gateways.mock.MockGateway;
-import io.github.osvaldjr.usecases.CreateStubbyUseCase;
-import io.github.osvaldjr.usecases.GetMockHitsUseCase;
+import io.github.osvaldjr.utils.CreateStubbyUseCase;
+import io.github.osvaldjr.utils.GetMockHitsUseCase;
 
 public class DefaultSteps extends Steps {
 

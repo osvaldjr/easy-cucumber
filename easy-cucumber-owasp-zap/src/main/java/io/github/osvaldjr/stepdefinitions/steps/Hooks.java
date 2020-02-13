@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cucumber.api.java.Before;
-import io.github.osvaldjr.domains.properties.FeaturesProperties;
+import io.github.osvaldjr.objects.properties.FeaturesProperties;
 import io.github.osvaldjr.gateways.FeatureGateway;
 import io.github.osvaldjr.gateways.mock.MockGateway;
 import lombok.extern.slf4j.Slf4j;

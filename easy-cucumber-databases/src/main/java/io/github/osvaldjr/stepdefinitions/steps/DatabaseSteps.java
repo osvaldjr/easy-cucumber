@@ -15,10 +15,10 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.usecases.DatabaseBulkSQLInsertUseCase;
-import io.github.osvaldjr.usecases.DatabaseTableInsertUseCase;
-import io.github.osvaldjr.usecases.DatabaseTableMatchUseCase;
-import io.github.osvaldjr.usecases.DatabaseTableSelectUseCase;
+import io.github.osvaldjr.utils.DatabaseBulkSQLInsertUseCase;
+import io.github.osvaldjr.utils.DatabaseTableInsertUseCase;
+import io.github.osvaldjr.utils.DatabaseTableMatchUseCase;
+import io.github.osvaldjr.utils.DatabaseTableSelectUseCase;
 
 public class DatabaseSteps {
 
