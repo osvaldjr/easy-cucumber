@@ -1,4 +1,12 @@
-package io.github.osvaldjr.configs.feign.decoder;
+package io.github.osvaldjr.configs.decoder;
+
+import feign.Response;
+import feign.codec.Decoder;
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -6,15 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-
-import feign.Response;
-import feign.codec.Decoder;
 
 class HtmlDecoder implements Decoder {
 

@@ -1,17 +1,16 @@
-package io.github.osvaldjr.configs.feign.decoder;
+package io.github.osvaldjr.configs.decoder;
+
+import feign.Response;
+import feign.codec.Decoder;
+import io.github.osvaldjr.configs.converter.MessageConverter;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-
-import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
-
-import feign.Response;
-import feign.codec.Decoder;
-import io.github.osvaldjr.configs.feign.converter.MessageConverter;
 
 public class FeignDecoder implements Decoder {
   private final ResponseEntityDecoder responseEntityDecoder =
@@ -29,9 +28,7 @@ public class FeignDecoder implements Decoder {
 
   private boolean isContentTypeHtml(Response response) {
     Collection<String> contentType = response.headers().get("content-type");
-    return Optional.ofNullable(contentType)
-        .orElseGet(Collections::emptyList)
-        .stream()
+    return Optional.ofNullable(contentType).orElseGet(Collections::emptyList).stream()
         .anyMatch(s -> s.contains("text/html"));
   }
 }

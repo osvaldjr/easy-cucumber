@@ -1,15 +1,14 @@
-package io.github.osvaldjr.configs.feign.decoder;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
+package io.github.osvaldjr.configs.decoder;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import io.github.osvaldjr.objects.ClientResponse;
 import io.github.osvaldjr.objects.exceptions.FeignException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class FeignErrorDecoder implements ErrorDecoder {
