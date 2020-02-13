@@ -61,6 +61,7 @@
             <dependency>
                 <groupId>io.github.osvaldjr</groupId>
                 <artifactId>easy-cucumber-parent</artifactId>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
