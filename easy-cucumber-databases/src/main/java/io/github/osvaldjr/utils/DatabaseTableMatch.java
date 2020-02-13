@@ -1,23 +1,35 @@
 package io.github.osvaldjr.utils;
 
-import static java.lang.String.format;
-import static java.lang.String.valueOf;
-import static java.util.stream.Collectors.joining;
-import static org.apache.commons.lang.StringUtils.trim;
+import io.github.osvaldjr.configs.DatabaseConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+import static java.util.stream.Collectors.joining;
+import static org.apache.commons.lang.StringUtils.trim;
 
 @Component
-public class DatabaseTableMatchUseCase<V> {
+@Slf4j
+@ConditionalOnBean(DatabaseConfig.class)
+public class DatabaseTableMatch<V> {
 
-  @Autowired private JdbcTemplate jdbcTemplate;
+  @Qualifier("easyCucumberDataSource")
+  private final JdbcTemplate jdbcTemplate;
+
+  @Autowired
+  public DatabaseTableMatch(JdbcTemplate jdbcTemplate) {
+    this.jdbcTemplate = jdbcTemplate;
+  }
 
   public boolean execute(String tableName, List<Map<String, V>> lines) {
     String selectQuery = getSelectQuery(tableName, lines.get(0));
