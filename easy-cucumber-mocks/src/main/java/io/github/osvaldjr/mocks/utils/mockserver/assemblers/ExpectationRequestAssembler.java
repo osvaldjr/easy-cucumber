@@ -1,7 +1,7 @@
-package io.github.osvaldjr.utils.mockserver.assemblers;
+package io.github.osvaldjr.mocks.utils.mockserver.assemblers;
 
 import gherkin.deps.com.google.gson.Gson;
-import io.github.osvaldjr.objects.StubbyRequest;
+import io.github.osvaldjr.mocks.objects.StubbyRequest;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;

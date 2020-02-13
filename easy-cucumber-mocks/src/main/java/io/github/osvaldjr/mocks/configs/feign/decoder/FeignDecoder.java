@@ -1,8 +1,8 @@
-package io.github.osvaldjr.configs.feign.decoder;
+package io.github.osvaldjr.mocks.configs.feign.decoder;
 
 import feign.Response;
 import feign.codec.Decoder;
-import io.github.osvaldjr.configs.converter.MessageConverter;
+import io.github.osvaldjr.core.configs.converter.MessageConverter;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 
@@ -16,8 +16,8 @@ public class FeignDecoder implements Decoder {
 
   private final ResponseEntityDecoder responseEntityDecoder =
       new ResponseEntityDecoder(new SpringDecoder(new MessageConverter()));
-  private final io.github.osvaldjr.configs.decoder.HtmlDecoder htmlDecoder =
-      new io.github.osvaldjr.configs.decoder.HtmlDecoder();
+  private final io.github.osvaldjr.core.configs.decoder.HtmlDecoder htmlDecoder =
+      new io.github.osvaldjr.core.configs.decoder.HtmlDecoder();
 
   @Override
   public Object decode(Response response, Type type) throws IOException {

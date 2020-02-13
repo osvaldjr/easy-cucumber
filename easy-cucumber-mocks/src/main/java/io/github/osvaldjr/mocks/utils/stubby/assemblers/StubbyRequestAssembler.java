@@ -1,14 +1,11 @@
-package io.github.osvaldjr.utils.stubby.assemblers;
+package io.github.osvaldjr.mocks.utils.stubby.assemblers;
 
 import gherkin.deps.com.google.gson.Gson;
-import io.github.osvaldjr.objects.StubbyRequest;
-import io.github.osvaldjr.utils.stubby.jsons.StubbyJsonRequest;
-import io.github.osvaldjr.utils.stubby.jsons.StubbyRequestBody;
-import io.github.osvaldjr.utils.stubby.jsons.StubbyResponseBody;
+import io.github.osvaldjr.mocks.objects.StubbyRequest;
+import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyRequestBody;
+import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyResponseBody;
+import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonRequest;
 import org.springframework.stereotype.Component;
-
-import static io.github.osvaldjr.objects.StubbyRequest.RequestBody;
-import static io.github.osvaldjr.objects.StubbyRequest.ResponseBody;
 
 @Component
 public class StubbyRequestAssembler {
@@ -16,14 +13,14 @@ public class StubbyRequestAssembler {
   private static final Gson gson = new Gson();
 
   public StubbyJsonRequest assemble(
-      RequestBody stubbyRequestBody, ResponseBody stubbyResponseBody) {
+      StubbyRequest.RequestBody stubbyRequestBody, StubbyRequest.ResponseBody stubbyResponseBody) {
     return StubbyJsonRequest.builder()
         .request(buildRequest(stubbyRequestBody))
         .response(buildResponseBody(stubbyResponseBody))
         .build();
   }
 
-  private StubbyResponseBody buildResponseBody(ResponseBody stubbyResponseBody) {
+  private StubbyResponseBody buildResponseBody(StubbyRequest.ResponseBody stubbyResponseBody) {
     return StubbyResponseBody.builder()
         .body(stubbyResponseBody.getBody())
         .headers(stubbyResponseBody.getHeaders())
@@ -31,7 +28,7 @@ public class StubbyRequestAssembler {
         .build();
   }
 
-  private StubbyRequestBody buildRequest(RequestBody stubbyRequestBody) {
+  private StubbyRequestBody buildRequest(StubbyRequest.RequestBody stubbyRequestBody) {
 
     StubbyRequestBody.StubbyRequestBodyBuilder builder =
         StubbyRequestBody.builder()

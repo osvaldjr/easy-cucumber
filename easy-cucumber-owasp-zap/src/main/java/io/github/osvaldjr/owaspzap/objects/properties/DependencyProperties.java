@@ -1,4 +1,4 @@
-package io.github.osvaldjr.objects.properties;
+package io.github.osvaldjr.owaspzap.objects.properties;
 
 import lombok.Getter;
 import lombok.Setter;

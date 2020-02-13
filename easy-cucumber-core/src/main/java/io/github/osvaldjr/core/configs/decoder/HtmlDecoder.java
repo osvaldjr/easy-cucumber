@@ -1,4 +1,4 @@
-package io.github.osvaldjr.configs.decoder;
+package io.github.osvaldjr.core.configs.decoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

@@ -1,8 +1,8 @@
-package io.github.osvaldjr.configs.decoder;
+package io.github.osvaldjr.core.configs.decoder;
 
 import feign.Response;
 import feign.codec.Decoder;
-import io.github.osvaldjr.configs.converter.MessageConverter;
+import io.github.osvaldjr.core.configs.converter.MessageConverter;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 

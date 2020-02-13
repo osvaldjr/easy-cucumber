@@ -1,4 +1,4 @@
-package io.github.osvaldjr.configs.feign.decoder;
+package io.github.osvaldjr.mocks.configs.feign.decoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

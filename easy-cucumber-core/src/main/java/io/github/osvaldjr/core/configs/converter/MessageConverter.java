@@ -1,4 +1,4 @@
-package io.github.osvaldjr.configs.converter;
+package io.github.osvaldjr.core.configs.converter;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

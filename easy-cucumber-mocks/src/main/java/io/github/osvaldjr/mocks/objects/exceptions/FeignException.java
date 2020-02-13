@@ -1,28 +1,29 @@
-package io.github.osvaldjr.objects.exceptions;
+package io.github.osvaldjr.mocks.objects.exceptions;
 
-import io.github.osvaldjr.objects.ClientResponse;
+import io.github.osvaldjr.mocks.objects.ClientResponse;
 import lombok.Getter;
 
 @Getter
 public class FeignException extends RuntimeException {
 
-  private final ClientResponse response;
+  private final io.github.osvaldjr.mocks.objects.ClientResponse response;
 
-  public FeignException(ClientResponse response) {
+  public FeignException(io.github.osvaldjr.mocks.objects.ClientResponse response) {
     this.response = response;
   }
 
-  public FeignException(String message, ClientResponse response) {
+  public FeignException(String message, io.github.osvaldjr.mocks.objects.ClientResponse response) {
     super(message);
     this.response = response;
   }
 
-  public FeignException(String message, Throwable cause, ClientResponse response) {
+  public FeignException(
+      String message, Throwable cause, io.github.osvaldjr.mocks.objects.ClientResponse response) {
     super(message, cause);
     this.response = response;
   }
 
-  public FeignException(Throwable cause, ClientResponse response) {
+  public FeignException(Throwable cause, io.github.osvaldjr.mocks.objects.ClientResponse response) {
     super(cause);
     this.response = response;
   }
