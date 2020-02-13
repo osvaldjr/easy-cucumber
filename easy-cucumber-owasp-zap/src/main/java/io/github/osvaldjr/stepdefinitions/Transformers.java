@@ -1,11 +1,6 @@
-package io.github.osvaldjr.stepdefinitions.steps;
-
-import java.lang.reflect.Type;
-import java.util.Locale;
-import java.util.Map;
+package io.github.osvaldjr.stepdefinitions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import cucumber.api.TypeRegistry;
 import cucumber.api.TypeRegistryConfigurer;
 import io.cucumber.cucumberexpressions.ParameterByTypeTransformer;
@@ -15,8 +10,10 @@ import io.cucumber.datatable.TableEntryByTypeTransformer;
 import io.cucumber.datatable.TableEntryTransformer;
 import io.github.osvaldjr.objects.AlertRisk;
 import io.github.osvaldjr.objects.DataType;
-import io.github.osvaldjr.objects.Feature;
-import io.github.osvaldjr.objects.FeatureStatus;
+
+import java.lang.reflect.Type;
+import java.util.Locale;
+import java.util.Map;
 
 public class Transformers implements TypeRegistryConfigurer {
   @Override
@@ -26,12 +23,6 @@ public class Transformers implements TypeRegistryConfigurer {
 
   @Override
   public void configureTypeRegistry(TypeRegistry typeRegistry) {
-    typeRegistry.defineDataTableType(
-        new DataTableType(
-            Feature.class,
-            (TableEntryTransformer<Feature>)
-                row -> new Feature(row.get("name"), FeatureStatus.valueOf(row.get("status")))));
-
     typeRegistry.defineDataTableType(
         new DataTableType(
             DataType.class,

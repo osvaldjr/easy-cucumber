@@ -1,10 +1,9 @@
 package io.github.osvaldjr.objects.properties;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
@@ -13,6 +12,5 @@ import lombok.Setter;
 public class ApplicationProperties {
 
   private TargetProperties target;
-
   private DependencyProperties dependencies = new DependencyProperties();
 }

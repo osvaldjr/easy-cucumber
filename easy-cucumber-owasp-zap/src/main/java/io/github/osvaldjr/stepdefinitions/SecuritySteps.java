@@ -1,9 +1,18 @@
-package io.github.osvaldjr.stepdefinitions.steps;
+package io.github.osvaldjr.stepdefinitions;
 
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.osvaldjr.objects.AlertRisk;
+import io.github.osvaldjr.objects.DataType;
+import io.github.osvaldjr.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.stepdefinitions.steps.Steps;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.zaproxy.clientapi.core.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,37 +23,19 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.zaproxy.clientapi.core.Alert;
-import org.zaproxy.clientapi.core.ApiResponseElement;
-import org.zaproxy.clientapi.core.ApiResponseList;
-import org.zaproxy.clientapi.core.ApiResponseSet;
-import org.zaproxy.clientapi.core.ClientApi;
-import org.zaproxy.clientapi.core.ClientApiException;
-
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.osvaldjr.objects.AlertRisk;
-import io.github.osvaldjr.objects.DataType;
-import io.github.osvaldjr.objects.properties.ApplicationProperties;
-import lombok.extern.slf4j.Slf4j;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.*;
 
 @Slf4j
 public class SecuritySteps extends Steps {
 
-  private final ClientApi zapProxyApi;
-  private final ApplicationProperties applicationProperties;
-  private String policyName;
+  @Autowired(required = false)
+  private ClientApi zapProxyApi;
 
-  @Autowired
-  public SecuritySteps(ClientApi zapProxyApi, ApplicationProperties applicationProperties) {
-    this.zapProxyApi = zapProxyApi;
-    this.applicationProperties = applicationProperties;
-  }
+  @Autowired(required = false)
+  private ApplicationProperties applicationProperties;
+
+  private String policyName;
 
   @Given("^I import context from open API specification \"([^\"]*)\"$")
   public void iImportContextFromOpenAPISpecification(String path)
@@ -107,8 +98,7 @@ public class SecuritySteps extends Steps {
   public void iRemoveAlert(List<DataType> data) throws ClientApiException {
     List<Alert> alerts = zapProxyApi.getAlerts(null, -1, -1);
     List<Alert> alertsExclude =
-        alerts
-            .stream()
+        alerts.stream()
             .filter(alert -> data.stream().anyMatch(type -> isExclude(alert, type)))
             .collect(Collectors.toList());
 
@@ -128,9 +118,7 @@ public class SecuritySteps extends Steps {
     this.policyName = policyName;
 
     ApiResponseList policies = (ApiResponseList) zapProxyApi.ascan.scanPolicyNames();
-    if (policies
-        .getItems()
-        .stream()
+    if (policies.getItems().stream()
         .anyMatch(item -> ((ApiResponseElement) item).getValue().equals(policyName))) {
       zapProxyApi.ascan.removeScanPolicy(policyName);
     }
@@ -205,8 +193,7 @@ public class SecuritySteps extends Steps {
   }
 
   private List<Alert> getAlertsWithRisk(List<Alert> alertsList, Alert.Risk risk) {
-    return alertsList
-        .stream()
+    return alertsList.stream()
         .filter(
             alert -> {
               boolean returned = alert.getRisk().equals(risk);
