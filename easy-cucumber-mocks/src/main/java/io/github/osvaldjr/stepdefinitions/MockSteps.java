@@ -4,7 +4,6 @@ import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import io.github.osvaldjr.stepdefinitions.steps.Steps;
 import io.github.osvaldjr.utils.CreateStubby;
 import io.github.osvaldjr.utils.GetMockHits;
 import io.github.osvaldjr.utils.Mock;

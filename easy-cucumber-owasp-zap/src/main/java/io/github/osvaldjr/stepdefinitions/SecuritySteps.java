@@ -6,7 +6,6 @@ import cucumber.api.java.en.When;
 import io.github.osvaldjr.objects.AlertRisk;
 import io.github.osvaldjr.objects.DataType;
 import io.github.osvaldjr.objects.properties.ApplicationProperties;
-import io.github.osvaldjr.stepdefinitions.steps.Steps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;

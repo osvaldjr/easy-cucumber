@@ -1,28 +1,27 @@
-package io.github.osvaldjr.gateways;
-
-import static java.util.Optional.ofNullable;
-
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+package io.github.osvaldjr.utils;
 
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.okhttp.OkHttpClient;
-import io.github.osvaldjr.gateways.feign.TargetClient;
+import io.github.osvaldjr.utils.clients.TargetClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Component
-public class TargetGateway {
+public class HttpTarget {
 
   private Feign.Builder feignBuilder;
 
   @Autowired
-  public TargetGateway(Decoder decoder, Encoder encoder, ErrorDecoder errorDecoder) {
+  public HttpTarget(Decoder decoder, Encoder encoder, ErrorDecoder errorDecoder) {
     this.feignBuilder =
         Feign.builder()
             .decoder(decoder)

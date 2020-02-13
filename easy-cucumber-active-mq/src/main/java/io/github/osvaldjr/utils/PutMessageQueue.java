@@ -1,7 +1,6 @@
 package io.github.osvaldjr.utils;
 
 import io.github.osvaldjr.configs.ActiveMQConfig;
-import io.github.osvaldjr.gateways.FileGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -14,13 +13,13 @@ import java.io.FileNotFoundException;
 @ConditionalOnBean(ActiveMQConfig.class)
 public class PutMessageQueue {
 
-  private final FileGateway file;
+  private final FileUtils file;
 
   @Qualifier("easyCucumberJmsTemplate")
   private final JmsTemplate jmsTemplate;
 
   @Autowired
-  public PutMessageQueue(FileGateway file, JmsTemplate jmsTemplate) {
+  public PutMessageQueue(FileUtils file, JmsTemplate jmsTemplate) {
     this.file = file;
     this.jmsTemplate = jmsTemplate;
   }

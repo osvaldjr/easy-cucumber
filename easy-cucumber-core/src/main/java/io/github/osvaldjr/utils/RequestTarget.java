@@ -1,17 +1,6 @@
 package io.github.osvaldjr.utils;
 
-import static java.util.Optional.ofNullable;
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.http.HttpMethod.DELETE;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.PATCH;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
+import io.github.osvaldjr.objects.TargetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -19,20 +8,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.MethodNotAllowedException;
 
-import io.github.osvaldjr.objects.TargetRequest;
-import io.github.osvaldjr.gateways.TargetGateway;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.util.Optional.ofNullable;
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.http.HttpMethod.*;
 
 @Component
-public class RequestTargetUseCase {
+public class RequestTarget {
 
-  private final TargetGateway targetGateway;
+  private final HttpTarget httpTarget;
 
   @Value("${target.url:}")
   private String targetHost;
 
   @Autowired
-  public RequestTargetUseCase(TargetGateway targetGateway) {
-    this.targetGateway = targetGateway;
+  public RequestTarget(HttpTarget httpTarget) {
+    this.httpTarget = httpTarget;
   }
 
   public ResponseEntity execute(TargetRequest request) {
@@ -51,11 +45,11 @@ public class RequestTargetUseCase {
     switch (httpMethod) {
       case GET:
         response =
-            targetGateway.get(request.getHost(), request.getUrl(), headersMap, queryParametersMap);
+            httpTarget.get(request.getHost(), request.getUrl(), headersMap, queryParametersMap);
         break;
       case POST:
         response =
-            targetGateway.post(
+            httpTarget.post(
                 request.getHost(),
                 request.getUrl(),
                 request.getBody(),
@@ -64,7 +58,7 @@ public class RequestTargetUseCase {
         break;
       case PUT:
         response =
-            targetGateway.put(
+            httpTarget.put(
                 request.getHost(),
                 request.getUrl(),
                 request.getBody(),
@@ -73,7 +67,7 @@ public class RequestTargetUseCase {
         break;
       case DELETE:
         response =
-            targetGateway.delete(
+            httpTarget.delete(
                 request.getHost(),
                 request.getUrl(),
                 request.getBody(),
@@ -82,7 +76,7 @@ public class RequestTargetUseCase {
         break;
       case PATCH:
         response =
-            targetGateway.patch(
+            httpTarget.patch(
                 request.getHost(),
                 request.getUrl(),
                 request.getBody(),

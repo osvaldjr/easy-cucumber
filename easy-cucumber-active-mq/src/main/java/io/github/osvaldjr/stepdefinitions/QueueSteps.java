@@ -8,10 +8,9 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.gateways.FileGateway;
 import io.github.osvaldjr.objects.properties.QueueProperties;
-import io.github.osvaldjr.stepdefinitions.steps.Steps;
 import io.github.osvaldjr.utils.CleanQueue;
+import io.github.osvaldjr.utils.FileUtils;
 import io.github.osvaldjr.utils.GetMessageQueue;
 import io.github.osvaldjr.utils.PutMessageQueue;
 import org.apache.commons.io.FilenameUtils;
@@ -36,7 +35,7 @@ public class QueueSteps extends Steps {
   private CleanQueue cleanQueue;
 
   @Autowired(required = false)
-  private FileGateway file;
+  private FileUtils file;
 
   @Autowired(required = false)
   private QueueProperties queueProperties;

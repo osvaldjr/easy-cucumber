@@ -4,12 +4,7 @@ import cucumber.api.Scenario;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.stepdefinitions.steps.Steps;
-import io.github.osvaldjr.utils.DatabaseBulkSQLInsert;
-import io.github.osvaldjr.utils.DatabaseTableInsert;
-import io.github.osvaldjr.utils.DatabaseTableMatch;
-import io.github.osvaldjr.utils.DatabaseTableSelect;
+import io.github.osvaldjr.utils.*;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +29,7 @@ public class DatabaseSteps extends Steps {
   @Autowired(required = false)
   private DatabaseTableSelect databaseTableSelect;
 
-  private FileGateway fileGateway;
+  private FileUtils fileUtils;
   private String scenarioName;
 
   @Before
@@ -45,14 +40,14 @@ public class DatabaseSteps extends Steps {
   @Given("I want to execute sql script ([^\"]*)")
   public void iWantToExecuteSqlScript(String scriptFile) throws IOException {
     String sql =
-        fileGateway.getFileContent(
+        fileUtils.getFileContent(
             MessageFormat.format("{0}/{1}/{2}/", scenarioName, "sql", scriptFile));
     databaseBulkSQLInsert.execute(sql);
   }
 
   @Given("I want to execute sql file in path ([^\"]*)")
   public void iWantToExecuteSqlFileInPath(String path) throws IOException {
-    String sql = fileGateway.getFileContent(path);
+    String sql = fileUtils.getFileContent(path);
     databaseBulkSQLInsert.execute(sql);
   }
 

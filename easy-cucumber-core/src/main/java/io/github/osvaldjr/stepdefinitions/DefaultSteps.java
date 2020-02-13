@@ -1,12 +1,18 @@
-package io.github.osvaldjr.stepdefinitions.steps;
+package io.github.osvaldjr.stepdefinitions;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.osvaldjr.objects.TargetRequest;
+import io.github.osvaldjr.objects.exceptions.FeignException;
+import io.github.osvaldjr.utils.FileUtils;
+import io.github.osvaldjr.utils.RequestTarget;
 import org.apache.commons.io.FilenameUtils;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
@@ -18,35 +24,27 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.PathNotFoundException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.osvaldjr.objects.TargetRequest;
-import io.github.osvaldjr.objects.exceptions.FeignException;
-import io.github.osvaldjr.gateways.FileGateway;
-import io.github.osvaldjr.utils.RequestTargetUseCase;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class DefaultSteps extends Steps {
+
+  private final FileUtils fileUtils;
+  private final RequestTarget requestTarget;
 
   private TargetRequest request;
   private ResponseEntity response;
   private String scenarioName;
-
-  private final FileGateway fileGateway;
-  private final RequestTargetUseCase requestTargetUseCase;
   private FeignException httpException;
 
   @Autowired
-  public DefaultSteps(FileGateway fileGateway, RequestTargetUseCase requestTargetUseCase) {
-    this.fileGateway = fileGateway;
-    this.requestTargetUseCase = requestTargetUseCase;
+  public DefaultSteps(FileUtils fileUtils, RequestTarget requestTarget) {
+    this.fileUtils = fileUtils;
+    this.requestTarget = requestTarget;
     request = new TargetRequest<>();
     httpException = null;
   }
@@ -58,7 +56,7 @@ public class DefaultSteps extends Steps {
 
   @Given("I have a request with body ([^\"]*)")
   public void iHaveARequestWith(String requestPayload) throws IOException {
-    Object body = fileGateway.getObjectFromFile(scenarioName, requestPayload, Object.class);
+    Object body = fileUtils.getObjectFromFile(scenarioName, requestPayload, Object.class);
     request.setBody(body);
   }
 
@@ -70,7 +68,7 @@ public class DefaultSteps extends Steps {
     httpException = null;
 
     try {
-      response = requestTargetUseCase.execute(request);
+      response = requestTarget.execute(request);
     } catch (FeignException e) {
       httpException = e;
     }
@@ -78,19 +76,19 @@ public class DefaultSteps extends Steps {
 
   @Then("I expect ([^\"]*) as response")
   public void iExpectAsResponse(String responsePayload) throws IOException, JSONException {
-    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responsePayload);
-    String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
+    String responseExpected = fileUtils.getJsonStringFromFile(scenarioName, responsePayload);
+    String responseReceived = fileUtils.getJsonStringFromObject(response.getBody());
     JSONAssert.assertEquals(responseExpected, responseReceived, true);
   }
 
   @Given("I make a request defined in ([^\"]*)")
   public void iHaveARequestDefinedIn(String requestSpecFilePath) throws IOException {
-    request = fileGateway.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
+    request = fileUtils.getObjectFromFile(scenarioName, requestSpecFilePath, TargetRequest.class);
     response = null;
     httpException = null;
 
     try {
-      response = requestTargetUseCase.execute(request);
+      response = requestTarget.execute(request);
     } catch (FeignException e) {
       httpException = e;
     }
@@ -113,13 +111,13 @@ public class DefaultSteps extends Steps {
     int httpStatusReceived;
     String responseReceived;
 
-    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, responseBodyExpected);
+    String responseExpected = fileUtils.getJsonStringFromFile(scenarioName, responseBodyExpected);
     if (response == null) {
       httpStatusReceived = httpException.getResponse().getStatus();
       responseReceived = httpException.getResponse().getJsonBody();
     } else {
       httpStatusReceived = response.getStatusCode().value();
-      responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
+      responseReceived = fileUtils.getJsonStringFromObject(response.getBody());
     }
     assertThat(httpStatusReceived, equalTo(httpStatusExpected));
     JSONAssert.assertEquals(responseExpected, responseReceived, false);
@@ -152,8 +150,8 @@ public class DefaultSteps extends Steps {
   @Then("response is valid according to schema ([^\"]*)")
   public void responseIsValidAccordingToSchema(String schemaPath)
       throws FileNotFoundException, JsonProcessingException, JSONException {
-    String responseExpected = fileGateway.getJsonStringFromFile(scenarioName, schemaPath);
-    String responseReceived = fileGateway.getJsonStringFromObject(response.getBody());
+    String responseExpected = fileUtils.getJsonStringFromFile(scenarioName, schemaPath);
+    String responseReceived = fileUtils.getJsonStringFromObject(response.getBody());
 
     JSONObject jsonSchema = new JSONObject(new JSONTokener(responseExpected));
     JSONObject jsonSubject = new JSONObject(new JSONTokener(responseReceived));

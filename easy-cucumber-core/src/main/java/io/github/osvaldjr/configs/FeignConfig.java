@@ -1,22 +1,21 @@
-package io.github.osvaldjr.configs.feign;
+package io.github.osvaldjr.configs;
 
+import feign.codec.Decoder;
+import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
+import io.github.osvaldjr.configs.converter.MessageConverter;
+import io.github.osvaldjr.configs.decoder.FeignDecoder;
+import io.github.osvaldjr.configs.decoder.FeignErrorDecoder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import feign.codec.Decoder;
-import feign.codec.Encoder;
-import feign.codec.ErrorDecoder;
-import io.github.osvaldjr.configs.feign.converter.MessageConverter;
-import io.github.osvaldjr.configs.feign.decoder.FeignDecoder;
-import io.github.osvaldjr.configs.feign.decoder.FeignErrorDecoder;
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @Configuration
-@EnableFeignClients(basePackages = {"io.github.osvaldjr.gateways.feign"})
+@EnableFeignClients(basePackages = {"io.github.osvaldjr.utils.clients"})
 public class FeignConfig {
 
   @Bean

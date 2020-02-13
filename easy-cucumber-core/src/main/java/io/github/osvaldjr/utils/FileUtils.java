@@ -1,30 +1,24 @@
-package io.github.osvaldjr.gateways;
-
-import static java.text.MessageFormat.format;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
+package io.github.osvaldjr.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.CharStreams;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+
+import java.io.*;
+
+import static java.text.MessageFormat.format;
 
 @Component
-public class FileGateway {
+public class FileUtils {
 
-  ObjectMapper objectMapper;
   private static final String DATA_DIRECTORY = "/data";
+  ObjectMapper objectMapper;
 
   @Autowired
-  public FileGateway(ObjectMapper objectMapper) {
+  public FileUtils(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
   }
 

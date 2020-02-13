@@ -1,6 +1,5 @@
 package io.github.osvaldjr.utils;
 
-import io.github.osvaldjr.gateways.FileGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +12,12 @@ import static org.junit.Assert.assertNotNull;
 @Component
 public class CreateStubby {
 
-  private final FileGateway fileGateway;
+  private final FileUtils fileUtils;
   private final Mock mock;
 
   @Autowired
-  public CreateStubby(FileGateway fileGateway, Mock mock) {
-    this.fileGateway = fileGateway;
+  public CreateStubby(FileUtils fileUtils, Mock mock) {
+    this.fileUtils = fileUtils;
     this.mock = mock;
   }
 
@@ -27,9 +26,9 @@ public class CreateStubby {
     String mockResponseFile = "mocks/" + mockName + "-response.json";
 
     RequestBody stubbyRequestBody =
-        fileGateway.getObjectFromFile(scenario, mockRequestFile, RequestBody.class);
+        fileUtils.getObjectFromFile(scenario, mockRequestFile, RequestBody.class);
     ResponseBody stubbyResponseBody =
-        fileGateway.getObjectFromFile(scenario, mockResponseFile, ResponseBody.class);
+        fileUtils.getObjectFromFile(scenario, mockResponseFile, ResponseBody.class);
 
     assertNotNull("url cannot be null in create mock", stubbyRequestBody.getUrl());
     assertNotNull("method cannot be null in create mock", stubbyRequestBody.getMethod());
