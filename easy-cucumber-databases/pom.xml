@@ -9,9 +9,9 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <groupId>io.github.osvaldjr</groupId>
-    <artifactId>easy-cucumber-database</artifactId>
+    <artifactId>easy-cucumber-databases</artifactId>
     <packaging>jar</packaging>
-    <name>io.github.osvaldjr:easy-cucumber-database</name>
+    <name>io.github.osvaldjr:easy-cucumber-databases</name>
     <description>Easy Cucumber JVM Testing</description>
 
     <properties>
