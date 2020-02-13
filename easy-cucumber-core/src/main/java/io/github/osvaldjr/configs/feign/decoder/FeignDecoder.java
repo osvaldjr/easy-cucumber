@@ -1,4 +1,4 @@
-package io.github.osvaldjr.confs.feign.decoder;
+package io.github.osvaldjr.configs.feign.decoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.support.SpringDecoder;
 
 import feign.Response;
 import feign.codec.Decoder;
-import io.github.osvaldjr.confs.feign.converter.MessageConverter;
+import io.github.osvaldjr.configs.feign.converter.MessageConverter;
 
 public class FeignDecoder implements Decoder {
   private final ResponseEntityDecoder responseEntityDecoder =

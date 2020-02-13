@@ -1,4 +1,4 @@
-package io.github.osvaldjr.domains.properties;
+package io.github.osvaldjr.objects.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

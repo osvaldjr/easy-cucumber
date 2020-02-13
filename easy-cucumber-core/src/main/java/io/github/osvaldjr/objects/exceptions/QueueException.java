@@ -1,4 +1,4 @@
-package io.github.osvaldjr.domains.exceptions;
+package io.github.osvaldjr.objects.exceptions;
 
 import lombok.Getter;
 

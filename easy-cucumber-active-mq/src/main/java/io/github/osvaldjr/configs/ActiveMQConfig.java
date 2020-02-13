@@ -1,20 +1,17 @@
-package io.github.osvaldjr.confs;
+package io.github.osvaldjr.configs;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.osvaldjr.objects.properties.ActiveMQProperties;
+import io.github.osvaldjr.objects.properties.ApplicationProperties;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.github.osvaldjr.domains.properties.ActiveMQProperties;
-import io.github.osvaldjr.domains.properties.ApplicationProperties;
 
 @Configuration
 public class ActiveMQConfig {

@@ -1,6 +1,6 @@
-package io.github.osvaldjr.domains.exceptions;
+package io.github.osvaldjr.objects.exceptions;
 
-import io.github.osvaldjr.domains.ClientResponse;
+import io.github.osvaldjr.objects.ClientResponse;
 import lombok.Getter;
 
 @Getter
