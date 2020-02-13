@@ -16,6 +16,7 @@
     <properties>
         <cucumber.reporting.version>4.7.0</cucumber.reporting.version>
         <feign-okhttp.version>10.3.0</feign-okhttp.version>
+        <org.everit.json.schema.version>1.12.0</org.everit.json.schema.version>
     </properties>
 
     <dependencies>
