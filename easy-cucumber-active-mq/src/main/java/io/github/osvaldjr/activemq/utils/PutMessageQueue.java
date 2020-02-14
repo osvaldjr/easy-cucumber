@@ -1,14 +1,15 @@
 package io.github.osvaldjr.activemq.utils;
 
-import io.github.osvaldjr.activemq.configs.ActiveMQConfig;
-import io.github.osvaldjr.core.utils.FileUtils;
+import java.io.FileNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
+import io.github.osvaldjr.activemq.configs.ActiveMQConfig;
+import io.github.osvaldjr.core.utils.FileUtils;
 
 @Component
 @ConditionalOnBean(ActiveMQConfig.class)

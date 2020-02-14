@@ -1,19 +1,20 @@
 package io.github.osvaldjr.core.utils;
 
+import static java.util.Optional.ofNullable;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.okhttp.OkHttpClient;
 import io.github.osvaldjr.core.clients.TargetClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-
-import java.util.Map;
-
-import static java.util.Optional.ofNullable;
 
 @Component
 public class HttpTarget {

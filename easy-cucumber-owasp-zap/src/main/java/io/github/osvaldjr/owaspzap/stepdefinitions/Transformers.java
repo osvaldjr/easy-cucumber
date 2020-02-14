@@ -1,6 +1,11 @@
 package io.github.osvaldjr.owaspzap.stepdefinitions;
 
+import java.lang.reflect.Type;
+import java.util.Locale;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cucumber.api.TypeRegistry;
 import cucumber.api.TypeRegistryConfigurer;
 import io.cucumber.cucumberexpressions.ParameterByTypeTransformer;
@@ -10,10 +15,6 @@ import io.cucumber.datatable.TableEntryByTypeTransformer;
 import io.cucumber.datatable.TableEntryTransformer;
 import io.github.osvaldjr.owaspzap.objects.AlertRisk;
 import io.github.osvaldjr.owaspzap.objects.DataType;
-
-import java.lang.reflect.Type;
-import java.util.Locale;
-import java.util.Map;
 
 public class Transformers implements TypeRegistryConfigurer {
   @Override

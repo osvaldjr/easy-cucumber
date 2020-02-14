@@ -1,17 +1,19 @@
 package io.github.osvaldjr.activemq.utils;
 
-import io.github.osvaldjr.activemq.configs.ActiveMQConfig;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Enumeration;
+
+import javax.jms.MessageConsumer;
+import javax.jms.Queue;
+import javax.jms.TextMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.jms.MessageConsumer;
-import javax.jms.Queue;
-import javax.jms.TextMessage;
-import java.util.Enumeration;
+import io.github.osvaldjr.activemq.configs.ActiveMQConfig;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

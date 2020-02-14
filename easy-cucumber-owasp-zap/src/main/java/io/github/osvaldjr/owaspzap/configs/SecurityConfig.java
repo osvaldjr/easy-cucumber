@@ -1,11 +1,12 @@
 package io.github.osvaldjr.owaspzap.configs;
 
-import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
-import io.github.osvaldjr.owaspzap.objects.properties.OwaspProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.zaproxy.clientapi.core.ClientApi;
+
+import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.owaspzap.objects.properties.OwaspProperties;
 
 @Configuration
 public class SecurityConfig {

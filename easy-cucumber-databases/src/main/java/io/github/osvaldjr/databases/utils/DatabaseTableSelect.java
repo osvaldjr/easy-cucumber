@@ -1,16 +1,17 @@
 package io.github.osvaldjr.databases.utils;
 
-import io.github.osvaldjr.databases.configs.DatabaseConfig;
-import lombok.extern.slf4j.Slf4j;
+import static java.text.MessageFormat.format;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-import static java.text.MessageFormat.format;
+import io.github.osvaldjr.databases.configs.DatabaseConfig;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

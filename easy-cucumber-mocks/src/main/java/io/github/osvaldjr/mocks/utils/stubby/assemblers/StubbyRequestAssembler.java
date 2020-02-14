@@ -1,11 +1,12 @@
 package io.github.osvaldjr.mocks.utils.stubby.assemblers;
 
+import org.springframework.stereotype.Component;
+
 import gherkin.deps.com.google.gson.Gson;
 import io.github.osvaldjr.mocks.objects.StubbyRequest;
+import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyRequestBody;
 import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyResponseBody;
-import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonRequest;
-import org.springframework.stereotype.Component;
 
 @Component
 public class StubbyRequestAssembler {

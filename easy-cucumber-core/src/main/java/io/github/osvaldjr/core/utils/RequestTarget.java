@@ -1,6 +1,17 @@
 package io.github.osvaldjr.core.utils;
 
-import io.github.osvaldjr.core.objects.TargetRequest;
+import static java.util.Optional.ofNullable;
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PATCH;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -8,13 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.MethodNotAllowedException;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.util.Optional.ofNullable;
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.http.HttpMethod.*;
+import io.github.osvaldjr.core.objects.TargetRequest;
 
 @Component
 public class RequestTarget {

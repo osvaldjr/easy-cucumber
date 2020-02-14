@@ -1,12 +1,8 @@
 package io.github.osvaldjr.databases.utils;
 
-import io.github.osvaldjr.databases.configs.DatabaseConfig;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import static java.lang.String.format;
+import static java.util.stream.Collectors.joining;
+import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,9 +10,14 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
-import static java.util.stream.Collectors.joining;
-import static org.apache.commons.lang.math.NumberUtils.isNumber;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import io.github.osvaldjr.databases.configs.DatabaseConfig;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

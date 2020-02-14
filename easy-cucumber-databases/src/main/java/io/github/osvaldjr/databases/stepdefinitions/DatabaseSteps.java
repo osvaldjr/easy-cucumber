@@ -1,24 +1,25 @@
 package io.github.osvaldjr.databases.stepdefinitions;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import io.github.osvaldjr.databases.utils.DatabaseBulkSQLInsert;
-import io.github.osvaldjr.databases.utils.DatabaseTableInsert;
-import io.github.osvaldjr.databases.utils.DatabaseTableMatch;
-import io.github.osvaldjr.databases.utils.DatabaseTableSelect;
-import io.github.osvaldjr.core.stepdefinitions.Steps;
-import io.github.osvaldjr.core.utils.*;
-import org.apache.commons.io.FilenameUtils;
-import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.apache.commons.io.FilenameUtils;
+import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.core.utils.FileUtils;
+import io.github.osvaldjr.databases.utils.DatabaseBulkSQLInsert;
+import io.github.osvaldjr.databases.utils.DatabaseTableInsert;
+import io.github.osvaldjr.databases.utils.DatabaseTableMatch;
+import io.github.osvaldjr.databases.utils.DatabaseTableSelect;
 
 public class DatabaseSteps extends Steps {
 

@@ -1,22 +1,23 @@
 package io.github.osvaldjr.databases.utils;
 
-import io.github.osvaldjr.databases.configs.DatabaseConfig;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+import static java.util.stream.Collectors.joining;
+import static org.apache.commons.lang.StringUtils.trim;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.format;
-import static java.lang.String.valueOf;
-import static java.util.stream.Collectors.joining;
-import static org.apache.commons.lang.StringUtils.trim;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import io.github.osvaldjr.databases.configs.DatabaseConfig;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j

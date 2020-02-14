@@ -3,11 +3,11 @@ package io.github.osvaldjr.mocks.configs.feign.decoder;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import io.github.osvaldjr.mocks.objects.ClientResponse;
 import org.apache.commons.io.IOUtils;
 
 import feign.Response;
 import feign.codec.ErrorDecoder;
+import io.github.osvaldjr.mocks.objects.ClientResponse;
 import io.github.osvaldjr.mocks.objects.exceptions.FeignException;
 import lombok.extern.slf4j.Slf4j;
 

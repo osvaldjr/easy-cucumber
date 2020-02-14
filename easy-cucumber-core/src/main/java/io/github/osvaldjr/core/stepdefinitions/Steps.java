@@ -1,10 +1,12 @@
 package io.github.osvaldjr.core.stepdefinitions;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.*;
 
 public class Steps {
 

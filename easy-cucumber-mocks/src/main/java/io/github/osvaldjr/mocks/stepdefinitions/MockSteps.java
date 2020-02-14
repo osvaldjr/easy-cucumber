@@ -1,21 +1,22 @@
 package io.github.osvaldjr.mocks.stepdefinitions;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import io.github.osvaldjr.mocks.utils.GetMockHits;
-import io.github.osvaldjr.core.stepdefinitions.Steps;
-import io.github.osvaldjr.mocks.utils.CreateStubby;
-import io.github.osvaldjr.mocks.utils.Mock;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.mocks.utils.CreateStubby;
+import io.github.osvaldjr.mocks.utils.GetMockHits;
+import io.github.osvaldjr.mocks.utils.Mock;
 
 public class MockSteps extends Steps {
 

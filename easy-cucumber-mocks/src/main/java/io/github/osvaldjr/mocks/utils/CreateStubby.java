@@ -1,13 +1,14 @@
 package io.github.osvaldjr.mocks.utils;
 
-import io.github.osvaldjr.mocks.objects.StubbyRequest;
-import io.github.osvaldjr.core.utils.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertNotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import io.github.osvaldjr.core.utils.FileUtils;
+import io.github.osvaldjr.mocks.objects.StubbyRequest;
 
 @Component
 public class CreateStubby {

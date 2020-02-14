@@ -1,16 +1,17 @@
 package io.github.osvaldjr.core.configs.decoder;
 
-import feign.Response;
-import feign.codec.Decoder;
-import io.github.osvaldjr.core.configs.converter.MessageConverter;
-import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
-
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
+
+import feign.Response;
+import feign.codec.Decoder;
+import io.github.osvaldjr.core.configs.converter.MessageConverter;
 
 public class FeignDecoder implements Decoder {
   private final ResponseEntityDecoder responseEntityDecoder =

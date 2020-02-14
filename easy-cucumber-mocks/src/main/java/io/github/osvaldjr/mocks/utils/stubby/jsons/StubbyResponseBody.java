@@ -1,11 +1,11 @@
 package io.github.osvaldjr.mocks.utils.stubby.jsons;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
-import java.util.Map;
 
 @Getter
 @Setter

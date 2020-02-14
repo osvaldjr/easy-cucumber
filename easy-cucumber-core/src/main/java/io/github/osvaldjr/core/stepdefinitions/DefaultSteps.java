@@ -1,18 +1,12 @@
 package io.github.osvaldjr.core.stepdefinitions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.PathNotFoundException;
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.osvaldjr.core.objects.TargetRequest;
-import io.github.osvaldjr.core.objects.exceptions.FeignException;
-import io.github.osvaldjr.core.utils.FileUtils;
-import io.github.osvaldjr.core.utils.RequestTarget;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.apache.commons.io.FilenameUtils;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
@@ -24,12 +18,20 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.osvaldjr.core.objects.TargetRequest;
+import io.github.osvaldjr.core.objects.exceptions.FeignException;
+import io.github.osvaldjr.core.utils.FileUtils;
+import io.github.osvaldjr.core.utils.RequestTarget;
 
 public class DefaultSteps extends Steps {
 

@@ -1,7 +1,12 @@
 package io.github.osvaldjr.mocks.utils.mockserver.assemblers;
 
-import gherkin.deps.com.google.gson.Gson;
-import io.github.osvaldjr.mocks.objects.StubbyRequest;
+import static org.mockserver.matchers.TimeToLive.unlimited;
+import static org.mockserver.matchers.Times.exactly;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
@@ -9,12 +14,8 @@ import org.mockserver.model.HttpResponse;
 import org.mockserver.model.Parameter;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.mockserver.matchers.TimeToLive.unlimited;
-import static org.mockserver.matchers.Times.exactly;
+import gherkin.deps.com.google.gson.Gson;
+import io.github.osvaldjr.mocks.objects.StubbyRequest;
 
 @Component
 public class ExpectationRequestAssembler {

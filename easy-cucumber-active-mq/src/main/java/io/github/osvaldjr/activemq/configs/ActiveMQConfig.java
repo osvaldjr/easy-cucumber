@@ -1,8 +1,5 @@
 package io.github.osvaldjr.activemq.configs;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.osvaldjr.activemq.objects.properties.ActiveMQProperties;
-import io.github.osvaldjr.activemq.objects.properties.ApplicationProperties;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,11 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.github.osvaldjr.activemq.objects.properties.ActiveMQProperties;
+import io.github.osvaldjr.activemq.objects.properties.ApplicationProperties;
 
 @Configuration
 public class ActiveMQConfig {

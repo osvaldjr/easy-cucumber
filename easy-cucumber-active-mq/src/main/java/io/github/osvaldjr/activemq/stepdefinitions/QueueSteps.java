@@ -1,28 +1,30 @@
 package io.github.osvaldjr.activemq.stepdefinitions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import cucumber.api.Scenario;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.osvaldjr.activemq.utils.PutMessageQueue;
-import io.github.osvaldjr.activemq.objects.properties.QueueProperties;
-import io.github.osvaldjr.core.stepdefinitions.Steps;
-import io.github.osvaldjr.activemq.utils.CleanQueue;
-import io.github.osvaldjr.core.utils.FileUtils;
-import io.github.osvaldjr.activemq.utils.GetMessageQueue;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import java.io.FileNotFoundException;
+
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.FileNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.osvaldjr.activemq.objects.properties.QueueProperties;
+import io.github.osvaldjr.activemq.utils.CleanQueue;
+import io.github.osvaldjr.activemq.utils.GetMessageQueue;
+import io.github.osvaldjr.activemq.utils.PutMessageQueue;
+import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.core.utils.FileUtils;
 
 public class QueueSteps extends Steps {
 
