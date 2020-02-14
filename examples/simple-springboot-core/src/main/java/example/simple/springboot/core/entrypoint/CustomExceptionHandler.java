@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import example.simple.springboot.core.domain.Error;
+import example.simple.springboot.core.entrypoint.json.Error;
 
 @ControllerAdvice
 public class CustomExceptionHandler {

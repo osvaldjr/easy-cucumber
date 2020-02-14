@@ -1,4 +1,4 @@
-package example.simple.springboot.core.domain;
+package example.simple.springboot.core.entrypoint.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

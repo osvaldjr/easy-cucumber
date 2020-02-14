@@ -1,0 +1,42 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "name",
+    "developer",
+    "year"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "The Name Schema",
+      "default": "",
+      "examples": [
+        "Linux"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "developer": {
+      "$id": "#/properties/developer",
+      "type": "boolean",
+      "title": "The Developer Schema",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "year": {
+      "$id": "#/properties/year",
+      "type": "integer",
+      "title": "The Year Schema",
+      "default": 0,
+      "examples": [
+        2000
+      ]
+    }
+  }
+}

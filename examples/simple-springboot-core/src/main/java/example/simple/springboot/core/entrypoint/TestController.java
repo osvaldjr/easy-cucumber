@@ -14,13 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
 
+  private final ObjectMapper objectMapper;
+
+  public TestController(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
+
   @GetMapping
-  public ResponseEntity<Object> get(@RequestHeader Map<String, String> headers) {
-    return ResponseEntity.ok().build();
+  public ResponseEntity<Object> get(@RequestHeader Map<String, String> headers)
+      throws JsonProcessingException {
+    return ResponseEntity.ok(
+        objectMapper.readValue("{\"name\": \"Linux\",\"developer\": true}", Object.class));
+  }
+
+  @GetMapping("/error")
+  public ResponseEntity<Object> getError(@RequestHeader Map<String, String> headers)
+      throws Exception {
+    throw new Exception("error");
   }
 
   @PutMapping
@@ -38,8 +55,11 @@ public class TestController {
 
   @PostMapping
   public ResponseEntity<Object> post(
-      @RequestBody Object body, @RequestHeader Map<String, String> headers) {
-    return ResponseEntity.ok().build();
+      @RequestBody Object body, @RequestHeader Map<String, String> headers)
+      throws JsonProcessingException {
+    return ResponseEntity.ok(
+        objectMapper.readValue(
+            "{\"name\": \"Linux\",\"developer\": true,\"year\": 2000}", Object.class));
   }
 
   @PatchMapping
