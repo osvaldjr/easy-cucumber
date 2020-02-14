@@ -1,18 +1,9 @@
 package io.github.osvaldjr.owaspzap.stepdefinitions;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import io.github.osvaldjr.owaspzap.objects.AlertRisk;
-import io.github.osvaldjr.owaspzap.objects.DataType;
-import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
-import io.github.osvaldjr.core.stepdefinitions.Steps;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.zaproxy.clientapi.core.*;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,8 +14,25 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.junit.Assert.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.zaproxy.clientapi.core.Alert;
+import org.zaproxy.clientapi.core.ApiResponseElement;
+import org.zaproxy.clientapi.core.ApiResponseList;
+import org.zaproxy.clientapi.core.ApiResponseSet;
+import org.zaproxy.clientapi.core.ClientApi;
+import org.zaproxy.clientapi.core.ClientApiException;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.owaspzap.objects.AlertRisk;
+import io.github.osvaldjr.owaspzap.objects.DataType;
+import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SecuritySteps extends Steps {
