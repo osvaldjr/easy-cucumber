@@ -19,13 +19,12 @@ Feature: Default
   Scenario: Validate a default steps with response error body
     When I make a GET to /test/error
     Then I expect to receive a 500 status with body http_get_body_error_response.json
-#
-#  Scenario: Validate external target host configuration
-#    Given my application host is http://localhost:9003
-#    When I make a GET to /
-#    Then I expect to receive a 200 status with body http_get_body_complete_response.json
-#    And response contains property [0].request.json.name with value Linux
-#    And response does not contain property [1]updatedDate
+
+  Scenario: Validate external target host configuration
+    Given my application host is http://localhost:9000
+    When I make a GET to /test
+    Then response contains property name with value Linux
+    And response does not contain property updatedDate
 
   Scenario: Validate a default steps with request defined with PATCH method
     When I make a request defined in http_patch_defined_body_request.json
