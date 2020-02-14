@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
-@EnableFeignClients(basePackages = {"io.github.osvaldjr.clients"})
+@EnableFeignClients(basePackages = {"io.github.osvaldjr"})
 public class FeignConfig {
 
   @Bean
