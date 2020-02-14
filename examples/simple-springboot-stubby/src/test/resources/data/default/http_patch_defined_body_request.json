@@ -1,0 +1,7 @@
+{
+  "url": "/test",
+  "method": "PATCH",
+  "body": {
+    "name": "Linux"
+  }
+}

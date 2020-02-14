@@ -1,0 +1,13 @@
+{
+  "url": "/post",
+  "method": "POST",
+  "body": {
+    "name": "Linux"
+  },
+  "headers": {
+    "my-header": "my header value"
+  },
+  "queryParams": {
+    "myParam": true
+  }
+}

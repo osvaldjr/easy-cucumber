@@ -1,0 +1,9 @@
+{
+  "url": "/test",
+  "method": "POST",
+  "body": {
+    "name": "Linux"
+  },
+  "headers": {},
+  "queryParams": {}
+}

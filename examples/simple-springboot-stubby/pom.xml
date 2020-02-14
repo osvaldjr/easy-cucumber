@@ -8,10 +8,10 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>example.simple.springboot.core</groupId>
-    <artifactId>simple-springboot-core</artifactId>
+    <groupId>example.simple.springboot.stubby</groupId>
+    <artifactId>simple-springboot-stubby</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>simple-springboot-core</name>
+    <name>simple-springboot-stubby</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
-            <artifactId>easy-cucumber-core</artifactId>
+            <artifactId>easy-cucumber-mocks</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
@@ -30,6 +30,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>
