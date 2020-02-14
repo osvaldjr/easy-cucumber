@@ -161,4 +161,8 @@ public class DefaultSteps extends Steps {
     Schema schema = SchemaLoader.load(jsonSchema);
     schema.validate(jsonSubject);
   }
+
+  public ResponseEntity getResponse() {
+    return response;
+  }
 }
