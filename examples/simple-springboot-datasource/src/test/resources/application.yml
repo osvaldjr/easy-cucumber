@@ -11,11 +11,11 @@ server.port: 9000
 
 # easy cucumber properties
 
+target.url: http://localhost:9000
+
 easycucumber:
   datasource:
     autoconfigure: true
     url: jdbc:postgresql://localhost:5432/easycucumber
     username: postgres
     password: root
-
-target.url: http://localhost:9000

@@ -17,7 +17,7 @@ import io.github.osvaldjr.jms.objects.properties.ActiveMQProperties;
 import io.github.osvaldjr.jms.objects.properties.ApplicationProperties;
 
 @Configuration
-@ConditionalOnProperty(value = "easycucumber.jms.autoconfigure", havingValue = "true")
+@ConditionalOnProperty(value = "easycucumber.activemq.autoconfigure", havingValue = "true")
 public class ActiveMQConfig {
 
   private final ObjectMapper objectMapper;
