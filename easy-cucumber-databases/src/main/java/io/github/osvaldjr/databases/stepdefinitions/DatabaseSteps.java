@@ -35,8 +35,8 @@ public class DatabaseSteps extends Steps {
   @Autowired(required = false)
   private DatabaseTableSelect databaseTableSelect;
 
+  @Autowired
   private FileUtils fileUtils;
-  private String scenarioName;
 
   @Before
   public void before(Scenario scenario) {

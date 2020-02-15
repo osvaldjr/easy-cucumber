@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnProperty("spring.datasource.url")
 public class DatabaseConfig {
 
   @Value("${spring.datasource.url:}")
@@ -20,17 +21,8 @@ public class DatabaseConfig {
   @Value("${spring.datasource.password:}")
   private String password;
 
-  @Value("${spring.jpa.properties.hibernate.dialect:org.hibernate.dialect.PostgreSQLDialect}")
-  private String hibernateDialect;
-
   @Bean(name = "easyCucumberDataSource")
-  @ConditionalOnProperty("spring.datasource.url")
   public DataSource dataSource() {
     return DataSourceBuilder.create().url(url).username(username).password(password).build();
-  }
-
-  @Bean(name = "easyCucumberDataSource")
-  public DataSource noDBDataSource() {
-    return DataSourceBuilder.create().build();
   }
 }

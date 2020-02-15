@@ -21,17 +21,18 @@ import io.github.osvaldjr.mocks.utils.Mock;
 
 public class MockSteps extends Steps {
 
-  @Autowired(required = false)
-  private CreateStubby createStubbyUsecase;
+  private final CreateStubby createStubbyUsecase;
+  private final GetMockHits getMockHitsUsecase;
+  private final Mock mock;
 
-  @Autowired(required = false)
-  private GetMockHits getMockHitsUsecase;
-
-  @Autowired(required = false)
-  private Mock mock;
-
-  private String scenarioName;
   private Map<String, Object> stubbyIdMap = new HashMap<>();
+
+  @Autowired
+  public MockSteps(CreateStubby createStubbyUsecase, GetMockHits getMockHitsUsecase, Mock mock) {
+    this.createStubbyUsecase = createStubbyUsecase;
+    this.getMockHitsUsecase = getMockHitsUsecase;
+    this.mock = mock;
+  }
 
   @Before
   public void before(Scenario scenario) {

@@ -1,0 +1,13 @@
+# overwrite spring properties
+
+server.port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easycucumber
+    username: postgres
+    password: root
+
+# easy cucumber properties
+
+target.url: http://localhost:9000

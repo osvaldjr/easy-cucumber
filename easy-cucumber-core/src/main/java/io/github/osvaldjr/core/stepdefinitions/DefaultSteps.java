@@ -40,7 +40,6 @@ public class DefaultSteps extends Steps {
 
   private TargetRequest request;
   private ResponseEntity response;
-  private String scenarioName;
   private FeignException httpException;
 
   @Autowired

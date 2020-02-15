@@ -8,17 +8,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cloud.openfeign.support.SpringEncoder;
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import feign.Feign;
-import feign.okhttp.OkHttpClient;
-import io.github.osvaldjr.core.config.FeignBuilder;
-import io.github.osvaldjr.core.config.converter.MessageConverter;
-import io.github.osvaldjr.core.config.decoder.FeignDecoder;
-import io.github.osvaldjr.core.config.decoder.FeignErrorDecoder;
+import io.github.osvaldjr.core.configs.FeignBuilder;
 import io.github.osvaldjr.mocks.clients.StubbyClient;
 import io.github.osvaldjr.mocks.objects.StubbyRequest;
 import io.github.osvaldjr.mocks.utils.Mock;

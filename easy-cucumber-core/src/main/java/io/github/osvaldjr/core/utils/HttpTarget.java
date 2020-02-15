@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import feign.Feign;
 import io.github.osvaldjr.core.clients.TargetClient;
-import io.github.osvaldjr.core.config.FeignBuilder;
+import io.github.osvaldjr.core.configs.FeignBuilder;
 
 @Component
 public class HttpTarget {

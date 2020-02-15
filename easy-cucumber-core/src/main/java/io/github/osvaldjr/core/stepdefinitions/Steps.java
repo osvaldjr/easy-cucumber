@@ -10,6 +10,8 @@ import com.jayway.jsonpath.PathNotFoundException;
 
 public class Steps {
 
+  public String scenarioName;
+
   public void assertJsonPathNotFound(String jsonPath, Object object) {
     assertThat(object, notNullValue());
 
