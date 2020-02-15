@@ -4,6 +4,7 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import io.github.osvaldjr.mocks.utils.mockserver.assemblers.ExpectationRequestAs
 @Component
 @ConditionalOnProperty("dependencies.mockserver.port")
 public class MockServerMock implements Mock {
+
   private static final Integer MAX_HITS = Integer.MAX_VALUE;
 
   private final MockServerClient mockServerClient;
@@ -21,8 +23,10 @@ public class MockServerMock implements Mock {
 
   @Autowired
   public MockServerMock(
-      MockServerClient mockServerClient, ExpectationRequestAssembler expectationRequestAssembler) {
-    this.mockServerClient = mockServerClient;
+      ExpectationRequestAssembler expectationRequestAssembler,
+      @Value("${dependencies.mockserver.host:localhost}") String mockServerHost,
+      @Value("${dependencies.mockserver.port:}") Integer mockServerPort) {
+    this.mockServerClient = new MockServerClient(mockServerHost, mockServerPort);
     this.expectationRequestAssembler = expectationRequestAssembler;
   }
 

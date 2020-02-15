@@ -1,0 +1,15 @@
+# spring properties
+server.port: 9000
+
+fakeintegration.url: http://localhost:9005/mock_alias
+
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
+# easy cucumber properties
+target.url: http://localhost:9000
+
+dependencies:
+  mockserver.port: 9005

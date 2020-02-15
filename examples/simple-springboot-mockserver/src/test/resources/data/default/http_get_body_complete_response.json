@@ -1,0 +1,27 @@
+[
+  {
+    "request": {
+      "url": "mock_alias/post",
+      "method": "POST",
+      "headers": {
+        "my-header": "my header value"
+      },
+      "query": {
+        "myParam": "true"
+      },
+      "json": {
+        "name": "Linux"
+      }
+    },
+    "response": [
+      {
+        "headers": {
+          "content-type": "application/json"
+        },
+        "status": 200,
+        "body": "{\"name\":\"Linux\",\"developer\":true,\"year\":2000}"
+      }
+    ],
+    "hits": 0
+  }
+]

@@ -3,13 +3,13 @@ package example.simple.springboot.mockserver.steps;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import cucumber.api.java.Before;
-import example.simple.springboot.mockserver.SimpleSpringbootStubbyApplication;
+import example.simple.springboot.mockserver.SimpleSpringbootMockserverApplication;
 import io.github.osvaldjr.core.EasyCucumberContextLoader;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
     classes = {
-      SimpleSpringbootStubbyApplication.class,
+      SimpleSpringbootMockserverApplication.class,
       EasyCucumberContextLoader.class,
     })
 public class ContextLoader {

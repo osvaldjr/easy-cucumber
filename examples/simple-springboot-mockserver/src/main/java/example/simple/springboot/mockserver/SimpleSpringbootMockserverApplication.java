@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"example.simple.springboot.stubby.client"})
-public class SimpleSpringbootStubbyApplication {
+@EnableFeignClients(basePackages = {"example.simple.springboot.mockserver.client"})
+public class SimpleSpringbootMockserverApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SimpleSpringbootStubbyApplication.class, args);
+    SpringApplication.run(SimpleSpringbootMockserverApplication.class, args);
   }
 }
