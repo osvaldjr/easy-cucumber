@@ -1,4 +1,4 @@
-package io.github.osvaldjr.core.configs.converter;
+package io.github.osvaldjr.core.config.converter;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;

@@ -22,7 +22,7 @@ import org.springframework.web.server.MethodNotAllowedException;
 import io.github.osvaldjr.core.objects.TargetRequest;
 
 @Component
-public class RequestTarget {
+public class RequestHttpTarget {
 
   private final HttpTarget httpTarget;
 
@@ -30,7 +30,7 @@ public class RequestTarget {
   private String targetHost;
 
   @Autowired
-  public RequestTarget(HttpTarget httpTarget) {
+  public RequestHttpTarget(HttpTarget httpTarget) {
     this.httpTarget = httpTarget;
   }
 

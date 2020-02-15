@@ -16,7 +16,7 @@ import net.masterthought.cucumber.sorting.SortingMethod;
 @Slf4j
 public class EasyCucumberRunner {
 
-  public static final String GLUE_EASY_CUCUMBER = "io.github.osvaldjr.stepdefinitions";
+  public static final String GLUE_EASY_CUCUMBER = "io.github.osvaldjr";
   private static List<String> jsonFiles = Arrays.asList("target/jsonReports/cucumber.json");
 
   @AfterClass

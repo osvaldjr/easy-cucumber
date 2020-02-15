@@ -3,6 +3,11 @@ server.port: 9000
 
 fakeintegration.url: http://localhost:9001/mock_alias
 
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
 # easy cucumber properties
 target.url: http://localhost:9000
 

@@ -4,32 +4,20 @@ import static java.util.Optional.ofNullable;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import feign.Feign;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
-import feign.codec.ErrorDecoder;
-import feign.okhttp.OkHttpClient;
 import io.github.osvaldjr.core.clients.TargetClient;
+import io.github.osvaldjr.core.config.FeignBuilder;
 
 @Component
 public class HttpTarget {
 
   private Feign.Builder feignBuilder;
 
-  @Autowired
-  public HttpTarget(Decoder decoder, Encoder encoder, ErrorDecoder errorDecoder) {
-    this.feignBuilder =
-        Feign.builder()
-            .decoder(decoder)
-            .encoder(encoder)
-            .errorDecoder(errorDecoder)
-            .contract(new SpringMvcContract())
-            .client(new OkHttpClient());
+  public HttpTarget() {
+    this.feignBuilder = FeignBuilder.getClient();
   }
 
   public ResponseEntity<Object> get(

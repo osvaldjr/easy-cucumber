@@ -6,10 +6,19 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cloud.openfeign.support.SpringEncoder;
+import org.springframework.cloud.openfeign.support.SpringMvcContract;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import feign.Feign;
+import feign.okhttp.OkHttpClient;
+import io.github.osvaldjr.core.config.FeignBuilder;
+import io.github.osvaldjr.core.config.converter.MessageConverter;
+import io.github.osvaldjr.core.config.decoder.FeignDecoder;
+import io.github.osvaldjr.core.config.decoder.FeignErrorDecoder;
 import io.github.osvaldjr.mocks.clients.StubbyClient;
 import io.github.osvaldjr.mocks.objects.StubbyRequest;
 import io.github.osvaldjr.mocks.utils.Mock;
@@ -22,13 +31,16 @@ import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonResponse;
 @ConditionalOnMissingBean(MockServerMock.class)
 public class StubbyMock implements Mock {
 
-  private StubbyClient stubbyClient;
+  private Feign.Builder feignBuilder;
   private StubbyRequestAssembler stubbyRequestAssembler;
 
+  @Value("${dependencies.stubby.url:}")
+  private String host;
+
   @Autowired
-  public StubbyMock(StubbyClient stubbyClient, StubbyRequestAssembler stubbyRequestAssembler) {
-    this.stubbyClient = stubbyClient;
+  public StubbyMock(StubbyRequestAssembler stubbyRequestAssembler) {
     this.stubbyRequestAssembler = stubbyRequestAssembler;
+    this.feignBuilder = FeignBuilder.getClient();
   }
 
   private static String getStubbyId(ResponseEntity response) {
@@ -41,19 +53,23 @@ public class StubbyMock implements Mock {
   public String createStubbyRequest(
       StubbyRequest.RequestBody request, StubbyRequest.ResponseBody response) {
     StubbyJsonRequest stubbyJsonRequest = stubbyRequestAssembler.assemble(request, response);
-    return getStubbyId(stubbyClient.create(stubbyJsonRequest));
+    return getStubbyId(buildClient().create(stubbyJsonRequest));
   }
 
   @Override
   public void deleteAllServices() {
-    List<StubbyJsonResponse> allServices = stubbyClient.getAllServices();
+    List<StubbyJsonResponse> allServices = buildClient().getAllServices();
     if (CollectionUtils.isNotEmpty(allServices)) {
-      allServices.forEach(service -> stubbyClient.delete(service.getId()));
+      allServices.forEach(service -> buildClient().delete(service.getId()));
     }
   }
 
   @Override
   public Integer getMockHits(Object id) {
-    return stubbyClient.getService(Integer.valueOf(id.toString())).getHits();
+    return buildClient().getService(Integer.valueOf(id.toString())).getHits();
+  }
+
+  private StubbyClient buildClient() {
+    return feignBuilder.target(StubbyClient.class, host);
   }
 }

@@ -31,12 +31,12 @@ import cucumber.api.java.en.When;
 import io.github.osvaldjr.core.objects.TargetRequest;
 import io.github.osvaldjr.core.objects.exceptions.FeignException;
 import io.github.osvaldjr.core.utils.FileUtils;
-import io.github.osvaldjr.core.utils.RequestTarget;
+import io.github.osvaldjr.core.utils.RequestHttpTarget;
 
 public class DefaultSteps extends Steps {
 
   private final FileUtils fileUtils;
-  private final RequestTarget requestTarget;
+  private final RequestHttpTarget requestHttpTarget;
 
   private TargetRequest request;
   private ResponseEntity response;
@@ -44,9 +44,9 @@ public class DefaultSteps extends Steps {
   private FeignException httpException;
 
   @Autowired
-  public DefaultSteps(FileUtils fileUtils, RequestTarget requestTarget) {
+  public DefaultSteps(FileUtils fileUtils, RequestHttpTarget requestHttpTarget) {
     this.fileUtils = fileUtils;
-    this.requestTarget = requestTarget;
+    this.requestHttpTarget = requestHttpTarget;
     request = new TargetRequest<>();
     httpException = null;
   }
@@ -70,7 +70,7 @@ public class DefaultSteps extends Steps {
     httpException = null;
 
     try {
-      response = requestTarget.execute(request);
+      response = requestHttpTarget.execute(request);
     } catch (FeignException e) {
       httpException = e;
     }
@@ -90,7 +90,7 @@ public class DefaultSteps extends Steps {
     httpException = null;
 
     try {
-      response = requestTarget.execute(request);
+      response = requestHttpTarget.execute(request);
     } catch (FeignException e) {
       httpException = e;
     }

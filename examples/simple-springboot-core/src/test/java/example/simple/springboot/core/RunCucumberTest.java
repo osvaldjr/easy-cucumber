@@ -10,7 +10,7 @@ import io.github.osvaldjr.core.EasyCucumberRunner;
 @CucumberOptions(
     plugin = {"pretty"},
     features = {"src/test/resources/features"},
-    glue = {"io.github.osvaldjr", "example.simple.springboot.core.steps"},
+    glue = {EasyCucumberRunner.GLUE_EASY_CUCUMBER, "example.simple.springboot.core.steps"},
     tags = {"not @Ignore"},
     strict = true)
 public class RunCucumberTest extends EasyCucumberRunner {}

@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "url": "integration/post",
+      "url": "mock_alias/post",
       "method": "POST",
       "headers": {
         "my-header": "my header value"

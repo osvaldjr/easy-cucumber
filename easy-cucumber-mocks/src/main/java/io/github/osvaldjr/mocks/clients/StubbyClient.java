@@ -2,7 +2,6 @@ package io.github.osvaldjr.mocks.clients;
 
 import java.util.List;
 
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonRequest;
 import io.github.osvaldjr.mocks.utils.stubby.jsons.StubbyJsonResponse;
 
-@FeignClient(value = "stubby-client", url = "${dependencies.stubby.url:}")
 public interface StubbyClient {
 
   @GetMapping

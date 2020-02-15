@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
@@ -30,7 +31,7 @@ public class MockSteps extends Steps {
   private Mock mock;
 
   private String scenarioName;
-  private Map<String, Object> stubbyIdMap;
+  private Map<String, Object> stubbyIdMap = new HashMap<>();
 
   @Before
   public void before(Scenario scenario) {

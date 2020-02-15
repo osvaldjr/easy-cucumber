@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class StubbyRequest implements Serializable {
 
   private static final long serialVersionUID = 7394308360110765513L;

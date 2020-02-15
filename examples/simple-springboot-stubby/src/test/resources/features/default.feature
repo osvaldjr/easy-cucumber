@@ -1,4 +1,5 @@
 @Default
+@CleanStubby
 Feature: Default
   This feature is to test all steps
 
