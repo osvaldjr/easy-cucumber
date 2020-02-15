@@ -12,7 +12,6 @@ import io.github.osvaldjr.activemq.configs.ActiveMQConfig;
 import io.github.osvaldjr.core.utils.FileUtils;
 
 @Component
-@ConditionalOnBean(ActiveMQConfig.class)
 public class PutMessageQueue {
 
   private final FileUtils file;

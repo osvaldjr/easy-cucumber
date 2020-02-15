@@ -28,23 +28,27 @@ import io.github.osvaldjr.core.utils.FileUtils;
 
 public class QueueSteps extends Steps {
 
-  @Autowired(required = false)
-  private PutMessageQueue putMessageQueue;
+  private final PutMessageQueue putMessageQueue;
+  private final GetMessageQueue getMessageQueue;
+  private final CleanQueue cleanQueue;
+  private final FileUtils file;
+  private final QueueProperties queueProperties;
 
-  @Autowired(required = false)
-  private GetMessageQueue getMessageQueue;
-
-  @Autowired(required = false)
-  private CleanQueue cleanQueue;
-
-  @Autowired(required = false)
-  private FileUtils file;
-
-  @Autowired(required = false)
-  private QueueProperties queueProperties;
-
-  private String scenarioName;
   private Object message;
+
+  @Autowired
+  public QueueSteps(
+      PutMessageQueue putMessageQueue,
+      GetMessageQueue getMessageQueue,
+      CleanQueue cleanQueue,
+      FileUtils file,
+      QueueProperties queueProperties) {
+    this.putMessageQueue = putMessageQueue;
+    this.getMessageQueue = getMessageQueue;
+    this.cleanQueue = cleanQueue;
+    this.file = file;
+    this.queueProperties = queueProperties;
+  }
 
   @Before
   public void before(Scenario scenario) {

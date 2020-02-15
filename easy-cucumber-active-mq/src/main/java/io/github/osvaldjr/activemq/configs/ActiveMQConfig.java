@@ -3,6 +3,7 @@ package io.github.osvaldjr.activemq.configs;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
@@ -16,6 +17,7 @@ import io.github.osvaldjr.activemq.objects.properties.ActiveMQProperties;
 import io.github.osvaldjr.activemq.objects.properties.ApplicationProperties;
 
 @Configuration
+@ConditionalOnProperty(value = "easycucumber.jms.autoconfigure", havingValue = "true")
 public class ActiveMQConfig {
 
   private final ObjectMapper objectMapper;
