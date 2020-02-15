@@ -23,20 +23,25 @@ import io.github.osvaldjr.databases.utils.DatabaseTableSelect;
 
 public class DatabaseSteps extends Steps {
 
-  @Autowired(required = false)
-  private DatabaseTableMatch databaseTableMatch;
-
-  @Autowired(required = false)
-  private DatabaseBulkSQLInsert databaseBulkSQLInsert;
-
-  @Autowired(required = false)
-  private DatabaseTableInsert databaseTableInsert;
-
-  @Autowired(required = false)
-  private DatabaseTableSelect databaseTableSelect;
+  private final DatabaseTableMatch databaseTableMatch;
+  private final DatabaseBulkSQLInsert databaseBulkSQLInsert;
+  private final DatabaseTableInsert databaseTableInsert;
+  private final DatabaseTableSelect databaseTableSelect;
+  private final FileUtils fileUtils;
 
   @Autowired
-  private FileUtils fileUtils;
+  public DatabaseSteps(
+      DatabaseTableMatch databaseTableMatch,
+      DatabaseBulkSQLInsert databaseBulkSQLInsert,
+      DatabaseTableInsert databaseTableInsert,
+      DatabaseTableSelect databaseTableSelect,
+      FileUtils fileUtils) {
+    this.databaseTableMatch = databaseTableMatch;
+    this.databaseBulkSQLInsert = databaseBulkSQLInsert;
+    this.databaseTableInsert = databaseTableInsert;
+    this.databaseTableSelect = databaseTableSelect;
+    this.fileUtils = fileUtils;
+  }
 
   @Before
   public void before(Scenario scenario) {

@@ -2,12 +2,20 @@
 
 server.port: 9000
 
-spring:
+# other option, configure bean automatic with spring
+# spring:
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/easycucumber
+#     username: postgres
+#     password: root
+
+# easy cucumber properties
+
+easycucumber:
   datasource:
+    autoconfigure: true
     url: jdbc:postgresql://localhost:5432/easycucumber
     username: postgres
     password: root
-
-# easy cucumber properties
 
 target.url: http://localhost:9000
