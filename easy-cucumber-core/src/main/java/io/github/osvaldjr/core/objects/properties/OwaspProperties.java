@@ -1,4 +1,4 @@
-package io.github.osvaldjr.owaspzap.objects.properties;
+package io.github.osvaldjr.core.objects.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,8 +10,9 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class ApplicationProperties {
+public class OwaspProperties {
 
-  private TargetProperties target;
-  private DependencyProperties dependencies = new DependencyProperties();
+  private String server = "localhost";
+  private Integer port = 8090;
+  private String overwriteDataFolder = "";
 }

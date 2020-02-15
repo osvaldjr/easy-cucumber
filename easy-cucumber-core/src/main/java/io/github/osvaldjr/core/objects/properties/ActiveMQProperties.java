@@ -1,4 +1,4 @@
-package io.github.osvaldjr.owaspzap.objects.properties;
+package io.github.osvaldjr.core.objects.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,9 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class DependencyProperties {
+public class ActiveMQProperties {
 
-  private OwaspProperties owasp = new OwaspProperties();
+  private String brokerUrl = "tcp://localhost:61616";
+  private String user = "";
+  private String password = "";
 }

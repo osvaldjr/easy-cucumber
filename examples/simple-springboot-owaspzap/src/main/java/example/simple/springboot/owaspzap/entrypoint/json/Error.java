@@ -1,4 +1,4 @@
-package example.simple.springboot.activemq.entrypoint.json;
+package example.simple.springboot.owaspzap.entrypoint.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

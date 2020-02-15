@@ -13,8 +13,8 @@ import org.springframework.jms.support.converter.MessageType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.osvaldjr.jms.objects.properties.ActiveMQProperties;
-import io.github.osvaldjr.jms.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.core.objects.properties.ActiveMQProperties;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
 
 @Configuration
 @ConditionalOnProperty(value = "easycucumber.activemq.autoconfigure", havingValue = "true")

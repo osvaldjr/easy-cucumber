@@ -28,22 +28,25 @@ import org.zaproxy.clientapi.core.ClientApiException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
 import io.github.osvaldjr.core.stepdefinitions.Steps;
 import io.github.osvaldjr.owaspzap.objects.AlertRisk;
 import io.github.osvaldjr.owaspzap.objects.DataType;
-import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SecuritySteps extends Steps {
 
-  @Autowired(required = false)
-  private ClientApi zapProxyApi;
-
-  @Autowired(required = false)
-  private ApplicationProperties applicationProperties;
+  private final ClientApi zapProxyApi;
+  private final ApplicationProperties applicationProperties;
 
   private String policyName;
+
+  @Autowired
+  public SecuritySteps(ClientApi zapProxyApi, ApplicationProperties applicationProperties) {
+    this.zapProxyApi = zapProxyApi;
+    this.applicationProperties = applicationProperties;
+  }
 
   @Given("^I import context from open API specification \"([^\"]*)\"$")
   public void iImportContextFromOpenAPISpecification(String path)

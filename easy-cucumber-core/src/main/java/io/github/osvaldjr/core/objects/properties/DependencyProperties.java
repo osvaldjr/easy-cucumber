@@ -1,4 +1,4 @@
-package io.github.osvaldjr.owaspzap.objects.properties;
+package io.github.osvaldjr.core.objects.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class AwaitProperties {
+public class DependencyProperties {
 
-  private int timeout = 1;
-  private int retry = 5;
+  private OwaspProperties owasp = new OwaspProperties();
+  private ActiveMQProperties activemq = new ActiveMQProperties();
 }

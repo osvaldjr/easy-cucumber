@@ -19,12 +19,12 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.jms.objects.properties.QueueProperties;
+import io.github.osvaldjr.core.objects.properties.QueueProperties;
+import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.core.utils.FileUtils;
 import io.github.osvaldjr.jms.utils.CleanQueue;
 import io.github.osvaldjr.jms.utils.GetMessageQueue;
 import io.github.osvaldjr.jms.utils.PutMessageQueue;
-import io.github.osvaldjr.core.stepdefinitions.Steps;
-import io.github.osvaldjr.core.utils.FileUtils;
 
 public class QueueSteps extends Steps {
 

@@ -5,14 +5,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.zaproxy.clientapi.core.ClientApi;
 
-import io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties;
-import io.github.osvaldjr.owaspzap.objects.properties.OwaspProperties;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.core.objects.properties.OwaspProperties;
 
 @Configuration
 public class SecurityConfig {
 
-  private final io.github.osvaldjr.owaspzap.objects.properties.ApplicationProperties
-      applicationProperties;
+  private final ApplicationProperties applicationProperties;
 
   @Autowired
   public SecurityConfig(ApplicationProperties applicationProperties) {

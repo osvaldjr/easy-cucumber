@@ -1,4 +1,4 @@
-package example.simple.springboot.activemq.entrypoint;
+package example.simple.springboot.owaspzap.entrypoint;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import example.simple.springboot.activemq.entrypoint.json.Error;
+import example.simple.springboot.owaspzap.entrypoint.json.Error;
 
 @ControllerAdvice
 public class CustomExceptionHandler {

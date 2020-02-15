@@ -1,4 +1,4 @@
-package io.github.osvaldjr.jms.objects.properties;
+package io.github.osvaldjr.core.objects.properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "queues")
-public class QueueProperties {
+@ConfigurationProperties(prefix = "features")
+public class FeaturesProperties {
 
-  private io.github.osvaldjr.jms.objects.properties.AwaitProperties await =
-      new AwaitProperties();
   private List<String> names = new ArrayList<>();
 }
