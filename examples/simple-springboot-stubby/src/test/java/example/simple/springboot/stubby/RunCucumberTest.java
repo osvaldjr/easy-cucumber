@@ -1,4 +1,4 @@
-package example.simple.springboot.mockserver;
+package example.simple.springboot.stubby;
 
 import org.junit.runner.RunWith;
 

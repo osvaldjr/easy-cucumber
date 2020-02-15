@@ -1,4 +1,4 @@
-package example.simple.springboot.mockserver.entrypoint;
+package example.simple.springboot.stubby.entrypoint;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import example.simple.springboot.mockserver.client.IntegrationClient;
+import example.simple.springboot.stubby.client.IntegrationClient;
 
 @RestController
 @RequestMapping("/test")

@@ -1,4 +1,4 @@
-package example.simple.springboot.mockserver.client;
+package example.simple.springboot.stubby.client;
 
 import java.util.Map;
 

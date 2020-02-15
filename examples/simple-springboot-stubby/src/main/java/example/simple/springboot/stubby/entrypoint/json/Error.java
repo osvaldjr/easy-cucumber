@@ -1,4 +1,4 @@
-package example.simple.springboot.mockserver.entrypoint.json;
+package example.simple.springboot.stubby.entrypoint.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
