@@ -1,0 +1,18 @@
+server.port: 9000
+
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
+fakeintegration.url: http://real_url
+
+spring:
+  activemq:
+    broker-url: tcp://realurl:61616
+    user: admin_real
+    password: admin_real
+  datasource:
+    url: jdbc:postgresql://real_url:5432/production
+    username: postgres_real
+    password: root_real

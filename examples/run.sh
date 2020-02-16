@@ -6,7 +6,8 @@
     mvn clean verify -f simple-springboot-datasource/pom.xml &&
     mvn clean verify -f simple-springboot-mockserver/pom.xml &&
     mvn clean verify -f simple-springboot-owaspzap/pom.xml &&
-    mvn clean verify -f simple-springboot-stubby/pom.xml
+    mvn clean verify -f simple-springboot-stubby/pom.xml &&
+    mvn clean verify -f complete-springboot/pom.xml
 } || {
     exit 1
 }
