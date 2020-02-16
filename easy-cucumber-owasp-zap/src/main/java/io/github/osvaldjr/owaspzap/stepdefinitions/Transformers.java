@@ -1,19 +1,13 @@
 package io.github.osvaldjr.owaspzap.stepdefinitions;
 
-import java.util.Locale;
-
 import cucumber.api.TypeRegistry;
-import cucumber.api.TypeRegistryConfigurer;
 import io.cucumber.datatable.DataTableType;
 import io.cucumber.datatable.TableEntryTransformer;
+import io.github.osvaldjr.core.stepdefinitions.MultipleTypeConfigurer;
 import io.github.osvaldjr.owaspzap.objects.AlertRisk;
 import io.github.osvaldjr.owaspzap.objects.DataType;
 
-public class Transformers implements TypeRegistryConfigurer {
-  @Override
-  public Locale locale() {
-    return Locale.ENGLISH;
-  }
+public class Transformers implements MultipleTypeConfigurer {
 
   @Override
   public void configureTypeRegistry(TypeRegistry typeRegistry) {
