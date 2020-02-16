@@ -11,7 +11,9 @@ fakeintegration.url: http://localhost:9005/mock_alias
 
 # easy cucumber properties
 
-target.url: http://localhost:9000
-
-dependencies:
-  mockserver.port: 9005
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    mockserver:
+      host: localhost
+      port: 9005

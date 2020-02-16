@@ -1,8 +1,5 @@
 package io.github.osvaldjr.core.objects.properties;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "queues")
-public class QueueProperties {
+@ConfigurationProperties
+public class Stubby4NodeProperties {
 
-  private AwaitProperties await = new AwaitProperties();
-  private List<String> names = new ArrayList<>();
+  private String url = "http://localhost:9003";
 }

@@ -6,13 +6,14 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import feign.Feign;
 import io.github.osvaldjr.core.configs.FeignBuilder;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.core.objects.properties.Stubby4NodeProperties;
 import io.github.osvaldjr.mock.clients.StubbyClient;
 import io.github.osvaldjr.mock.objects.StubbyRequest;
 import io.github.osvaldjr.mock.utils.Mock;
@@ -26,14 +27,14 @@ import io.github.osvaldjr.mock.utils.stubby.jsons.StubbyJsonResponse;
 public class StubbyMock implements Mock {
 
   private Feign.Builder feignBuilder;
-  private StubbyRequestAssembler stubbyRequestAssembler;
-
-  @Value("${dependencies.stubby.url:}")
-  private String host;
+  private final StubbyRequestAssembler stubbyRequestAssembler;
+  private final ApplicationProperties applicationProperties;
 
   @Autowired
-  public StubbyMock(StubbyRequestAssembler stubbyRequestAssembler) {
+  public StubbyMock(
+      StubbyRequestAssembler stubbyRequestAssembler, ApplicationProperties applicationProperties) {
     this.stubbyRequestAssembler = stubbyRequestAssembler;
+    this.applicationProperties = applicationProperties;
     this.feignBuilder = FeignBuilder.getClient();
   }
 
@@ -64,6 +65,7 @@ public class StubbyMock implements Mock {
   }
 
   private StubbyClient buildClient() {
-    return feignBuilder.target(StubbyClient.class, host);
+    Stubby4NodeProperties stubby4Node = applicationProperties.getDependencies().getStubby();
+    return feignBuilder.target(StubbyClient.class, stubby4Node.getUrl());
   }
 }

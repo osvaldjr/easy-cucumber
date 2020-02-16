@@ -13,29 +13,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.MethodNotAllowedException;
 
 import io.github.osvaldjr.core.objects.TargetRequest;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
 
 @Component
 public class RequestHttpTarget {
 
   private final HttpTarget httpTarget;
-
-  @Value("${target.url:}")
-  private String targetHost;
+  private final ApplicationProperties applicationProperties;
 
   @Autowired
-  public RequestHttpTarget(HttpTarget httpTarget) {
+  public RequestHttpTarget(HttpTarget httpTarget, ApplicationProperties applicationProperties) {
     this.httpTarget = httpTarget;
+    this.applicationProperties = applicationProperties;
   }
 
   public ResponseEntity execute(TargetRequest request) {
-    request.setHost(ofNullable(request.getHost()).orElse(targetHost));
+    request.setHost(
+        ofNullable(request.getHost()).orElse(applicationProperties.getTarget().getUrl()));
 
     assertNotNull("url cannot be null in make request", request.getUrl());
     assertNotNull("method cannot be null in make request", request.getMethod());

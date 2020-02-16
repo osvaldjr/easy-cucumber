@@ -15,9 +15,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.osvaldjr.core.objects.properties.ActiveMQProperties;
 import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
-@ConditionalOnProperty(value = "easycucumber.activemq.autoconfigure", havingValue = "true")
+@ConditionalOnProperty(value = "easycucumber.dependencies.activemq.autoconfigure", havingValue = "true")
 public class ActiveMQConfig {
 
   private final ObjectMapper objectMapper;
@@ -31,6 +33,13 @@ public class ActiveMQConfig {
 
   @Bean(name = "easyCucumberJmsTemplate")
   public JmsTemplate jmsTemplate() {
+    ActiveMQProperties activemq = applicationProperties.getDependencies().getActivemq();
+    log.info(
+        "Easy Cucumber auto configure jms template for ActiveMQ, brokerUrl = {}, = user {}, = password {}",
+        activemq.getBrokerUrl(),
+        activemq.getUser(),
+        activemq.getPassword());
+
     JmsTemplate template = new JmsTemplate();
     template.setConnectionFactory(connectionFactory());
     template.setMessageConverter(messageConverter());

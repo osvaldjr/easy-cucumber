@@ -19,7 +19,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.github.osvaldjr.core.objects.properties.QueueProperties;
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
 import io.github.osvaldjr.core.stepdefinitions.Steps;
 import io.github.osvaldjr.core.utils.FileUtils;
 import io.github.osvaldjr.jms.utils.CleanQueue;
@@ -32,7 +32,7 @@ public class QueueSteps extends Steps {
   private final GetMessageQueue getMessageQueue;
   private final CleanQueue cleanQueue;
   private final FileUtils file;
-  private final QueueProperties queueProperties;
+  private final ApplicationProperties applicationProperties;
 
   private Object message;
 
@@ -42,12 +42,12 @@ public class QueueSteps extends Steps {
       GetMessageQueue getMessageQueue,
       CleanQueue cleanQueue,
       FileUtils file,
-      QueueProperties queueProperties) {
+      ApplicationProperties applicationProperties) {
     this.putMessageQueue = putMessageQueue;
     this.getMessageQueue = getMessageQueue;
     this.cleanQueue = cleanQueue;
     this.file = file;
-    this.queueProperties = queueProperties;
+    this.applicationProperties = applicationProperties;
   }
 
   @Before
@@ -57,7 +57,12 @@ public class QueueSteps extends Steps {
 
   @Before("@CleanQueues")
   public void cleanupQueues() {
-    queueProperties.getNames().forEach(cleanQueue::execute);
+    applicationProperties
+        .getDependencies()
+        .getActivemq()
+        .getQueues()
+        .getNames()
+        .forEach(cleanQueue::execute);
   }
 
   @Given("^I put message ([^\"]*) in queue ([^\"]*)$")

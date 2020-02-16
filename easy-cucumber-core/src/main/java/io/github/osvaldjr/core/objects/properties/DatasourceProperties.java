@@ -10,8 +10,10 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class DependencyProperties {
+public class DatasourceProperties {
 
-  private OwaspProperties owasp = new OwaspProperties();
-  private ActiveMQProperties activemq = new ActiveMQProperties();
+  private boolean autoconfigure = false;
+  private String url = "jdbc:postgresql://localhost:5432/easycucumber";
+  private String username = "admin";
+  private String password = "admin";
 }

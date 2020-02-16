@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import io.github.osvaldjr.core.objects.properties.ApplicationProperties;
+import io.github.osvaldjr.core.objects.properties.MockServerProperties;
 import io.github.osvaldjr.mock.objects.StubbyRequest;
 import io.github.osvaldjr.mock.utils.Mock;
 import io.github.osvaldjr.mock.utils.mockserver.assemblers.ExpectationRequestAssembler;
 
 @Component
-@ConditionalOnProperty("dependencies.mockserver.port")
+@ConditionalOnProperty("easycucumber.dependencies.mockserver.host")
 public class MockServerMock implements Mock {
 
   private static final Integer MAX_HITS = Integer.MAX_VALUE;
@@ -23,10 +25,10 @@ public class MockServerMock implements Mock {
 
   @Autowired
   public MockServerMock(
-      ExpectationRequestAssembler expectationRequestAssembler,
-      @Value("${dependencies.mockserver.host:localhost}") String mockServerHost,
-      @Value("${dependencies.mockserver.port:}") Integer mockServerPort) {
-    this.mockServerClient = new MockServerClient(mockServerHost, mockServerPort);
+          ExpectationRequestAssembler expectationRequestAssembler,
+          ApplicationProperties applicationProperties) {
+    MockServerProperties mockServer = applicationProperties.getDependencies().getMockserver();
+    this.mockServerClient = new MockServerClient(mockServer.getHost(), mockServer.getPort());
     this.expectationRequestAssembler = expectationRequestAssembler;
   }
 

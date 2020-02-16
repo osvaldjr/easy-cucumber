@@ -1,8 +1,5 @@
 package io.github.osvaldjr.core.objects.properties;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "features")
-public class FeaturesProperties {
+@ConfigurationProperties
+public class OwaspZapProperties {
 
-  private List<String> names = new ArrayList<>();
+  private String server = "localhost";
+  private Integer port = 8090;
+  private String overwriteDataFolder;
 }

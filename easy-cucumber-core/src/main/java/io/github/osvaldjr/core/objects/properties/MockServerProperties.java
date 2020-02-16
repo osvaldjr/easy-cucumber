@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties
-public class TargetProperties {
+public class MockServerProperties {
 
-  private String url;
+  private String host = "localhost";
+  private Integer port = 9003;
 }

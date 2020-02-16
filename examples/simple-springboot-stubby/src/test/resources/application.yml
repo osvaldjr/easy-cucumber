@@ -11,7 +11,7 @@ fakeintegration.url: http://localhost:9001/mock_alias
 
 # easy cucumber properties
 
-target.url: http://localhost:9000
-
-dependencies:
-  stubby.url: http://localhost:9003
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    stubby.url: http://localhost:9003

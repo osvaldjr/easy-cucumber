@@ -21,11 +21,11 @@ spring:
 
 # easy cucumber properties
 
-target.url: http://localhost:9000
-
-dependencies:
-  stubby.url: http://localhost:9003
-
-queues:
-  names:
-  - test_data
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    stubby.url: http://localhost:9003
+    activemq:
+      queues:
+        names:
+        - test_data
