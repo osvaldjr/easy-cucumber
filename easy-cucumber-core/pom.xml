@@ -131,8 +131,8 @@
                 <!--suppress UnresolvedMavenProperty -->
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
                 <gpg.defaultKeyring>false</gpg.defaultKeyring>
-                <gpg.secretKeyring>../travis/secret_key.gpg</gpg.secretKeyring>
-                <gpg.publicKeyring>../travis/public_key.gpg</gpg.publicKeyring>
+                <gpg.secretKeyring>/travis/secret_key.gpg</gpg.secretKeyring>
+                <gpg.publicKeyring>/travis/public_key.gpg</gpg.publicKeyring>
             </properties>
             <activation>
                 <property>
