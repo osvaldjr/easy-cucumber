@@ -7,7 +7,9 @@ install: true
 script:
   - cd examples
   - sh run.sh
-after_success: mvn sonar:sonar -B
+after_success:
+  - cd ..
+  - mvn sonar:sonar -B
 
 deploy:
   provider: script
