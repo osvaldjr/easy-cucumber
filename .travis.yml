@@ -6,10 +6,10 @@ addons:
 install: true
 script:
   - cd examples
-  - sh run.sh
+  #- sh run.sh
 after_success:
   - cd ..
-  - mvn clean install sonar:sonar -B
+  #- mvn clean install sonar:sonar -B
 
 deploy:
   provider: script
