@@ -1,0 +1,17 @@
+# overwrite spring properties
+
+server.port: 9000
+
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
+fakeintegration.url: http://localhost:9001/mock_alias
+
+# easy cucumber properties
+
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    stubby.url: http://localhost:9003

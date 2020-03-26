@@ -1,0 +1,10 @@
+{
+  "url": "/post",
+  "method": "POST",
+  "body": "myParam=123",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "queryParams": {},
+  "bodyType": "RAW"
+}

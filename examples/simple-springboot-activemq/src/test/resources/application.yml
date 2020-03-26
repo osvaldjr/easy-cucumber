@@ -1,0 +1,24 @@
+# overwrite spring properties
+
+server.port: 9000
+
+# other option, configure bean automatic with spring
+# spring:
+#   activemq:
+#     broker-url: tcp://localhost:61616
+#     user: admin
+#     password: admin
+
+# easy cucumber properties
+
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    activemq:
+      autoconfigure: true
+      broker-url: tcp://localhost:61616
+      user: admin
+      password: admin
+      queues:
+        names:
+        - test_data

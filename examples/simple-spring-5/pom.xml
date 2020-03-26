@@ -12,7 +12,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring.cloud.version>Greenwich.SR2</spring.cloud.version>
-        <easy-cucumber.version>0.0.16-SNAPSHOT</easy-cucumber.version>
+        <easy-cucumber.version>1.0.0-SNAPSHOT</easy-cucumber.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     </properties>
 
@@ -28,6 +28,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -35,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
-            <artifactId>easy-cucumber</artifactId>
+            <artifactId>easy-cucumber-core</artifactId>
             <version>${easy-cucumber.version}</version>
             <scope>test</scope>
         </dependency>
@@ -50,13 +54,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>io.github.osvaldjr</groupId>
-                <artifactId>easy-cucumber</artifactId>
-                <version>${easy-cucumber.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.osvaldjr</groupId>-->
+            <!--                <artifactId>easy-cucumber-core</artifactId>-->
+            <!--                <version>${easy-cucumber.version}</version>-->
+            <!--                <type>pom</type>-->
+            <!--                <scope>import</scope>-->
+            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 

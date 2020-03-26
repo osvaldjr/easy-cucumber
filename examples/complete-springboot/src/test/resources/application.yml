@@ -1,0 +1,31 @@
+# overwrite spring properties
+
+server.port: 9000
+
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
+fakeintegration.url: http://localhost:9001/mock_alias
+
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easycucumber
+    username: postgres
+    password: root
+
+# easy cucumber properties
+
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    stubby.url: http://localhost:9003
+    activemq:
+      queues:
+        names:
+        - test_data

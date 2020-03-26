@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  stubby:
+    build: ./dependencies/stubby/
+    ports:
+    - "9001:9001"
+    - "9002:9002"
+    - "9003:9003"
+    command: stubby -s 9001 -t 9002 -a 9003 -w
+  redis:
+    image: redis:5.0.5-alpine
+    ports:
+    - "6379:6379"
+  owasp:
+    build: ./dependencies/owasp/
+    ports:
+    - "8090:8090"
+    volumes:
+    - ./simple-springboot-owaspzap/src/test/resources/session:/tmp/security-session
+    - ./simple-springboot-owaspzap/src/test/resources/policy:/tmp/policy
+    command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.disablekey=true -config database.recoverylog=false -config connection.timeoutInSecs=120 -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+  postgres:
+    build: ./dependencies/postgres/
+    environment:
+      POSTGRES_PASSWORD: root
+    ports:
+    - "5432:5432"
+  activemq:
+    build: ./dependencies/activemq/
+    ports:
+    - "61616:61616"
+    - "8161:8161"
+    - "1099:1099"

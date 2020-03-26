@@ -18,7 +18,7 @@ public class TestController {
   public Map test() {
     Map map = new HashMap();
     map.put("key", "value");
-    client.get();
+    //    client.get();
     return map;
   }
 }

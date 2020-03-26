@@ -1,0 +1,7 @@
+# spring properties
+
+server.port: 9000
+
+# easy cucumber properties
+
+easycucumber.target.url: http://localhost:9000

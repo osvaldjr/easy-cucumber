@@ -1,0 +1,15 @@
+# overwrite spring properties
+
+server.port: 9000
+
+# easy cucumber properties
+
+easycucumber:
+  # OWASP ZAP access the host
+  # Mac = host.docker.internal
+  # Linux = $(ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1)
+  target.url: http://host.docker.internal:9000
+  dependencies:
+    owasp:
+      # Folder in docker for save the session files
+      overwriteDataFolder: /tmp/

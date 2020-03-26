@@ -1,0 +1,8 @@
+server.port: 9000
+
+feign:
+  okhttp:
+    enabled: true
+    disableSslValidation: true
+
+fakeintegration.url: http://realurl

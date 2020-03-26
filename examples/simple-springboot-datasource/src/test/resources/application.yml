@@ -1,0 +1,21 @@
+# overwrite spring properties
+
+server.port: 9000
+
+# other option, configure bean automatic with spring
+# spring:
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/easycucumber
+#     username: postgres
+#     password: root
+
+# easy cucumber properties
+
+easycucumber:
+  target.url: http://localhost:9000
+  dependencies:
+    datasource:
+      autoconfigure: true
+      url: jdbc:postgresql://localhost:5432/easycucumber
+      username: postgres
+      password: root

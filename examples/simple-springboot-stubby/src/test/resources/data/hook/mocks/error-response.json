@@ -1,0 +1,9 @@
+{
+  "headers": {
+    "content-type": "application/json"
+  },
+  "status": 500,
+  "body": {
+    "error": true
+  }
+}
