@@ -6,7 +6,7 @@ addons:
 install: true
 script:
   - cd examples
-  - sh examples/run.sh
+  - sh run.sh
 after_success: mvn sonar:sonar -B
 
 deploy:
