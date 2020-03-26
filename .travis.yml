@@ -9,7 +9,7 @@ script:
   - sh run.sh
 after_success:
   - cd ..
-  - mvn sonar:sonar -B
+  - mvn clean install sonar:sonar -B
 
 deploy:
   provider: script
