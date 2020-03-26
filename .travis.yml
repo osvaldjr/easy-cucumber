@@ -4,7 +4,9 @@ addons:
     organization: "lvcarnevalli-github"
 
 install: true
-script: sh examples/run.sh
+script:
+  - cd examples
+  - sh examples/run.sh
 after_success: mvn sonar:sonar -B
 
 deploy:
