@@ -23,35 +23,35 @@
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-mock</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-datasource</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-jms</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-owasp-zap</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
 
