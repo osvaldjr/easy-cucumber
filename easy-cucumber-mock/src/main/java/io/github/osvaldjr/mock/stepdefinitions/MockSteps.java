@@ -18,7 +18,9 @@ import io.github.osvaldjr.core.stepdefinitions.Steps;
 import io.github.osvaldjr.mock.utils.CreateStubby;
 import io.github.osvaldjr.mock.utils.GetMockHits;
 import io.github.osvaldjr.mock.utils.Mock;
+import lombok.Getter;
 
+@Getter
 public class MockSteps extends Steps {
 
   private final CreateStubby createStubbyUsecase;

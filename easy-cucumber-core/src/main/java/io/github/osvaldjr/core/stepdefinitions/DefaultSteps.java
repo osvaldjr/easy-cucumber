@@ -32,7 +32,9 @@ import io.github.osvaldjr.core.objects.TargetRequest;
 import io.github.osvaldjr.core.objects.exceptions.FeignException;
 import io.github.osvaldjr.core.utils.FileUtils;
 import io.github.osvaldjr.core.utils.RequestHttpTarget;
+import lombok.Getter;
 
+@Getter
 public class DefaultSteps extends Steps {
 
   private final FileUtils fileUtils;

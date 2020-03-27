@@ -20,7 +20,9 @@ import io.github.osvaldjr.datasource.utils.DatabaseBulkSQLInsert;
 import io.github.osvaldjr.datasource.utils.DatabaseTableInsert;
 import io.github.osvaldjr.datasource.utils.DatabaseTableMatch;
 import io.github.osvaldjr.datasource.utils.DatabaseTableSelect;
+import lombok.Getter;
 
+@Getter
 public class DatabaseSteps extends Steps {
 
   private final DatabaseTableMatch databaseTableMatch;
