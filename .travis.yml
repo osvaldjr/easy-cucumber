@@ -3,13 +3,14 @@ addons:
   sonarcloud:
     organization: "lvcarnevalli-github"
 
-install: true
+install:
+  - mvn clean install
 script:
   - cd examples
   - sh run.sh
 after_success:
   - cd ..
-  - mvn clean install sonar:sonar -B
+  - mvn verify sonar:sonar -B
 
 deploy:
   provider: script
