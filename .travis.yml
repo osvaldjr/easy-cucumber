@@ -16,5 +16,5 @@ deploy:
   provider: script
   skip_cleanup: true
   script: sh travis/deploy.sh
-#  on:
-#    tags: true
+  on:
+    tags: true
