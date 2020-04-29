@@ -28,13 +28,16 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.osvaldjr.core.objects.FileVariable;
 import io.github.osvaldjr.core.objects.TargetRequest;
 import io.github.osvaldjr.core.objects.exceptions.FeignException;
 import io.github.osvaldjr.core.utils.FileUtils;
 import io.github.osvaldjr.core.utils.RequestHttpTarget;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class DefaultSteps extends Steps {
 
   private final FileUtils fileUtils;
@@ -55,6 +58,11 @@ public class DefaultSteps extends Steps {
   @Before
   public void before(Scenario scenario) {
     scenarioName = FilenameUtils.getBaseName(scenario.getUri());
+  }
+
+  @Before("@CleanFileVariable")
+  public void cleanupFileVariable() {
+    FileVariable.clear();
   }
 
   @Given("I have a request with body ([^\"]*)")

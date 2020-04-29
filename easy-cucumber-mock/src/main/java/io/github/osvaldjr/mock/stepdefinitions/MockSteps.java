@@ -15,11 +15,14 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import io.github.osvaldjr.core.stepdefinitions.Steps;
+import io.github.osvaldjr.core.objects.FileVariable;
 import io.github.osvaldjr.mock.utils.CreateStubby;
 import io.github.osvaldjr.mock.utils.GetMockHits;
 import io.github.osvaldjr.mock.utils.Mock;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class MockSteps extends Steps {
 

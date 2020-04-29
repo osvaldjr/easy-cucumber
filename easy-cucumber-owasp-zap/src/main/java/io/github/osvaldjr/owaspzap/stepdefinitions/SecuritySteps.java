@@ -33,9 +33,11 @@ import io.github.osvaldjr.core.stepdefinitions.Steps;
 import io.github.osvaldjr.owaspzap.objects.AlertRisk;
 import io.github.osvaldjr.owaspzap.objects.DataType;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Setter
 @Getter
 public class SecuritySteps extends Steps {
 

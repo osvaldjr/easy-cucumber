@@ -21,7 +21,9 @@ import io.github.osvaldjr.datasource.utils.DatabaseTableInsert;
 import io.github.osvaldjr.datasource.utils.DatabaseTableMatch;
 import io.github.osvaldjr.datasource.utils.DatabaseTableSelect;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class DatabaseSteps extends Steps {
 

@@ -26,7 +26,9 @@ import io.github.osvaldjr.jms.utils.CleanQueue;
 import io.github.osvaldjr.jms.utils.GetMessageQueue;
 import io.github.osvaldjr.jms.utils.PutMessageQueue;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class QueueSteps extends Steps {
 

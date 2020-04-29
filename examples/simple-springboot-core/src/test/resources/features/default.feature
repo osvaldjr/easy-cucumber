@@ -10,7 +10,7 @@ Feature: Default
   Scenario: Validate a default steps with request body
     Given I have a request with body http_post_body_request.json
     When I make a POST to /test
-    Then I expect to receive a 200 status with body http_post_body_response.json
+    Then Custom Gherkin - I expect to receive a 200 status with body http_post_body_response.json
 
   Scenario: Validate a default steps with request defined
     When I make a request defined in http_post_defined_body_request.json

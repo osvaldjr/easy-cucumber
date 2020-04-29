@@ -1,5 +1,5 @@
 {
-  "name": "Linux",
+  "name": "<% name %>",
   "developer": true,
-  "year": 2000
+  "year": "<% year %>"
 }

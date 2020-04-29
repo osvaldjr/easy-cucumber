@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
+import java.util.Base64;
+import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -17,6 +21,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.CharStreams;
 
+import io.github.osvaldjr.core.objects.FileVariable;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class FileUtils {
 
@@ -39,8 +47,13 @@ public class FileUtils {
     try (InputStream inputStream =
         new FileInputStream(
             new ClassPathResource(filePath, getClass().getClassLoader()).getFile())) {
-      return objectMapper.readValue(inputStream, clazz);
+      String json = IOUtils.toString(inputStream, Charset.forName("UTF-8"));
+      for (Map.Entry<String, String> variable : FileVariable.value.entrySet()) {
+        json = json.replaceAll(variable.getKey(), variable.getValue());
+      }
+      return objectMapper.readValue(json, clazz);
     } catch (IOException e) {
+      log.error("Occurred error in process file", e);
       throw new FileNotFoundException(
           "File ["
               + filePath
