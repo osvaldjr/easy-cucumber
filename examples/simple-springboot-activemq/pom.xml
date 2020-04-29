@@ -23,7 +23,7 @@
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-jms</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <scope>test</scope>
         </dependency>
 
