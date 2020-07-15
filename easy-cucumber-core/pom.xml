@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.osvaldjr</groupId>
         <artifactId>easy-cucumber-parent</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
     <artifactId>easy-cucumber-core</artifactId>
     <packaging>jar</packaging>

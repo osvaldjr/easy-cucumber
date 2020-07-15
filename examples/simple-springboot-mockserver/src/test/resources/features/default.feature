@@ -40,3 +40,9 @@ Feature: Default
     When I make a request defined in http_post_defined_body_request.json
     Then I expect to receive a 200 status
     And response is valid according to schema schemas/schema.json
+
+  Scenario: Validate mock with error
+    Given I have a mock http_patch_successful for dependency mock_alias
+    When I make a request defined in http_patch_defined_body_request.json
+    Then I expect to receive a 200 status
+    And I expect mock http_patch_successful_error for dependency mock_alias to have been called 0 times

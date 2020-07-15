@@ -59,9 +59,13 @@ public class MockSteps extends Steps {
   public void iExpectMockForDependencyToHaveBeenCalledTimes(
       String mockName, String serviceName, Integer times) {
     String mapKey = getStubbyKey(scenarioName, serviceName, mockName);
-    Object stubbyId = stubbyIdMap.get(mapKey);
 
-    assertThat(getMockHitsUsecase.execute(stubbyId), equalTo(times));
+    Integer mockHits = 0;
+    if(stubbyIdMap.containsKey(mapKey)) {
+      Object stubbyId = stubbyIdMap.get(mapKey);
+      mockHits = getMockHitsUsecase.execute(stubbyId);
+    }
+    assertThat(mockHits, equalTo(times));
   }
 
   @Given("I clear all mocks")

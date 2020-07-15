@@ -17,13 +17,14 @@
     <properties>
         <java.version>1.8</java.version>
         <spring.cloud.version>Greenwich.SR2</spring.cloud.version>
+        <easy-cucumber.version>1.0.2</easy-cucumber.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.github.osvaldjr</groupId>
             <artifactId>easy-cucumber-core</artifactId>
-            <version>1.0.1</version>
+            <version>${easy-cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 

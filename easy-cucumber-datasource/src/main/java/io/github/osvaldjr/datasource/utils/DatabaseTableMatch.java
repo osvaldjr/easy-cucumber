@@ -33,20 +33,14 @@ public class DatabaseTableMatch<V> {
     String selectQuery = getSelectQuery(tableName, lines.get(0));
 
     List<Map<String, Object>> resultList = jdbcTemplate.queryForList(selectQuery);
-    return lines.stream()
-        .allMatch(line -> matchLine(tableName, new ArrayList<>(line.values()), resultList));
+    return lines.stream().allMatch(line -> matchLine(tableName, line, resultList));
   }
 
   private boolean matchLine(
-      String tableName, List<V> expectedLine, List<Map<String, Object>> allResults) {
+      String tableName, Map<String, V> expectedLine, List<Map<String, Object>> allResults) {
 
     boolean matchAllColumns =
-        allResults.stream()
-            .anyMatch(
-                resultLine -> {
-                  ArrayList<V> objects = new ArrayList(resultLine.values());
-                  return matchAllColumns(expectedLine, objects);
-                });
+        allResults.stream().anyMatch(resultLine -> matchAllColumns(expectedLine, resultLine));
 
     if (!matchAllColumns) {
       throw new AssertionError(
@@ -58,14 +52,12 @@ public class DatabaseTableMatch<V> {
     return matchAllColumns;
   }
 
-  private boolean matchAllColumns(List<V> expectedLine, List<V> resultLine) {
-    return expectedLine.stream()
-        .allMatch(
-            column ->
-                resultLine.stream().anyMatch(resultColumn -> matchColumn(column, resultColumn)));
+  private boolean matchAllColumns(Map<String, V> expectedLine, Map<String, Object> resultLine) {
+    return expectedLine.entrySet().stream()
+        .allMatch(expected -> matchColumn(expected.getValue(), resultLine.get(expected.getKey())));
   }
 
-  private boolean matchColumn(V column, V resultColumn) {
+  private boolean matchColumn(V column, Object resultColumn) {
     String returnValue = trim(valueOf(resultColumn));
     String expectValue = valueOf(column);
     return returnValue.equals(expectValue) || returnValue.matches(expectValue);
