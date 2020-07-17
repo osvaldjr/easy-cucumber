@@ -23,8 +23,14 @@ public class StubbyRequest implements Serializable {
   private ResponseBody response;
 
   public enum BodyType {
+    RAW,
     JSON,
-    RAW
+    JSON_STRICT,
+    JSON_ONLY_MATCHING_FIELDS,
+    EXACT,
+    REGEX,
+    JSON_SCHEMA,
+    XPATH
   }
 
   @Getter

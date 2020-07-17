@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.github.osvaldjr</groupId>
     <artifactId>easy-cucumber-parent</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
     <name>io.github.osvaldjr:easy-cucumber</name>
     <description>Easy Cucumber JVM Testing</description>

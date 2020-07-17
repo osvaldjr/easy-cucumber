@@ -7,11 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.mockserver.matchers.MatchType;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
+import org.mockserver.model.JsonBody;
+import org.mockserver.model.JsonSchemaBody;
 import org.mockserver.model.Parameter;
+import org.mockserver.model.RegexBody;
+import org.mockserver.model.StringBody;
+import org.mockserver.model.XPathBody;
 import org.springframework.stereotype.Component;
 
 import gherkin.deps.com.google.gson.Gson;
@@ -47,15 +53,27 @@ public class ExpectationRequestAssembler {
         .withMethod(request.getMethod())
         .withPath("/" + request.getUrl())
         .withHeaders(getHeaders(request.getHeaders()))
-        .withQueryStringParameters(getQueryParameters(request.getQueryParams()))
-        .withBody(getRequestBody(request));
-    return httpRequest;
-  }
+        .withQueryStringParameters(getQueryParameters(request.getQueryParams()));
 
-  private String getRequestBody(StubbyRequest.RequestBody request) {
-    return request.getBodyType() == StubbyRequest.BodyType.RAW
-        ? request.getBody().toString()
-        : gson.toJson(request.getBody());
+    if (request.getBodyType() == StubbyRequest.BodyType.RAW) {
+      httpRequest.withBody(request.getBody().toString());
+    } else if (request.getBodyType() == StubbyRequest.BodyType.JSON_STRICT) {
+      httpRequest.withBody(JsonBody.json(request.getBody(), MatchType.STRICT));
+    } else if (request.getBodyType() == StubbyRequest.BodyType.JSON_ONLY_MATCHING_FIELDS) {
+      httpRequest.withBody(JsonBody.json(request.getBody(), MatchType.ONLY_MATCHING_FIELDS));
+    } else if (request.getBodyType() == StubbyRequest.BodyType.EXACT) {
+      httpRequest.withBody(StringBody.exact(request.getBody().toString()));
+    } else if (request.getBodyType() == StubbyRequest.BodyType.REGEX) {
+      httpRequest.withBody(RegexBody.regex(request.getBody().toString()));
+    } else if (request.getBodyType() == StubbyRequest.BodyType.JSON_SCHEMA) {
+      httpRequest.withBody(JsonSchemaBody.jsonSchema(request.getBody().toString()));
+    } else if (request.getBodyType() == StubbyRequest.BodyType.XPATH) {
+      httpRequest.withBody(XPathBody.xpath(request.getBody().toString()));
+    } else {
+      httpRequest.withBody(gson.toJson(request.getBody()));
+    }
+
+    return httpRequest;
   }
 
   private List<Parameter> getQueryParameters(Map<String, String> queryParams) {
