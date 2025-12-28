@@ -15,7 +15,7 @@
 
     <properties>
         <zap.clientapi.version>1.7.0</zap.clientapi.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
     </properties>
 
     <dependencies>
